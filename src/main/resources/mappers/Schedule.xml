@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team_soop.soop.repository.ScheduleMapper">
+    <resultMap id="classLocationResultMap" type="com.team_soop.soop.entity.ClassLocation">
+        <id property="classLocationId" column="class_location_id" />
+        <id property="classLocationName" column="class_location_name" />
+        <id property="classLocationImgUrl" column="class_location_img_url" />
+    </resultMap>
+
+    <resultMap id="scheduleResultMap" type="com.team_soop.soop.entity.Schedule">
+        <id property="classScheduleId" column="class_schedule_id"/>
+        <id property="classScheduleTitle" column="class_schedule_title"/>
+        <id property="classScheduleTeacher" column="class_schedule_teacher"/>
+        <id property="classLocationId" column="class_location_id"/>
+        <id property="classScheduleStartDate" column="class_schedule_start_date"/>
+        <id property="classScheduleEndDate" column="class_schedule_end_date"/>
+        <association property="classLocation" resultMap="classLocationResultMap" />
+    </resultMap>
+
+    <insert id="addSchedule" parameterType="com.team_soop.soop.entity.Schedule">
+        insert into class_schedule_tb
+        values (
+        0,
+        #{classScheduleTitle},
+        #{classScheduleTeacher},
+        #{classLocationId},
+        #{classScheduleStartDate},
+        #{classScheduleEndDate},
+        now(),
+        now()
+        )
+    </insert>
+
+    <select id="searchAllSchedule" resultMap="scheduleResultMap">
+        select
+            cst.class_schedule_id,
+            cst.class_schedule_title,
+            cst.class_schedule_teacher,
+            cst.class_location_id,
+            clt.class_location_name,
+            clt.class_location_img_url,
+            cst.class_schedule_start_date,
+            cst.class_schedule_end_date
+        from
+            class_schedule_tb cst
+            left outer join class_location_tb clt on(clt.class_location_id = cst.class_location_id)
+    </select>
+</mapper>

@@ -20,12 +20,12 @@ import org.springframework.security.web.authentication.logout.LogoutFilter;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private PermitAllFilter permitAllFilter;
-    @Autowired
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
-    @Autowired
-    private AuthEntryPoint authEntryPoint;
+//    @Autowired
+//    private PermitAllFilter permitAllFilter;
+//    @Autowired
+//    private JwtAuthenticationFilter jwtAuthenticationFilter;
+//    @Autowired
+//    private AuthEntryPoint authEntryPoint;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -38,17 +38,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/server/**", "/auth/**", "/schedule")
-                .permitAll()
-                .antMatchers("/mail/authenticate")
-                .permitAll()
-                .antMatchers("/admin/**")
-                .hasRole("ADMIN")
-                .anyRequest()
-                .authenticated()
-                .and()
-                .addFilterAfter(permitAllFilter, LogoutFilter.class)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling()
-                .authenticationEntryPoint(authEntryPoint);
+                .permitAll();
+//                .antMatchers("/mail/authenticate")
+//                .permitAll()
+//                .antMatchers("/admin/**")
+//                .hasRole("ADMIN")
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .addFilterAfter(permitAllFilter, LogoutFilter.class)
+//                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+//                .exceptionHandling()
+//                .authenticationEntryPoint(authEntryPoint);
     }
 }

@@ -5,19 +5,19 @@ import lombok.Data;
 
 @Data
 public class AddScheduleReqDto {
-    private String classTitle;
-    private String classTeacherName;
+    private String classScheduleTitle;
+    private String classScheduleTeacher;
     private int classLocationId;
-    private String classStartDate;
-    private String classEndDate;
+    private String classScheduleStartDate;
+    private String classScheduleEndDate;
 
     public Schedule toEntity() {
         return Schedule.builder()
-                .classTitle(classTitle)
-                .classTeacherName(classTeacherName)
+                .classScheduleTitle(classScheduleTitle)
+                .classScheduleTeacher(classScheduleTeacher)
                 .classLocationId(classLocationId)
-                .classStartDate(classStartDate)
-                .classEndDate(classEndDate)
+                .classScheduleStartDate(classScheduleStartDate)
+                .classScheduleEndDate(classScheduleEndDate)
                 .build();
     }
 }

@@ -4,6 +4,7 @@ import com.team_soop.soop.entity.User;
 import com.team_soop.soop.repository.UserMapper;
 import com.team_soop.soop.security.PrincipalUser;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -89,6 +90,18 @@ public class JwtProvider {
         }
         PrincipalUser principalUser = user.toPrincipalUser();
         return new UsernamePasswordAuthenticationToken(principalUser, principalUser.getPassword(), principalUser.getAuthorities());
+    }
+
+    // 5분안에 인증해야되는 토큰 발행
+    // 5분 뒤에 인증 누르면 유효하지 않은 토큰 받음
+    public String generateAuthMailToken(int userId, String toMailAddress) {
+        Date expireDate = new Date(new Date().getTime() + (1000 * 60 * 5));
+        return Jwts.builder()
+                .claim("userId", userId)
+                .claim("toMailAddress", toMailAddress)
+                .setExpiration(expireDate)
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
     }
 
 

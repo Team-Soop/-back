@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private OAuth2SuccessHandler oAuth2SuccessHandler;
 
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -62,5 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .userInfoEndpoint()
                 // OAuth2로그인 토큰검사
                 .userService(oAuth2PrincipalUserService);
+                .authenticationEntryPoint(authEntryPoint);
+
     }
 }

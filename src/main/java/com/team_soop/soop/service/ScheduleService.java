@@ -7,6 +7,7 @@ import com.team_soop.soop.repository.ScheduleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,7 +27,7 @@ public class ScheduleService {
     public List<SearchScheduleRespDto> searchAllSchedule () {
         List<Schedule> schedules = scheduleMapper.searchAllSchedule();
 
-        List<SearchScheduleRespDto> searchScheduleRespDtos = null;
+        List<SearchScheduleRespDto> searchScheduleRespDtos = new ArrayList<>();
 
         for (Schedule schedule : schedules) {
             searchScheduleRespDtos.add(schedule.toSearchScheduleRespDto());

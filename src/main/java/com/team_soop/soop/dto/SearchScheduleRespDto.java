@@ -15,6 +15,7 @@ public class SearchScheduleRespDto {
     private String classScheduleTeacher;
     private int classLocationId;
     private String classLocationName;
+    private String classLocationColor;
     private String classLocationUrl;
     private String classScheduleStartDate;
     private String classScheduleEndDate;

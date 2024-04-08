@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team_soop.soop.repository.FeedMapper">
+
+    <resultMap id="FeedImgUrlResultMap" type="com.team_soop.soop.entity.FeedImgUrl" >
+        <id property="feedImgUrlId" column="feed_imgUrl_id" />
+        <id property="feedId" column="feed_id" />
+        <id property="feedImgUrl" column="feed_img_url" />
+        <id property="createDate" column="create_date" />
+        <id property="updateDate" column="update_date" />
+
+    </resultMap>
+
+    <resultMap id="FeedResultMap" type="com.team_soop.soop.entity.Feed">
+        <id property="feedId" column="feed_id" />
+        <result property="menuCategoryId" column="menu_category_id"/>
+        <result property="userId" column="user_id" />
+        <result property="feedContent" column="feed_content" />
+        <result property="updateDate" column="update_date" />
+        <result property="createDate" column="create_date" />
+    </resultMap>
+
+    <insert
+            id="saveFeed"
+            parameterType="com.team_soop.soop.entity.Feed"
+            keyProperty="feedId"
+            useGeneratedKeys="true"
+    >
+        insert into feed_tb
+        values (
+            0,
+            1,
+            #{userId},
+            #{feedContent},
+            now(),
+            now()
+        )
+    </insert>
+
+    <insert id="saveFeedImgUrl">
+        insert into feed_img_url_tb
+        values
+        <foreach collection="feedImgUrls" item="feedImgUrl" separator=",">
+            ( 0, #{feedId}, #{feedImgUrl}, now(), now() )
+        </foreach>
+    </insert>
+
+</mapper>

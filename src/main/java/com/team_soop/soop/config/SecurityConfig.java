@@ -44,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();
         http.csrf().disable();
         http.authorizeRequests()
+                .antMatchers("/server/**", "/auth/**", "/schedule", "/feed")
                 .antMatchers("/server/**", "/auth/**", "/schedule")
                 .permitAll()
                 .antMatchers("/mail/authenticate")
@@ -56,6 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(permitAllFilter, LogoutFilter.class)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()
+                .authenticationEntryPoint(authEntryPoint);
                 .authenticationEntryPoint(authEntryPoint)
                 .and()
                 .oauth2Login()

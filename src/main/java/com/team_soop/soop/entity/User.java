@@ -18,6 +18,7 @@ import java.util.List;
 public class User {
     private int userId;
     private String username;
+//    private String nickname;
     private String password;
     private String name;
     private String email;
@@ -25,6 +26,7 @@ public class User {
     private LocalDateTime updateDate;
 
     private List<RoleRegister> roleRegisters;
+    private List<OAuth2> oAuth2s;
 
     public List<SimpleGrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
@@ -43,6 +45,7 @@ public class User {
     public PrincipalUser toPrincipalUser() {
         return PrincipalUser.builder()
                 .userId(userId)
+//                .nickname(nickname)
                 .username(username)
                 .name(name)
                 .email(email)

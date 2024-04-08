@@ -43,12 +43,14 @@ public class JwtProvider {
     public String generateToken (User user) {
         int userId = user.getUserId();
         String username = user.getUsername();
+//        String nickname = user.getNickname();
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
         Date expireDate = new Date(new Date().getTime() + (1000 * 60 * 60 * 24 * 20));
 
         String accessToken = Jwts.builder()
                 .claim("userId", userId)
                 .claim("username", username)
+//                .claim("nickname", nickname)
                 .claim("authorities", authorities)
                 .setExpiration(expireDate)
                 .signWith(key, SignatureAlgorithm.HS256)

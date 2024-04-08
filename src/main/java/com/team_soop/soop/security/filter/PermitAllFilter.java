@@ -10,7 +10,7 @@ import java.util.List;
 
 @Component
 public class PermitAllFilter extends GenericFilter {
-//    @Override
+    @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;

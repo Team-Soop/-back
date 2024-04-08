@@ -16,6 +16,7 @@ public class Schedule {
     private String classScheduleTeacher;
     private int classLocationId;
     private String classLocationName;
+    private String classLocationColor;
     private String classLocationUrl;
     private String classScheduleStartDate;
     private String classScheduleEndDate;
@@ -29,6 +30,7 @@ public class Schedule {
                 .classScheduleTeacher(classScheduleTeacher)
                 .classLocationId(classLocationId)
                 .classLocationName(classLocation.getClassLocationName())
+                .classLocationColor(classLocation.getClassLocationColor())
                 .classLocationUrl(classLocation.getClassLocationImgUrl())
                 .classScheduleStartDate(classScheduleStartDate)
                 .classScheduleEndDate(classScheduleEndDate)

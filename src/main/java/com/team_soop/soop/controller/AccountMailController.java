@@ -17,11 +17,13 @@ public class AccountMailController {
     @Autowired
     private AccountMailService accountMailService;
 
+
     @PostMapping("/send")
     @ResponseBody
     public ResponseEntity<?> send() {
         return ResponseEntity.ok(accountMailService.sendAuthMail());
     }
+
 
     @GetMapping("/authenticate")
     public String resultPage(Model model, @RequestParam String authToken) {

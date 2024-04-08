@@ -7,6 +7,7 @@
     <resultMap id="classLocationResultMap" type="com.team_soop.soop.entity.ClassLocation">
         <id property="classLocationId" column="class_location_id" />
         <id property="classLocationName" column="class_location_name" />
+        <id property="classLocationColor" column="class_location_color" />
         <id property="classLocationImgUrl" column="class_location_img_url" />
     </resultMap>
 
@@ -41,6 +42,7 @@
             cst.class_schedule_teacher,
             cst.class_location_id,
             clt.class_location_name,
+            clt.class_location_color,
             clt.class_location_img_url,
             cst.class_schedule_start_date,
             cst.class_schedule_end_date

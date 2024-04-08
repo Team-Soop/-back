@@ -6,5 +6,6 @@ import lombok.Data;
 public class ClassLocation {
     private int classLocationId;
     private String classLocationName;
+    private String classLocationColor;
     private String classLocationImgUrl;
 }

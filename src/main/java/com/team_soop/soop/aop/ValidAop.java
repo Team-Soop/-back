@@ -1,14 +1,18 @@
 package com.team_soop.soop.aop;
 
+import com.team_soop.soop.dto.OAuth2SignupReqDto;
 import com.team_soop.soop.dto.SignupReqDto;
 import com.team_soop.soop.exception.ValidException;
+import com.team_soop.soop.repository.UserMapper;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +21,9 @@ import java.util.Map;
 @Aspect
 @Component
 public class ValidAop {
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Pointcut("@annotation(com.team_soop.soop.aop.annotation.ValidAspect)")
     private void pointCut() {}
@@ -44,11 +51,25 @@ public class ValidAop {
                 }
             }
 
-//            if(userMapper.findUserByUsername(signupReqDto.getUsername()) != null){
-//                ObjectError objectError = new FieldError("username", "username", "이미 존재하는 사용자이름입니다.");
-//                bindingResult.addError(objectError);
-//            }
+            if(userMapper.findUserByUsername(signupReqDto.getUsername()) != null){
+                ObjectError objectError = new FieldError("username", "username", "이미 존재하는 사용자이름입니다.");
+                bindingResult.addError(objectError);
+            }
+        }
 
+        if(methodName.equals("oAuth2Signup")) {
+            OAuth2SignupReqDto oAuth2SignupReqDto = null;
+
+            for(Object arg : args) {
+                if(arg.getClass() == OAuth2SignupReqDto.class) {
+                    oAuth2SignupReqDto = (OAuth2SignupReqDto) arg;
+                }
+            }
+
+            if(userMapper.findUserByUsername(oAuth2SignupReqDto.getUsername()) != null){
+                ObjectError objectError = new FieldError("username", "username", "이미 존재하는 사용자이름입니다.");
+                bindingResult.addError(objectError);
+            }
         }
 
         if(bindingResult.hasErrors()) {

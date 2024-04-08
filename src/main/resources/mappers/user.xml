@@ -18,12 +18,12 @@
         <association property="role" resultMap="RoleResultMap" />
     </resultMap>
 
-<!--    <resultMap id="OAuth2ResultMap" type="com.study.library.entity.OAuth2">-->
-<!--        <id property="oAuth2Id" column="oauth2_id" />-->
-<!--        <result property="oAuth2Name" column="oauth2_name" />-->
-<!--        <result property="userId" column="user_id" />-->
-<!--        <result property="providerName" column="provider_name" />-->
-<!--    </resultMap>-->
+    <resultMap id="OAuth2ResultMap" type="com.team_soop.soop.entity.OAuth2">
+        <id property="oAuth2Id" column="oauth2_id" />
+        <result property="oAuth2Name" column="oauth2_name" />
+        <result property="userId" column="user_id" />
+        <result property="providerName" column="provider_name" />
+    </resultMap>
 
     <resultMap id="UserResultMap" type="com.team_soop.soop.entity.User">
         <id property="userId" column="user_id" />
@@ -34,7 +34,7 @@
         <result property="createDate" column="create_date" />
         <result property="updateDate" column="update_date" />
         <collection property="roleRegisters" javaType="list" resultMap="RoleRegisterResultMap" />
-<!--        <collection property="oAuth2s" javaType="list" resultMap="OAuth2ResultMap" />-->
+        <collection property="oAuth2s" javaType="list" resultMap="OAuth2ResultMap" />
     </resultMap>
 
     <insert
@@ -118,6 +118,21 @@
         where
             oat.oauth2_name = #{oAuth2Name}
     </select>
+
+    <insert id="saveOAuth2" parameterType="com.team_soop.soop.entity.OAuth2">
+        insert into oauth2_tb
+        values(0, #{oAuth2Name}, #{userId}, #{providerName}, now(), now())
+    </insert>
+
+    <update id="modifyPassword" parameterType="com.team_soop.soop.entity.User">
+        update
+            user_tb
+        set
+            password = #{password},
+            update_date = now()
+        where
+            user_id = #{userId}
+    </update>
 
 
 </mapper>

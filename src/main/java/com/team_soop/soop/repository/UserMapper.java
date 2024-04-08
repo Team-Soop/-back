@@ -1,5 +1,6 @@
 package com.team_soop.soop.repository;
 
+import com.team_soop.soop.entity.OAuth2;
 import com.team_soop.soop.entity.RoleRegister;
 import com.team_soop.soop.entity.User;
 import org.apache.ibatis.annotations.Mapper;
@@ -16,4 +17,9 @@ public interface UserMapper {
     public int saveRole(@Param("userId") int userId, @Param("roleId") int roleId);
 
     public User findUserByOAuth2name(String oAuth2name);
+
+    public int saveOAuth2(OAuth2 oAuth2);
+
+    public int modifyPassword(User user);
+
 }

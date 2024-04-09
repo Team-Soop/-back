@@ -18,7 +18,7 @@ import java.util.List;
 public class User {
     private int userId;
     private String username;
-//    private String nickname;
+    private String nickname;
     private String password;
     private String name;
     private String email;
@@ -45,8 +45,8 @@ public class User {
     public PrincipalUser toPrincipalUser() {
         return PrincipalUser.builder()
                 .userId(userId)
-//                .nickname(nickname)
                 .username(username)
+                .nickname(nickname)
                 .name(name)
                 .email(email)
                 .authorities(getAuthorities())

@@ -28,6 +28,7 @@
     <resultMap id="UserResultMap" type="com.team_soop.soop.entity.User">
         <id property="userId" column="user_id" />
         <result property="username" column="username" />
+        <result property="nickname" column="nickname"/>
         <result property="password" column="password" />
         <result property="name" column="name" />
         <result property="email" column="email" />
@@ -44,7 +45,7 @@
         useGeneratedKeys="true"
     >
         insert into user_tb
-        values(0, #{username}, #{password}, #{name}, #{email}, now(), now())
+        values(0, #{username}, #{nickname}, #{password}, #{name}, #{email}, now(), now())
     </insert>
 
     <insert id="saveRole">
@@ -77,6 +78,7 @@
         select
             ut.user_id,
             ut.username,
+            ut.nickname,
             ut.password,
             ut.name,
             ut.email,
@@ -98,6 +100,7 @@
         select
             ut.user_id,
             ut.username,
+            ut.nickname,
             ut.password,
             ut.name,
             ut.email,

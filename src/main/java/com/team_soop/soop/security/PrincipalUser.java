@@ -13,7 +13,7 @@ public class PrincipalUser implements UserDetails {
 
     private int userId;
     private String username;
-//    private String nickname;
+    private String nickname;
     private String name;
     private String email;
     private Collection<? extends GrantedAuthority> authorities;

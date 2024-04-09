@@ -1,11 +1,15 @@
 package com.team_soop.soop.controller;
 
 import com.team_soop.soop.aop.annotation.ParamsPrintAspect;
+import com.team_soop.soop.aop.annotation.ValidAspect;
 import com.team_soop.soop.dto.SaveFeedReqDto;
 import com.team_soop.soop.service.FeedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/feed")
@@ -15,9 +19,17 @@ public class FeedController {
     private FeedService feedService;
 
     @ParamsPrintAspect
+    @ValidAspect
     @PostMapping()
-    public ResponseEntity<?> saveFeed(@RequestBody SaveFeedReqDto saveFeedReqDto) {
+    public ResponseEntity<?> feedSave(@Valid @RequestBody SaveFeedReqDto saveFeedReqDto, BindingResult bindingResult) {
         feedService.saveFeed(saveFeedReqDto);
+
+        return ResponseEntity.ok(true);
+    }
+
+    @GetMapping("/feeds")
+    @ResponseBody
+    public ResponseEntity<?> feedList() {
 
         return ResponseEntity.ok(null);
     }

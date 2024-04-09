@@ -22,4 +22,8 @@ public class FeedService {
         feedMapper.saveFeedImgUrl(feed.getFeedId(), saveFeedReqDto.getFeedImgUrls());
     }
 
+    public void getFeed() {
+
+    }
+
 }

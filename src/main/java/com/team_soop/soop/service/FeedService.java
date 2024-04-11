@@ -32,11 +32,17 @@ public class FeedService {
         FeedList feedLists = feedMapper.searchFeeds();
         System.out.println(feedLists);
 
+        return null;
+    }
+//    public List<SearchFeedRespDto>  searchFeeds() {
+//        List<FeedList> feedLists = feedMapper.searchFeeds();
+//        System.out.println(feedLists);
+//
 //        List<SearchFeedRespDto> searchFeedRespDtos = new ArrayList<>();
 //        for (FeedList feedList : feedLists) {
 //            searchFeedRespDtos.add(feedList.toSearchFeedRespDto());
 //        }
-        return null;
-    }
+//        return searchFeedRespDtos;
+//    }
 
 }

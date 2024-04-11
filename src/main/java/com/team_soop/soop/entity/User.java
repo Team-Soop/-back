@@ -24,6 +24,7 @@ public class User {
     private String email;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+    private String profileImgUrl;
 
     private List<RoleRegister> roleRegisters;
     private List<OAuth2> oAuth2s;

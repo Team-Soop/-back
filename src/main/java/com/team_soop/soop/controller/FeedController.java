@@ -18,7 +18,7 @@ public class FeedController {
     @Autowired
     private FeedService feedService;
 
-    @ParamsPrintAspect
+
     @ValidAspect
     @PostMapping()
     public ResponseEntity<?> feedSave(@Valid @RequestBody SaveFeedReqDto saveFeedReqDto, BindingResult bindingResult) {
@@ -27,10 +27,11 @@ public class FeedController {
         return ResponseEntity.ok(true);
     }
 
-    @GetMapping("/feeds")
+    @ParamsPrintAspect
+    @GetMapping()
     @ResponseBody
     public ResponseEntity<?> feedList() {
 
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(feedService.searchFeeds());
     }
 }

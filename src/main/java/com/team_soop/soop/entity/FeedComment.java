@@ -6,18 +6,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
-public class FeedImgUrl {
-    private int feedImgUrlId;
+@NoArgsConstructor
+@AllArgsConstructor
+public class FeedComment {
+    private int feedCommentId;
     private int feedId;
-    private List<String> feedImgUrl;
+    private int userId;
+    private String feedCommentContent;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
-
-
 }

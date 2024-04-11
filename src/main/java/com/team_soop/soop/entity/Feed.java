@@ -1,12 +1,12 @@
 package com.team_soop.soop.entity;
 
+import com.team_soop.soop.dto.SearchFeedRespDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -19,4 +19,5 @@ public class Feed {
     private String feedContent;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+
 }

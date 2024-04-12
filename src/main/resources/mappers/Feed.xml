@@ -18,12 +18,26 @@
 <!--        <result property="feedCommentContent" column="feed_comment_content" />-->
 <!--    </resultMap>-->
 
+    <resultMap id="UserResultMap" type="com.team_soop.soop.entity.User">
+        <id property="userId" column="user_id" />
+        <result property="username" column="username" />
+        <result property="nickname" column="nickname"/>
+        <result property="password" column="password" />
+        <result property="name" column="name" />
+        <result property="email" column="email" />
+        <result property="createDate" column="create_date" />
+        <result property="updateDate" column="update_date" />
+    </resultMap>
+
+
+
     <resultMap id="FeedListResultMap" type="com.team_soop.soop.entity.FeedList">
         <id property="feedId" column="feed_id" />
         <result property="userId" column="user_id" />
         <result property="profileImgUrl" column="profile_img_url" />
         <result property="username" column="username" />
         <result property="feedContent" column="feed_content" />
+<!--        <association property="user" resultMap="UserResultMap" />-->
         <collection property="feedImgUrl" javaType="List" column="feed_img_url" />
 <!--        <association property="likeCount" resultMap="feedLikeResultMap" />-->
 <!--        <association property="commentCount" resultMap="feedCommentResultMap" />-->
@@ -54,21 +68,5 @@
         </foreach>
     </insert>
 
-    <select id="searchFeeds" resultMap="FeedListResultMap"> distinct
-        ft.feed_id,
-        ft.user_id,
-        ut.profile_img_url,
-        ut.username,
-        ft.feed_content,
-        fiut.feed_img_url,
-        (select count(*) from feed_like_tb where feed_id = ft.feed_id) as like_count,
-        (select count(*) from feed_comment_tb where feed_id = ft.feed_id) as comment_count
-    from
-        feed_tb ft
-        left outer join feed_img_url_tb fiut on (fiut.feed_id = 5)
-        left outer join user_tb ut on (ut.user_id = 5)
-    where
-        ft.feed_id = 5;
-<!--        ft.feed_id = #{feedId};      = ft.user_id-->
-    </select>
+
 </mapper>

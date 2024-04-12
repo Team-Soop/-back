@@ -15,7 +15,7 @@ import java.util.List;
 public class FeedImgUrl {
     private int feedImgUrlId;
     private int feedId;
-    private List<String> feedImgUrl;
+    private String feedImgUrl;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 

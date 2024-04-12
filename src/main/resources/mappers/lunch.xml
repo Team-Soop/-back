@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team_soop.soop.repository.LunchMapper">
+
+    <insert
+            id="saveLunch"
+            parameterType="com.team_soop.soop.entity.Lunch"
+            keyProperty="lunchId"
+            useGeneratedKeys="true"
+    >
+        insert into lunch_tb
+        values(0, 3, #{userId}, #{lunchTitle}, #{lunchContent}, #{lunchPlaceName}, #{lunchPlaceX}, #{lunchPlaceY}, now(), now())
+    </insert>
+
+    <insert id="saveLunchImgUrl">
+        insert into lunch_img_url_tb
+        values
+        <foreach collection="lunchImgUrls" item="lunchImgUrl" separator=",">
+            ( 0, #{lunchId}, #{lunchImgUrl}, now(), now() )
+        </foreach>
+    </insert>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

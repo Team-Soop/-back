@@ -28,12 +28,12 @@ public class Schedule {
     private ClassLocation classLocation;
 
     public SearchScheduleRespDto toSearchScheduleRespDto() {
-        String startDate = classScheduleStartDate.substring(0, classScheduleStartDate.lastIndexOf("+"));
-        String endDate = classScheduleEndDate.substring(0, classScheduleEndDate.lastIndexOf("+"));
-
-        LocalDateTime startDateTime = LocalDateTime.parse(startDate);
-        LocalDateTime endDateTime = LocalDateTime.parse(endDate);
-        System.out.println();
+//        String startDate = classScheduleStartDate.substring(0, classScheduleStartDate.lastIndexOf("+"));
+//        String endDate = classScheduleEndDate.substring(0, classScheduleEndDate.lastIndexOf("+"));
+//
+//        LocalDateTime startDateTime = LocalDateTime.parse(startDate);
+//        LocalDateTime endDateTime = LocalDateTime.parse(endDate);
+//        System.out.println();
 
         return SearchScheduleRespDto.builder()
                 .classScheduleId(classScheduleId)
@@ -43,8 +43,10 @@ public class Schedule {
                 .classLocationName(classLocation.getClassLocationName())
                 .classLocationColor(classLocation.getClassLocationColor())
                 .classLocationUrl(classLocation.getClassLocationImgUrl())
-                .classScheduleStartDate(startDateTime.plusHours(9).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
-                .classScheduleEndDate(endDateTime.plusHours(9).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+//                .classScheduleStartDate(startDateTime.plusHours(9).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+//                .classScheduleEndDate(endDateTime.plusHours(9).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                .classScheduleStartDate(classScheduleStartDate)
+                .classScheduleEndDate(classScheduleEndDate)
                 .build();
     }
 }

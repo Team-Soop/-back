@@ -21,7 +21,7 @@ public class lunchController {
         return ResponseEntity.ok(true);
     }
 
-    @GetMapping()
+    @GetMapping("/serach")
     public ResponseEntity<?> searchLunch() {
 
         return ResponseEntity.ok(null);

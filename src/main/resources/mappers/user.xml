@@ -45,7 +45,7 @@
         useGeneratedKeys="true"
     >
         insert into user_tb
-        values(0, #{username}, #{nickname}, #{password}, #{name}, #{email}, now(), now())
+        values(0, #{username}, #{nickname}, #{password}, #{name}, #{email}, now(), now(), #{profileImgUrl, jdbcType = VARCHAR})
     </insert>
 
     <insert id="saveRole">

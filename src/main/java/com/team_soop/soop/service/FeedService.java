@@ -2,8 +2,10 @@ package com.team_soop.soop.service;
 
 import com.team_soop.soop.dto.SaveFeedReqDto;
 import com.team_soop.soop.dto.SearchFeedRespDto;
+import com.team_soop.soop.dto.TestFeedRespDto;
 import com.team_soop.soop.entity.Feed;
 import com.team_soop.soop.entity.FeedList;
+import com.team_soop.soop.entity.TestFeed;
 import com.team_soop.soop.repository.FeedMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,11 +34,24 @@ public class FeedService {
         FeedList feedLists = feedMapper.searchFeeds();
         System.out.println(feedLists);
 
+        return null;
+    }
+
+    public TestFeedRespDto searchTestFeed() {
+        return feedMapper.searchTestFeed().testFeedRespDto();
+    }
+
+}
+
+//    public List<SearchFeedRespDto> searchFeeds() {
+//        List<FeedList> feedLists = feedMapper.searchFeeds();
+//        System.out.println(feedLists);
+//
 //        List<SearchFeedRespDto> searchFeedRespDtos = new ArrayList<>();
 //        for (FeedList feedList : feedLists) {
 //            searchFeedRespDtos.add(feedList.toSearchFeedRespDto());
 //        }
-        return null;
-    }
-
-}
+//        return searchFeedRespDtos;
+//    }
+//
+//    }

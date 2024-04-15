@@ -2,7 +2,6 @@ package com.team_soop.soop.repository;
 
 import com.team_soop.soop.entity.Feed;
 import com.team_soop.soop.entity.FeedList;
-import com.team_soop.soop.entity.TestFeed;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,8 +12,7 @@ public interface FeedMapper {
 
     public int saveFeed(Feed feed);
     public int saveFeedImgUrl(@Param("feedId") int feedId, @Param("feedImgUrls") List<String> feedImgUrls);
-    public FeedList searchFeeds();
-    public TestFeed searchTestFeed();
+    public List<FeedList> searchFeeds();
 
 
 

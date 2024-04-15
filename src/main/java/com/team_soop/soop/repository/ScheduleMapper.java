@@ -10,4 +10,6 @@ import java.util.List;
 public interface ScheduleMapper {
     public int addSchedule(Schedule schedule);
     public List<Schedule> searchAllSchedule();
+    public int updateSchedule(Schedule schedule);
+    public int deleteByClassScheduleId(int scheduleId);
 }

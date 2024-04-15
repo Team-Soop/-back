@@ -50,4 +50,26 @@
             class_schedule_tb cst
             left outer join class_location_tb clt on(clt.class_location_id = cst.class_location_id)
     </select>
+
+    <update id="updateSchedule" parameterType="com.team_soop.soop.entity.Schedule" >
+        update
+            class_schedule_tb
+        set
+            class_schedule_title = #{classScheduleTitle},
+            class_schedule_teacher = #{classScheduleTeacher},
+            class_location_id = #{classLocationId},
+            class_schedule_start_date = #{classScheduleStartDate},
+            class_schedule_end_date = #{classScheduleEndDate},
+            update_date = now()
+        where
+            class_schedule_id = #{classScheduleId}
+    </update>
+    
+    <delete id="deleteByClassScheduleId" parameterType="int" >
+        delete
+        from
+            class_schedule_tb
+        where
+            class_schedule_id = #{scheduleId}
+    </delete>
 </mapper>

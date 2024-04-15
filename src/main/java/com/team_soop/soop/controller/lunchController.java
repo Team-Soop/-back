@@ -5,10 +5,7 @@ import com.team_soop.soop.dto.SaveLunchReqDto;
 import com.team_soop.soop.service.LunchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/lunch")
@@ -22,6 +19,12 @@ public class lunchController {
     public ResponseEntity<?> lunchSave(@RequestBody SaveLunchReqDto saveLunchReqDto) {
         lunchService.saveLunch(saveLunchReqDto);
         return ResponseEntity.ok(true);
+    }
+
+    @GetMapping()
+    public ResponseEntity<?> searchLunch() {
+
+        return ResponseEntity.ok(null);
     }
 
 }

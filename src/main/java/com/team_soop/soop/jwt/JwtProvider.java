@@ -45,7 +45,7 @@ public class JwtProvider {
         String username = user.getUsername();
         String nickname = user.getNickname();
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
-        Date expireDate = new Date(new Date().getTime() + (1000 * 60 * 60 * 24 * 20));
+        Date expireDate = new Date(new Date().getTime() + (1000 * 60 * 60 * 24 * 19));
 
         String accessToken = Jwts.builder()
                 .claim("userId", userId)

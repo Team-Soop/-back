@@ -16,20 +16,45 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class LunchList {
-        private int lunchId;
-        private int userId;
-        private String lunchTitle;
-        private String lunchContent;
-        private String lunchPlaceName;
-        private double lunchPlaceX;
-        private double lunchPlaceY;
-        private LocalDateTime createDate;
-        private LocalDateTime updateDate;
+    private int lunchId;
+    private int userId;
+    private String lunchTitle;
+    private String lunchContent;
+    private String lunchPlaceName;
+    private double lunchPlaceX;
+    private double lunchPlaceY;
+    private LocalDateTime createDate;
+    private LocalDateTime updateDate;
+    private String nickName;
+    private String profileImgUrl;
 
-        private List<LunchImgUrl> lunchImgUrls;
-        private List<LunchLike> lunchLikes;
-        private List<LunchCategory> lunchCategoryNames;
-        private List<LunchComment> lunchComments;
+    private List<LunchLikeUserId> lunchLikeUserId;
+    private List<LunchImgUrl> lunchImgUrl;
+    private List<LunchCategory> lunchCategoryName;
+
+    public List<Integer> getLunchLikeUserIds() {
+        List<Integer> lunchLikeUserIds = new ArrayList<>();
+
+        for(LunchLikeUserId findLunchLikeUserId : lunchLikeUserId) {
+            lunchLikeUserIds.add(findLunchLikeUserId.getLunchLikeUserId());
+        }
+
+        return lunchLikeUserIds;
+    }
+
+    public List<String> getLunchImgUrl() {
+        List<String> lunchImgUrls = new ArrayList<>();
+
+        for(LunchImgUrl findLunchImgUrl : lunchImgUrl) {
+            lunchImgUrls.add(findLunchImgUrl.getLunchImgUrl());
+        }
+
+        return lunchImgUrls;
+    }
+
+//    public List<String> getLunchCategory
+
+
 
 
 

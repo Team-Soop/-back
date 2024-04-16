@@ -12,9 +12,5 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class LunchImgUrl {
-    private int lunchImgUrlId;
-    private int lunchId;
     private String lunchImgUrl;
-    private LocalDateTime createDate;
-    private LocalDateTime updateDate;
 }

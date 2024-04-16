@@ -12,9 +12,5 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class LunchCategory {
-    private int lunchCategoryId;
-    private int lunchId;
     private String lunchCategoryName;
-    private LocalDateTime createDate;
-    private LocalDateTime updateDate;
 }

@@ -12,5 +12,5 @@ public interface LunchMapper {
     public int saveLunch(Lunch lunch);
     public int saveLunchImgUrl(@Param("lunchId") int lunchId, @Param("lunchImgUrls") List<String> lunchImgUrls);
     public int saveLunchCategory(@Param("lunchId") int lunchId, @Param("lunchCategories") List<String> lunchCategories);
-//    public List<LunchList> searchLunchList();
+    public List<LunchList> searchLunchList();
 }

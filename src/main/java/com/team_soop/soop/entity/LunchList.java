@@ -1,5 +1,6 @@
 package com.team_soop.soop.entity;
 
+import com.team_soop.soop.dto.SearchFeedRespDto;
 import com.team_soop.soop.dto.SearchLunchRespDto;
 import com.team_soop.soop.dto.SearchScheduleRespDto;
 import lombok.AllArgsConstructor;
@@ -26,11 +27,16 @@ public class LunchList {
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
     private String nickName;
+    // null 일 수 있음
     private String profileImgUrl;
 
+    // null 일 수 있음
     private List<LunchLikeUserId> lunchLikeUserId;
+    // null 일 수 있음
     private List<LunchImgUrl> lunchImgUrl;
+    // null 일 수 있음
     private List<LunchCategory> lunchCategoryName;
+
 
     public List<Integer> getLunchLikeUserIds() {
         List<Integer> lunchLikeUserIds = new ArrayList<>();
@@ -52,7 +58,34 @@ public class LunchList {
         return lunchImgUrls;
     }
 
-//    public List<String> getLunchCategory
+    public List<String> getLunchCategory() {
+        List<String> lunchCategoryNames = new ArrayList<>();
+
+        for(LunchCategory findLunchCategoryName : lunchCategoryName) {
+            lunchCategoryNames.add(findLunchCategoryName.getLunchCategoryName());
+        }
+
+        return lunchCategoryNames;
+    }
+
+    public SearchLunchRespDto toSearchLunchRespDto() {
+        return SearchLunchRespDto.builder()
+                .lunchId(lunchId)
+                .userId(userId)
+                .lunchTitle(lunchTitle)
+                .lunchContent(lunchContent)
+                .lunchPlaceName(lunchPlaceName)
+                .lunchPlaceX(lunchPlaceX)
+                .lunchPlaceY(lunchPlaceY)
+                .createDate(createDate)
+                .updateDate(updateDate)
+                .nickName(nickName)
+                .profileImgUrl(profileImgUrl)
+                .lunchLikeUserIds(getLunchLikeUserIds())
+                .lunchImgUrls(getLunchImgUrl())
+                .lunchCategoryNames(getLunchCategory())
+                .build();
+    }
 
 
 

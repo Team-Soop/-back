@@ -25,8 +25,10 @@ public class SearchLunchRespDto {
     private double lunchPlaceY;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+    private String nickName;
+    private String profileImgUrl;
 
-    private List<LunchImgUrl> lunchImgUrls;
-    private List<LunchLikeUserId> lunchLikes;
-    private List<LunchCategory> lunchCategoryNames;
+    private List<Integer> lunchLikeUserIds;
+    private List<String> lunchImgUrls;
+    private List<String> lunchCategoryNames;
 }

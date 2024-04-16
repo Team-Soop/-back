@@ -32,7 +32,6 @@ public class FeedController {
     @ResponseBody
     public ResponseEntity<?> feedList() {
 
-//        return ResponseEntity.ok(feedService.searchFeeds());
-        return ResponseEntity.ok(feedService.searchTestFeed());
+        return ResponseEntity.ok(feedService.searchFeeds());
     }
 }

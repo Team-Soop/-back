@@ -2,6 +2,7 @@ package com.team_soop.soop.service;
 
 import com.team_soop.soop.dto.SaveFeedReqDto;
 import com.team_soop.soop.dto.SearchFeedRespDto;
+import com.team_soop.soop.dto.UpdateFeedReqDto;
 import com.team_soop.soop.entity.Feed;
 import com.team_soop.soop.entity.FeedList;
 import com.team_soop.soop.repository.FeedMapper;
@@ -41,6 +42,10 @@ public class FeedService {
             searchFeedRespDtos.add(feedList.searchFeedRespDto());
         }
         return searchFeedRespDtos;
+    }
+
+    public void updateFeed(UpdateFeedReqDto updateFeedReqDto) {
+
     }
 
 }

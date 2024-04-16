@@ -2,7 +2,7 @@ package com.team_soop.soop.dto;
 
 import com.team_soop.soop.entity.LunchCategory;
 import com.team_soop.soop.entity.LunchImgUrl;
-import com.team_soop.soop.entity.LunchLike;
+import com.team_soop.soop.entity.LunchLikeUserId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,6 +27,6 @@ public class SearchLunchRespDto {
     private LocalDateTime updateDate;
 
     private List<LunchImgUrl> lunchImgUrls;
-    private List<LunchLike> lunchLikes;
+    private List<LunchLikeUserId> lunchLikes;
     private List<LunchCategory> lunchCategoryNames;
 }

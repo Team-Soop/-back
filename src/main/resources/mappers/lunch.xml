@@ -6,28 +6,15 @@
 <mapper namespace="com.team_soop.soop.repository.LunchMapper">
 
     <resultMap id="LunchCategoryMap" type="com.team_soop.soop.entity.LunchCategory">
-        <id property="lunchCategoryId" column="lunch_category_id"/>
-        <result property="lunchId" column="lunch_id"/>
         <result property="lunchCategoryName" column="lunch_category_name"/>
-        <result property="createDate" column="create_date" />
-        <result property="updateDate" column="update_date" />
     </resultMap>
 
-
-    <resultMap id="LunchLikeMap" type="com.team_soop.soop.entity.LunchLike">
-        <id property="lunchLikeId" column="lunch_like_id"/>
-        <result property="lunchId" column="lunch_id"/>
+    <resultMap id="LunchLikeMap" type="com.team_soop.soop.entity.LunchLikeUserId">
         <result property="lunchLikeUserId" column="lunch_like_user_id"/>
-        <result property="createDate" column="create_date" />
-        <result property="updateDate" column="update_date" />
     </resultMap>
 
     <resultMap id="LunchImgUrlMap" type="com.team_soop.soop.entity.LunchImgUrl">
-        <id property="lunchImgUrlId" column="lunch_img_url_id"/>
-        <result property="lunchId" column="lunch_id"/>
-        <result property="lunchImgUrlId" column="lunch_img_url"/>
-        <result property="createDate" column="create_date" />
-        <result property="updateDate" column="update_date" />
+        <result property="lunchImgUrl" column="lunch_img_url"/>
     </resultMap>
 
     <resultMap id="lunchResultMap" type="com.team_soop.soop.entity.LunchList">
@@ -40,10 +27,11 @@
         <result property="lunchPlaceY" column="lunch_place_y"/>
         <result property="createDate" column="create_date" />
         <result property="updateDate" column="update_date" />
+        <result property="nickName" column="nickname"/>
+        <result property="profileImgUrl" column="profile_img_url"/>
         <collection property="lunchImgUrls"  javaType="list" resultMap="LunchImgUrlMap" />
-        <collection property="lunchLikes" javaType="list" resultMap="LunchLikeMap"/>
+        <collection property="lunchLikeUserIds" javaType="list" resultMap="LunchLikeMap"/>
         <collection property="lunchCategoryNames" javaType="list" resultMap="LunchCategoryMap"/>
-<!--        <collection property="lunchContent" javaType="list" resultMap="LunchContentMap"/>-->
     </resultMap>
 
     <insert
@@ -73,38 +61,32 @@
 
     </insert>
 
-    <select id="searchLunchList">
+    <select
+            id="searchLunchList"
+            resultMap="lunchResultMap"
+    >
         select
-<!--            lt.lunch_id,-->
-<!--            lt.user_id,-->
-<!--            lt.lunch_title,-->
-<!--            lt.lunch_content,-->
-<!--            lt.lunch_place_name,-->
-<!--            lt.lunch_place_x,-->
-<!--            lt.lunch_place_y,-->
-<!--            lt.create_date,-->
-<!--            lt.update_date,-->
-<!--            llt.lunch_like_user_id,-->
-<!--            liut.lunch_img_url_id,-->
-<!--            liut.lunch_id,-->
-<!--            liut.lunch_img_url,-->
-<!--            liut.create_date,-->
-<!--            liut.update_date,-->
-<!--            lcmt.lunch_comment_id,-->
-<!--            lcmt.lunch_id,-->
-<!--            lcmt.lunch_comment_user_id,-->
-<!--            lcmt.lunch_comment_content,-->
-<!--            lcmt.create_date,-->
-<!--            lcmt.update_date-->
-<!--            lctt.lunch_category_name,-->
-<!--            lctt.-->
-            *
+            lt.lunch_id,
+            lt.user_id,
+            lt.lunch_title,
+            lt.lunch_content,
+            lt.lunch_place_name,
+            lt.lunch_place_x,
+            lt.lunch_place_y,
+            lt.create_date,
+            lt.update_date,
+            ut.nickname,
+            ut.profile_img_url,
+
+            llt.lunch_like_user_id,
+            liut.lunch_img_url,
+            lctt.lunch_category_name
         from
             lunch_tb lt
+            left outer join lunch_img_url_tb liut on ( liut.lunch_id = lt.lunch_id)
             left outer join lunch_like_tb llt on ( llt.lunch_id = lt.lunch_id )
-            left outer join lunch_img_url_tb liut on ( liut.lunch_id = lt.lunch_id )
-            left outer join lunch_comment_tb lcmt on ( lcmt.lunch_id = lt.lunch_id)
             left outer join lunch_category_tb lctt on ( lctt.lunch_id = lt.lunch_id)
+            left outer join user_tb ut on (ut.user_id = lt.user_id);
     </select>
 
 

@@ -11,10 +11,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class LunchLike {
-    private int lunchLikeId;
-    private int LunchId;
-    private int LunchLikeUserId;
-    private LocalDateTime createDate;
-    private LocalDateTime updateDate;
+public class LunchLikeUserId {
+    private int lunchLikeUserId;
 }

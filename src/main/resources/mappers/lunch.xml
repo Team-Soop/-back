@@ -7,6 +7,14 @@
 
 <mapper namespace="com.team_soop.soop.repository.LunchMapper">
 
+    <resultMap id="LunchCommentMap" type="com.team_soop.soop.entity.LunchComment">
+        <id property="lunchCommentId"  column="lunch_comment_id"/>
+        <result property="lunchCommentId" column="lunch_comment_user_id" />
+        <result property="lunchCommentContent" column="lunch_comment_content" />
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+
     <resultMap id="LunchCategoryMap" type="com.team_soop.soop.entity.LunchCategory">
         <result property="lunchCategoryName" column="lunch_category_name"/>
     </resultMap>
@@ -34,6 +42,7 @@
         <collection property="lunchImgUrl"  javaType="list" resultMap="LunchImgUrlMap" />
         <collection property="lunchLikeUserId" javaType="list" resultMap="LunchLikeMap"/>
         <collection property="lunchCategoryName" javaType="list" resultMap="LunchCategoryMap"/>
+        <collection property="lunchComment" javaType="list" resultMap="LunchCommentMap"/>
     </resultMap>
 
     <insert
@@ -77,32 +86,26 @@
             lt.lunch_place_y,
             lt.create_date,
             lt.update_date,
+
             ut.nickname,
             ut.profile_img_url,
 
             llt.lunch_like_user_id,
             liut.lunch_img_url,
-            lctt.lunch_category_name
+            lctt.lunch_category_name,
+
+            lc.lunch_comment_id,
+            lc.lunch_comment_user_id,
+            lc.lunch_comment_content,
+            lc.create_date,
+            lc.update_date
         from
             lunch_tb lt
-            left outer join lunch_img_url_tb liut on ( liut.lunch_id = lt.lunch_id)
+            left outer join lunch_img_url_tb liut on ( liut.lunch_id = lt.lunch_id )
             left outer join lunch_like_tb llt on ( llt.lunch_id = lt.lunch_id )
-            left outer join lunch_category_tb lctt on ( lctt.lunch_id = lt.lunch_id)
-            left outer join user_tb ut on (ut.user_id = lt.user_id);
-        <choose>
-            <when test="ut.profile_img_url != null">
-                ut.profile_img_url
-            </when>
-            <when test="llt.lunch_like_user_id != null">
-                llt.lunch_like_user_id
-            </when>
-            <when test="lctt.lunch_category_name != null">
-                lctt.lunch_category_name
-            </when>
-            <otherwise>
-                NULL
-            </otherwise>
-        </choose>
+            left outer join lunch_category_tb lctt on ( lctt.lunch_id = lt.lunch_id )
+            left outer join user_tb ut on ( ut.user_id = lt.user_id )
+            left outer join lunch_comment_tb lc on ( lc.lunch_id = lt.lunch_id )
     </select>
 
 

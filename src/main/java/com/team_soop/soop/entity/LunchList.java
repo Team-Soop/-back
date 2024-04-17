@@ -36,9 +36,11 @@ public class LunchList {
     private List<LunchImgUrl> lunchImgUrl;
     // null 일 수 있음
     private List<LunchCategory> lunchCategoryName;
+    // null 일 수 있음
+    private List<LunchComment> lunchComment;
 
 
-    public List<Integer> getLunchLikeUserIds() {
+    public List<Integer> toLunchLikeUserIds() {
         List<Integer> lunchLikeUserIds = new ArrayList<>();
 
         for(LunchLikeUserId findLunchLikeUserId : lunchLikeUserId) {
@@ -48,7 +50,7 @@ public class LunchList {
         return lunchLikeUserIds;
     }
 
-    public List<String> getLunchImgUrl() {
+    public List<String> toLunchImgUrl() {
         List<String> lunchImgUrls = new ArrayList<>();
 
         for(LunchImgUrl findLunchImgUrl : lunchImgUrl) {
@@ -58,7 +60,7 @@ public class LunchList {
         return lunchImgUrls;
     }
 
-    public List<String> getLunchCategory() {
+    public List<String> toLunchCategory() {
         List<String> lunchCategoryNames = new ArrayList<>();
 
         for(LunchCategory findLunchCategoryName : lunchCategoryName) {
@@ -67,6 +69,7 @@ public class LunchList {
 
         return lunchCategoryNames;
     }
+
 
     public SearchLunchRespDto toSearchLunchRespDto() {
         return SearchLunchRespDto.builder()
@@ -81,9 +84,10 @@ public class LunchList {
                 .updateDate(updateDate)
                 .nickName(nickName)
                 .profileImgUrl(profileImgUrl)
-                .lunchLikeUserIds(getLunchLikeUserIds())
-                .lunchImgUrls(getLunchImgUrl())
-                .lunchCategoryNames(getLunchCategory())
+                .lunchLikeUserIds(toLunchLikeUserIds())
+                .lunchImgUrls(toLunchImgUrl())
+                .lunchCategoryNames(toLunchCategory())
+                .lunchComments(lunchComment)
                 .build();
     }
 

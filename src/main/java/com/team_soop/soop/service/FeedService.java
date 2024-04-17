@@ -40,4 +40,12 @@ public class FeedService {
         }
         return searchFeedRespDtos;
     }
+//    @Transactional(rollbackFor = Exception.class)
+//    public void likeFeed(int feedId, int userId) {
+//        likeFeed(feedId, userId);
+//    }
+//    @Transactional(rollbackFor = Exception.class)
+//    public void unLIkeFeed(int feedId, int userId) {
+//        unLIkeFeed(feedId, userId);
+//    }
 }

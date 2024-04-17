@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @Builder
 public class LunchComment {
     private int lunchCommentId;
-    private int lunchId;
     private int lunchCommentUserId;
     private String lunchCommentContent;
     private LocalDateTime createDate;

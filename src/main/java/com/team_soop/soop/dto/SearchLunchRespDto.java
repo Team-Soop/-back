@@ -1,6 +1,7 @@
 package com.team_soop.soop.dto;
 
 import com.team_soop.soop.entity.LunchCategory;
+import com.team_soop.soop.entity.LunchComment;
 import com.team_soop.soop.entity.LunchImgUrl;
 import com.team_soop.soop.entity.LunchLikeUserId;
 import lombok.AllArgsConstructor;
@@ -31,4 +32,5 @@ public class SearchLunchRespDto {
     private List<Integer> lunchLikeUserIds;
     private List<String> lunchImgUrls;
     private List<String> lunchCategoryNames;
+    private List<LunchComment> lunchComments;
 }

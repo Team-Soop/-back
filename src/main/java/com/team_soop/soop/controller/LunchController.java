@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/lunch")
-public class lunchController {
+public class LunchController {
 
     @Autowired
     private LunchService lunchService;

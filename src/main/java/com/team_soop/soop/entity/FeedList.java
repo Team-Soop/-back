@@ -18,6 +18,8 @@ public class FeedList {
     private String username;
     private String feedContent;
     private List<FeedImgUrl> feedImgUrl;
+    private int feedLikeCount;
+    private int feedCommentCount;
 
     public SearchFeedRespDto searchFeedRespDto() {
         return SearchFeedRespDto.builder()

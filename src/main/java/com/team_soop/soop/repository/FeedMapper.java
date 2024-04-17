@@ -13,8 +13,6 @@ public interface FeedMapper {
     public int saveFeed(Feed feed);
     public int saveFeedImgUrl(@Param("feedId") int feedId, @Param("feedImgUrls") List<String> feedImgUrls);
     public List<FeedList> searchFeeds();
-    public int updateFeed(Feed feed);
-    public int updateFeedImgUrl(@Param("feedId") int feedId, @Param("feedImgUrls") List<String> feedImgUrls);
 
 
 

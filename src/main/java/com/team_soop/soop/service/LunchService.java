@@ -1,11 +1,16 @@
 package com.team_soop.soop.service;
 
 import com.team_soop.soop.dto.SaveLunchReqDto;
+import com.team_soop.soop.dto.SearchLunchRespDto;
 import com.team_soop.soop.entity.Lunch;
+import com.team_soop.soop.entity.LunchList;
 import com.team_soop.soop.repository.LunchMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class LunchService {
@@ -31,6 +36,19 @@ public class LunchService {
             lunchMapper.saveLunchCategory(lunch.getLunchId(), saveLunchReqDto.getCategoryName());
         }
 
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public List<SearchLunchRespDto> searchLunchList () {
+        List<LunchList> lunchLists = lunchMapper.searchLunchList();
+
+        List<SearchLunchRespDto> searchLunchRespDtos = new ArrayList<>();
+
+        for(LunchList LunchList : lunchLists) {
+            searchLunchRespDtos.add(LunchList.toSearchLunchRespDto());
+        }
+
+        return searchLunchRespDtos;
     }
 
 

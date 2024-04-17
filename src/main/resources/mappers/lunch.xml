@@ -3,6 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+
+
 <mapper namespace="com.team_soop.soop.repository.LunchMapper">
 
     <resultMap id="LunchCategoryMap" type="com.team_soop.soop.entity.LunchCategory">
@@ -29,9 +31,9 @@
         <result property="updateDate" column="update_date" />
         <result property="nickName" column="nickname"/>
         <result property="profileImgUrl" column="profile_img_url"/>
-        <collection property="lunchImgUrls"  javaType="list" resultMap="LunchImgUrlMap" />
-        <collection property="lunchLikeUserIds" javaType="list" resultMap="LunchLikeMap"/>
-        <collection property="lunchCategoryNames" javaType="list" resultMap="LunchCategoryMap"/>
+        <collection property="lunchImgUrl"  javaType="list" resultMap="LunchImgUrlMap" />
+        <collection property="lunchLikeUserId" javaType="list" resultMap="LunchLikeMap"/>
+        <collection property="lunchCategoryName" javaType="list" resultMap="LunchCategoryMap"/>
     </resultMap>
 
     <insert
@@ -62,8 +64,8 @@
     </insert>
 
     <select
-            id="searchLunchList"
-            resultMap="lunchResultMap"
+        id="searchLunchList"
+        resultMap="lunchResultMap"
     >
         select
             lt.lunch_id,
@@ -87,6 +89,20 @@
             left outer join lunch_like_tb llt on ( llt.lunch_id = lt.lunch_id )
             left outer join lunch_category_tb lctt on ( lctt.lunch_id = lt.lunch_id)
             left outer join user_tb ut on (ut.user_id = lt.user_id);
+        <choose>
+            <when test="ut.profile_img_url != null">
+                ut.profile_img_url
+            </when>
+            <when test="llt.lunch_like_user_id != null">
+                llt.lunch_like_user_id
+            </when>
+            <when test="lctt.lunch_category_name != null">
+                lctt.lunch_category_name
+            </when>
+            <otherwise>
+                NULL
+            </otherwise>
+        </choose>
     </select>
 
 
@@ -106,3 +122,4 @@
 
 
 </mapper>
+

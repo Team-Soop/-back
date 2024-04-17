@@ -21,10 +21,9 @@ public class lunchController {
         return ResponseEntity.ok(true);
     }
 
-    @GetMapping("/serach")
+    @GetMapping("/search")
     public ResponseEntity<?> searchLunch() {
-
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(lunchService.searchLunchList());
     }
 
 }

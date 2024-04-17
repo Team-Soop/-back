@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 public class SaveFeedReqDto {
     private int userId;
-    @Pattern(regexp = "<p>(?:(?!\\s)[\\p{L}0-9a-zA-Z])*?</p>", message = "게시글을 작성해주세요.")
+    @Pattern(regexp = "(<p>(?:[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9\\n]*)</p>)+", message = "게시글을 작성해주세요.")
     private String feedContent;
     private List<String> feedImgUrls;
 

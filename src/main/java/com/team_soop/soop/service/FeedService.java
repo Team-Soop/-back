@@ -2,7 +2,6 @@ package com.team_soop.soop.service;
 
 import com.team_soop.soop.dto.SaveFeedReqDto;
 import com.team_soop.soop.dto.SearchFeedRespDto;
-import com.team_soop.soop.dto.UpdateFeedReqDto;
 import com.team_soop.soop.entity.Feed;
 import com.team_soop.soop.entity.FeedList;
 import com.team_soop.soop.repository.FeedMapper;
@@ -26,15 +25,13 @@ public class FeedService {
         Feed feed = saveFeedReqDto.toFeed();
 
         feedMapper.saveFeed(feed);
-        feedMapper.saveFeedImgUrl(feed.getFeedId(), saveFeedReqDto.getFeedImgUrls());
+
+        if(saveFeedReqDto.getFeedImgUrls().size() != 0) {
+            feedMapper.saveFeedImgUrl(feed.getFeedId(), saveFeedReqDto.getFeedImgUrls());
+        }
+
     }
 
-
-//    public TestFeedRespDto searchTestFeed() {
-//        return feedMapper.searchTestFeed().testFeedRespDto();
-//    }
-//
-//}
     public List<SearchFeedRespDto> searchFeeds() {
         List<FeedList> feedLists = feedMapper.searchFeeds();
         List<SearchFeedRespDto> searchFeedRespDtos = new ArrayList<>();
@@ -43,9 +40,4 @@ public class FeedService {
         }
         return searchFeedRespDtos;
     }
-
-    public void updateFeed(UpdateFeedReqDto updateFeedReqDto) {
-
-    }
-
 }

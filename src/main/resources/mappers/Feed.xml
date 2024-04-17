@@ -11,12 +11,26 @@
         <result property="profileImgUrl" column="profile_img_url" />
         <result property="username" column="username" />
         <result property="feedContent" column="feed_content" />
+<!--        <association property="feedLikeCount" resultMap="FeedLikeResultMap" />-->
+<!--        <association property="feedCommentCount" resultMap="FeedCommentResultMap" />-->
         <collection property="feedImgUrl" javaType="List" resultMap="FeedImgUrlResultMap"/>
     </resultMap>
 
     <resultMap id="FeedImgUrlResultMap" type="com.team_soop.soop.entity.FeedImgUrl" >
         <id property="feedImgUrlId" column="feed_img_url_id" />
         <result property="feedImgUrl" column="feed_img_url" />
+    </resultMap>
+
+    <resultMap id="FeedLikeResultMap" type="com.team_soop.soop.entity.FeedLike">
+        <id property="feedLikeId" column="feed_like_id" />
+        <result property="feedId" column="feed_id" />
+        <result property="userId" column="user_id" />
+    </resultMap>
+
+    <resultMap id="FeedCommentResultMap" type="com.team_soop.soop.entity.FeedComment">
+        <id property="feedCommentId" column="feed_comment_id" />
+        <result property="feedId" column="feed_id" />
+        <result property="userId" column="user_id" />
     </resultMap>
 
     <insert
@@ -39,9 +53,9 @@
     <insert id="saveFeedImgUrl">
         insert into feed_img_url_tb
         values
-        <foreach collection="feedImgUrls" item="feedImgUrl" separator=",">
-            ( 0, #{feedId}, #{feedImgUrl}, now(), now() )
-        </foreach>
+            <foreach collection="feedImgUrls" item="feedImgUrl" separator=",">
+                ( 0, #{feedId}, #{feedImgUrl}, now(), now() )
+            </foreach>
     </insert>
 
     <select id="searchFeeds" resultMap="FeedResultMap">
@@ -52,24 +66,13 @@
             ut.username,
             ft.feed_content,
             fiut.feed_img_url
+<!--            (select count(*) from feed_like_tb where feed_id = ft.feed_id) as like_count,-->
+<!--            (select count(*) from feed_comment_tb where feed_id = ft.feed_id) as comment_count-->
         from
             feed_tb ft
             left outer join feed_img_url_tb fiut on (fiut.feed_id = ft.feed_id)
             left outer join user_tb ut on (ut.user_id = ft.user_id)
-<!--        where-->
-<!--            ft.feed_id = 1-->
         ;
     </select>
-
-    <update id="updateFeed">
-        update
-            feed_tb
-        set
-
-    </update>
-
-    <update id="updateFeedImgUrl">
-
-    </update>
 
 </mapper>

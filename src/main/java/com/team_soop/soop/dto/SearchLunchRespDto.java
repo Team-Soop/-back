@@ -24,6 +24,7 @@ public class SearchLunchRespDto {
     private String lunchPlaceName;
     private double lunchPlaceX;
     private double lunchPlaceY;
+    private String lunchPlaceUrl;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
     private String nickName;

@@ -1,6 +1,7 @@
 package com.team_soop.soop.controller;
 
 import com.team_soop.soop.aop.annotation.ParamsPrintAspect;
+import com.team_soop.soop.dto.SaveLunchCommentReqDto;
 import com.team_soop.soop.dto.SaveLunchReqDto;
 import com.team_soop.soop.service.LunchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,14 @@ public class LunchController {
     private LunchService lunchService;
 
     @PostMapping("/save")
-    @ParamsPrintAspect
     public ResponseEntity<?> lunchSave(@RequestBody SaveLunchReqDto saveLunchReqDto) {
         lunchService.saveLunch(saveLunchReqDto);
+        return ResponseEntity.ok(true);
+    }
+
+    @PostMapping("/comment/save")
+    public ResponseEntity<?> lunchCommentSave(@RequestBody SaveLunchCommentReqDto saveLunchCommentReqDto) {
+        lunchService.saveLunchComment(saveLunchCommentReqDto);
         return ResponseEntity.ok(true);
     }
 
@@ -25,5 +31,13 @@ public class LunchController {
     public ResponseEntity<?> searchLunch() {
         return ResponseEntity.ok(lunchService.searchLunchList());
     }
+
+    @GetMapping("/lunch/comment/search")
+    public ResponseEntity<?> searchLunchComment(int detailLunchId) {
+        return ResponseEntity.ok(null
+//                lunchService.searchLunchComment(detailLunchId)
+        );
+    }
+
 
 }

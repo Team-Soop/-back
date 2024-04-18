@@ -20,6 +20,7 @@ public class Lunch {
     private String lunchPlaceName;
     private double lunchPlaceX;
     private double lunchPlaceY;
+    private String lunchPlaceUrl;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 

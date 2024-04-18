@@ -15,6 +15,7 @@ public class SaveLunchReqDto {
     private String placeName;
     private double placeX;
     private double placeY;
+    private String placeUrl;
     private List<String> lunchImgUrls;
 
 
@@ -50,6 +51,7 @@ public class SaveLunchReqDto {
                 .lunchPlaceName(placeName)
                 .lunchPlaceX(placeX)
                 .lunchPlaceY(placeY)
+                .lunchPlaceUrl(placeUrl)
                 .build();
     }
 

@@ -24,6 +24,7 @@ public class LunchList {
     private String lunchPlaceName;
     private double lunchPlaceX;
     private double lunchPlaceY;
+    private String lunchPlaceUrl;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
     private String nickName;
@@ -80,6 +81,7 @@ public class LunchList {
                 .lunchPlaceName(lunchPlaceName)
                 .lunchPlaceX(lunchPlaceX)
                 .lunchPlaceY(lunchPlaceY)
+                .lunchPlaceUrl(lunchPlaceUrl)
                 .createDate(createDate)
                 .updateDate(updateDate)
                 .nickName(nickName)

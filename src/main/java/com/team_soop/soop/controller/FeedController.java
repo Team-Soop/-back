@@ -1,6 +1,8 @@
 package com.team_soop.soop.controller;
 
+import com.team_soop.soop.aop.annotation.ParamsPrintAspect;
 import com.team_soop.soop.aop.annotation.ValidAspect;
+import com.team_soop.soop.dto.SaveFeedLikeReqDto;
 import com.team_soop.soop.dto.SaveFeedReqDto;
 import com.team_soop.soop.security.PrincipalUser;
 import com.team_soop.soop.service.FeedService;
@@ -35,16 +37,17 @@ public class FeedController {
         return ResponseEntity.ok(feedService.searchFeeds());
     }
 
-//    @PostMapping("/like/{feedId}")
-//    public ResponseEntity<?> feedLike(@PathVariable int feedId) {
-//
-//        return null;
-//    }
-//
-//    @DeleteMapping("/like/{feedId}")
-//    public ResponseEntity<?> feedUnLike(@PathVariable int feedId) {
-//
-//        return null;
-//    }
+    @ParamsPrintAspect
+    @PostMapping("/like")
+    public ResponseEntity<?> feedLike(@RequestBody SaveFeedLikeReqDto saveFeedLikeReqDto) {
+        feedService.likeFeed(saveFeedLikeReqDto);
+        return ResponseEntity.ok(null);
+    }
+
+    @DeleteMapping("/like")
+    public ResponseEntity<?> feedUnLike(@PathVariable int feedId) {
+
+        return ResponseEntity.ok(null);
+    }
 
 }

@@ -1,8 +1,10 @@
 package com.team_soop.soop.service;
 
+import com.team_soop.soop.dto.SaveFeedLikeReqDto;
 import com.team_soop.soop.dto.SaveFeedReqDto;
 import com.team_soop.soop.dto.SearchFeedRespDto;
 import com.team_soop.soop.entity.Feed;
+import com.team_soop.soop.entity.FeedLike;
 import com.team_soop.soop.entity.FeedList;
 import com.team_soop.soop.repository.FeedMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +42,10 @@ public class FeedService {
         }
         return searchFeedRespDtos;
     }
-//    @Transactional(rollbackFor = Exception.class)
-//    public void likeFeed(int feedId, int userId) {
-//        likeFeed(feedId, userId);
-//    }
-//    @Transactional(rollbackFor = Exception.class)
-//    public void unLIkeFeed(int feedId, int userId) {
-//        unLIkeFeed(feedId, userId);
-//    }
+
+    public void likeFeed(SaveFeedLikeReqDto saveFeedLikeReqDto) {
+        feedMapper.saveFeedLike(saveFeedLikeReqDto.toEntity());
+
+
+    }
 }

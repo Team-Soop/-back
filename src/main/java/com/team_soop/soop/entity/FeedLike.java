@@ -8,12 +8,9 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 public class FeedLike {
     private int feedLikeId;
-    private Feed feedId;
-    private User userId;
+    private int feedId;
+    private int userId;
     private LocalDateTime createDate;
-
 }

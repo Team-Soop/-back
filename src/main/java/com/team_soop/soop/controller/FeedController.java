@@ -2,9 +2,11 @@ package com.team_soop.soop.controller;
 
 import com.team_soop.soop.aop.annotation.ValidAspect;
 import com.team_soop.soop.dto.SaveFeedReqDto;
+import com.team_soop.soop.security.PrincipalUser;
 import com.team_soop.soop.service.FeedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,10 +35,16 @@ public class FeedController {
         return ResponseEntity.ok(feedService.searchFeeds());
     }
 
-    @PostMapping("/likes")
-    public ResponseEntity<?> feedLike() {
-
-        return null;
-    }
+//    @PostMapping("/like/{feedId}")
+//    public ResponseEntity<?> feedLike(@PathVariable int feedId) {
+//
+//        return null;
+//    }
+//
+//    @DeleteMapping("/like/{feedId}")
+//    public ResponseEntity<?> feedUnLike(@PathVariable int feedId) {
+//
+//        return null;
+//    }
 
 }

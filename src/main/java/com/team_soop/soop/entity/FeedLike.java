@@ -12,12 +12,8 @@ import java.time.LocalDateTime;
 @Setter
 public class FeedLike {
     private int feedLikeId;
-    private int feedId;
-    private int userId;
+    private Feed feedId;
+    private User userId;
     private LocalDateTime createDate;
-    private LocalDateTime updateDate;
-
-    private Feed feed;
-    private User user;
 
 }

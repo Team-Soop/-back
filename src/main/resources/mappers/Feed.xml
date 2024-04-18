@@ -21,17 +21,20 @@
         <result property="feedImgUrl" column="feed_img_url" />
     </resultMap>
 
-    <resultMap id="FeedLikeResultMap" type="com.team_soop.soop.entity.FeedLike">
-        <id property="feedLikeId" column="feed_like_id" />
-        <result property="feedId" column="feed_id" />
-        <result property="userId" column="user_id" />
-    </resultMap>
+<!--    <resultMap id="FeedLikeResultMap" type="com.team_soop.soop.entity.FeedLike">-->
+<!--        <id property="feedLikeId" column="feed_like_id" />-->
+<!--        <result property="feedId" column="feed_id" />-->
+<!--        <result property="userId" column="user_id" />-->
+<!--        <result property="createDate" column="create_date" />-->
+<!--    </resultMap>-->
 
-    <resultMap id="FeedCommentResultMap" type="com.team_soop.soop.entity.FeedComment">
-        <id property="feedCommentId" column="feed_comment_id" />
-        <result property="feedId" column="feed_id" />
-        <result property="userId" column="user_id" />
-    </resultMap>
+<!--    <resultMap id="FeedCommentResultMap" type="com.team_soop.soop.entity.FeedComment">-->
+<!--        <id property="feedCommentId" column="feed_comment_id" />-->
+<!--        <result property="feedId" column="feed_id" />-->
+<!--        <result property="userId" column="user_id" />-->
+<!--        <result property="createDate" column="create_date" />-->
+<!--        <result property="updateDate" column="update_date" />-->
+<!--    </resultMap>-->
 
     <insert
             id="saveFeed"
@@ -72,7 +75,23 @@
             feed_tb ft
             left outer join feed_img_url_tb fiut on (fiut.feed_id = ft.feed_id)
             left outer join user_tb ut on (ut.user_id = ft.user_id)
+<!--            left outer join feed_like_tb flt on (flt.feed_id = ft.feed_id)-->
+<!--            left outer join feed_comment_tb fct on (fct.feed_id = ft.feed_id)-->
         ;
     </select>
+
+<!--    <insert id="likeFeed" parameterType="com.team_soop.soop.entity.FeedLike">-->
+<!--        insert into-->
+<!--            feed_like_tb (feed_id, user_id, create_date)-->
+<!--        values-->
+<!--            (#{feedId}, #{userId}, now())-->
+<!--    </insert>-->
+
+<!--    <delete id="unLikeFeed" parameterType="com.team_soop.soop.entity.FeedLike">-->
+<!--        delete from-->
+<!--            feed_like_tb-->
+<!--        where-->
+<!--            feed_id = #{feedId} and user_id = #{userId}-->
+<!--    </delete>-->
 
 </mapper>

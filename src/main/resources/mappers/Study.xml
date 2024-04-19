@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team_soop.soop.repository.StudyMapper">
+    <resultMap id="studyCategoryResultMap" type="com.team_soop.soop.entity.StudyCategory">
+        <id property="studyCategoryId" column="study_category_id" />
+        <id property="studyCategoryName" column="study_category_name" />
+    </resultMap>
+
+    <select id="searchStudyCategories" resultMap="studyCategoryResultMap">
+        select
+            study_category_id,
+            study_category_name
+        from
+            study_category_tb
+    </select>
+</mapper>

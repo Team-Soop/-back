@@ -21,13 +21,17 @@
         <result property="feedImgUrl" column="feed_img_url" />
     </resultMap>
 
-
     <resultMap id="FeedCommentResultMap" type="com.team_soop.soop.entity.FeedComment">
         <id property="feedCommentId" column="feed_comment_id" />
         <result property="feedId" column="feed_id" />
         <result property="userId" column="user_id" />
         <result property="createDate" column="create_date" />
         <result property="updateDate" column="update_date" />
+    </resultMap>
+
+    <resultMap id="FeedLikeResultMap" type="com.team_soop.soop.entity.FeedLike" >
+        <id property="feedId" column="feed__id" />
+        <result property="userId" column="user_id" />
     </resultMap>
 
     <insert
@@ -84,4 +88,21 @@
         values
             (0, #{feedId}, #{userId}, now())
     </insert>
+
+    <delete id="deleteFeedLike">
+        delete
+        from
+            feed_like_tb
+        where
+            feed_id = #{feedId} and user_id = #{userId}
+    </delete>
+
+    <select id="getFeedLikes" resultMap="FeedLikeResultMap">
+        select
+            feed_id,
+            user_id
+        from
+            feed_like_tb
+    </select>
+
 </mapper>

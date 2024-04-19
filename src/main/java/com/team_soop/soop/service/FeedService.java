@@ -1,6 +1,7 @@
 package com.team_soop.soop.service;
 
-import com.team_soop.soop.dto.SaveFeedLikeReqDto;
+import com.team_soop.soop.dto.LikeFeedReqDto;
+import com.team_soop.soop.dto.LikeFeedRespDto;
 import com.team_soop.soop.dto.SaveFeedReqDto;
 import com.team_soop.soop.dto.SearchFeedRespDto;
 import com.team_soop.soop.entity.Feed;
@@ -20,7 +21,7 @@ public class FeedService {
     @Autowired
     private FeedMapper feedMapper;
 
-
+        // 피드 POST
     @Transactional(rollbackFor = Exception.class)
     public void saveFeed(SaveFeedReqDto saveFeedReqDto) {
 
@@ -33,7 +34,7 @@ public class FeedService {
         }
 
     }
-
+        // 피드 전체 GET
     public List<SearchFeedRespDto> searchFeeds() {
         List<FeedList> feedLists = feedMapper.searchFeeds();
         List<SearchFeedRespDto> searchFeedRespDtos = new ArrayList<>();
@@ -42,10 +43,21 @@ public class FeedService {
         }
         return searchFeedRespDtos;
     }
+        // 좋아요 등록
+    public void likeFeed(LikeFeedReqDto likeFeedReqDto) {
+        feedMapper.saveFeedLike(likeFeedReqDto.toEntity());
+    }
 
-    public void likeFeed(SaveFeedLikeReqDto saveFeedLikeReqDto) {
-        feedMapper.saveFeedLike(saveFeedLikeReqDto.toEntity());
+    public void unLikeFeed(LikeFeedReqDto likeFeedReqDto) {
+        feedMapper.deleteFeedLike(likeFeedReqDto.toEntity());
+    }
 
-
+    public List<LikeFeedRespDto> searchLikeFeed() {
+        List<FeedLike> feedLikes = feedMapper.getFeedLikes();
+        List<LikeFeedRespDto> likeFeedRespDtos = new ArrayList<>();
+        for (FeedLike feedLike : feedLikes) {
+            likeFeedRespDtos.add((feedLike.likeFeedRespDto()));
+        }
+        return likeFeedRespDtos;
     }
 }

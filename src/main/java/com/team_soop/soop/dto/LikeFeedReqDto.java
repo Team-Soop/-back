@@ -4,7 +4,7 @@ import com.team_soop.soop.entity.FeedLike;
 import lombok.Data;
 
 @Data
-public class SaveFeedLikeReqDto {
+public class LikeFeedReqDto {
     private int feedId;
     private int userId;
 

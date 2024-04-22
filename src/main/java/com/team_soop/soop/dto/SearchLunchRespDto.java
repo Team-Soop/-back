@@ -33,5 +33,4 @@ public class SearchLunchRespDto {
     private List<Integer> lunchLikeUserIds;
     private List<String> lunchImgUrls;
     private List<String> lunchCategoryNames;
-    private List<LunchComment> lunchComments;
 }

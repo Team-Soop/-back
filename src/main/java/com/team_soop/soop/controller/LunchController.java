@@ -32,11 +32,11 @@ public class LunchController {
         return ResponseEntity.ok(lunchService.searchLunchList());
     }
 
-    @GetMapping("/lunch/comment/search")
-    public ResponseEntity<?> searchLunchComment(int detailLunchId) {
-        return ResponseEntity.ok(null
-//                lunchService.searchLunchComment(detailLunchId)
-        );
+
+    @PostMapping("/comment/search")
+    public ResponseEntity<?> searchLunchComment(@RequestParam int detailLunchId) {
+
+        return ResponseEntity.ok(lunchService.searchLunchComment1(detailLunchId));
     }
 
 

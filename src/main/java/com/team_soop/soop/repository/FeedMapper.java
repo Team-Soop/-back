@@ -3,6 +3,7 @@ package com.team_soop.soop.repository;
 import com.team_soop.soop.entity.Feed;
 import com.team_soop.soop.entity.FeedLike;
 import com.team_soop.soop.entity.FeedList;
+import com.team_soop.soop.entity.LikeStatus;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.yaml.snakeyaml.events.Event;
@@ -20,6 +21,6 @@ public interface FeedMapper {
 
     public int saveFeedLike(FeedLike feedLike);
     public int deleteFeedLike(FeedLike feedLike);
-    public List<FeedLike> getFeedLikes();
+    public LikeStatus getLikeStatus(@Param("userId") int userId, @Param("feedId") int feedId);
 
 }

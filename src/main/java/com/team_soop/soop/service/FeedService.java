@@ -7,6 +7,7 @@ import com.team_soop.soop.dto.SearchFeedRespDto;
 import com.team_soop.soop.entity.Feed;
 import com.team_soop.soop.entity.FeedLike;
 import com.team_soop.soop.entity.FeedList;
+import com.team_soop.soop.entity.LikeStatus;
 import com.team_soop.soop.repository.FeedMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FeedService {
@@ -44,20 +46,15 @@ public class FeedService {
         return searchFeedRespDtos;
     }
         // 좋아요 등록
-    public void likeFeed(LikeFeedReqDto likeFeedReqDto) {
-        feedMapper.saveFeedLike(likeFeedReqDto.toEntity());
+    public void likeFeed(int userId, int feedId) {
+        feedMapper.saveFeedLike(FeedLike.builder().userId(userId).feedId(feedId).build());
     }
 
-    public void unLikeFeed(LikeFeedReqDto likeFeedReqDto) {
-        feedMapper.deleteFeedLike(likeFeedReqDto.toEntity());
+    public void unLikeFeed(int userId, int feedId) {
+        feedMapper.deleteFeedLike(FeedLike.builder().userId(userId).feedId(feedId).build());
     }
 
-    public List<LikeFeedRespDto> searchLikeFeed() {
-        List<FeedLike> feedLikes = feedMapper.getFeedLikes();
-        List<LikeFeedRespDto> likeFeedRespDtos = new ArrayList<>();
-        for (FeedLike feedLike : feedLikes) {
-            likeFeedRespDtos.add((feedLike.likeFeedRespDto()));
-        }
-        return likeFeedRespDtos;
+    public LikeStatus getLikeStatus(int userId, int feedId) {
+        return feedMapper.getLikeStatus(userId, feedId);
     }
 }

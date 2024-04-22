@@ -2,13 +2,11 @@ package com.team_soop.soop.controller;
 
 import com.team_soop.soop.aop.annotation.ParamsPrintAspect;
 import com.team_soop.soop.aop.annotation.ValidAspect;
-import com.team_soop.soop.dto.SaveFeedLikeReqDto;
+import com.team_soop.soop.dto.LikeFeedReqDto;
 import com.team_soop.soop.dto.SaveFeedReqDto;
-import com.team_soop.soop.security.PrincipalUser;
 import com.team_soop.soop.service.FeedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,15 +37,24 @@ public class FeedController {
 
     @ParamsPrintAspect
     @PostMapping("/like")
-    public ResponseEntity<?> feedLike(@RequestBody SaveFeedLikeReqDto saveFeedLikeReqDto) {
-        feedService.likeFeed(saveFeedLikeReqDto);
+    public ResponseEntity<?> feedLike(@RequestBody LikeFeedReqDto likeFeedReqDto) {
+        feedService.likeFeed(likeFeedReqDto);
         return ResponseEntity.ok(null);
     }
 
+    @ParamsPrintAspect
     @DeleteMapping("/like")
-    public ResponseEntity<?> feedUnLike(@PathVariable int feedId) {
-
+    public ResponseEntity<?> feedUnLike(@RequestBody LikeFeedReqDto likeFeedReqDto) {
+        feedService.unLikeFeed(likeFeedReqDto);
         return ResponseEntity.ok(null);
+    }
+
+    @ParamsPrintAspect
+    @GetMapping("/like")
+    @ResponseBody
+    public ResponseEntity<?> feedLikeList() {
+
+        return ResponseEntity.ok(feedService.searchLikeFeed());
     }
 
 }

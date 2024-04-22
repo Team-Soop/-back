@@ -30,8 +30,10 @@
     </resultMap>
 
     <resultMap id="FeedLikeResultMap" type="com.team_soop.soop.entity.FeedLike" >
-        <id property="feedId" column="feed__id" />
+        <id property="feedLikeId" column="feed_like_id" />
+        <result property="feedId" column="feed_id" />
         <result property="userId" column="user_id" />
+        <result property="createDate" column="create_date" />
     </resultMap>
 
     <insert
@@ -97,12 +99,21 @@
             feed_id = #{feedId} and user_id = #{userId}
     </delete>
 
-    <select id="getFeedLikes" resultMap="FeedLikeResultMap">
+    <select id="getLikeStatus" resultType="com.team_soop.soop.entity.LikeStatus">
         select
-            feed_id,
-            user_id
+            count(*) as likeStatus,
+            (select
+                count(*) as total_count
+            from
+                feed_like_tb
+            where
+                feed_id = #{feedId}
+            ) as totalCount
         from
             feed_like_tb
+        where
+            user_id = #{userId}
+        and feed_id = #{feedId}
     </select>
 
 </mapper>

@@ -15,7 +15,6 @@ public class SearchFeedRespDto {
     private String username;
     private String feedContent;
     private List<String> feedImgUrl;
-    private List<String> feedComment;
 
 
 }

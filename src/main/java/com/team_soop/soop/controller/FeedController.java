@@ -4,6 +4,7 @@ import com.team_soop.soop.aop.annotation.ParamsPrintAspect;
 import com.team_soop.soop.aop.annotation.ValidAspect;
 import com.team_soop.soop.dto.LikeFeedReqDto;
 import com.team_soop.soop.dto.LikeFeedRespDto;
+import com.team_soop.soop.dto.SaveFeedCommentReqDto;
 import com.team_soop.soop.dto.SaveFeedReqDto;
 import com.team_soop.soop.security.PrincipalUser;
 import com.team_soop.soop.service.FeedService;
@@ -62,6 +63,26 @@ public class FeedController {
         PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = principalUser.getUserId();
         return ResponseEntity.ok(feedService.getLikeStatus(userId, feedId));
+    }
+
+    // 댓글 등록
+    @PostMapping("/comment/save")
+    public ResponseEntity<?> feedCommentSave(@RequestBody SaveFeedCommentReqDto saveFeedCommentReqDto) {
+        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int userId = principalUser.getUserId();
+        saveFeedCommentReqDto.setCommentUserId(userId);
+        feedService.saveFeedComment(saveFeedCommentReqDto);
+
+        return ResponseEntity.ok(true);
+    }
+
+    // 댓글 GET
+    @ParamsPrintAspect
+    @GetMapping("/{feedId}/comment")
+    public ResponseEntity<?> feedCommentSearch(@PathVariable int feedId) {
+        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int userId = principalUser.getUserId();
+        return ResponseEntity.ok(true);
     }
 
 }

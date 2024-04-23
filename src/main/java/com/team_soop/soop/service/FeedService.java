@@ -1,13 +1,7 @@
 package com.team_soop.soop.service;
 
-import com.team_soop.soop.dto.LikeFeedReqDto;
-import com.team_soop.soop.dto.LikeFeedRespDto;
-import com.team_soop.soop.dto.SaveFeedReqDto;
-import com.team_soop.soop.dto.SearchFeedRespDto;
-import com.team_soop.soop.entity.Feed;
-import com.team_soop.soop.entity.FeedLike;
-import com.team_soop.soop.entity.FeedList;
-import com.team_soop.soop.entity.LikeStatus;
+import com.team_soop.soop.dto.*;
+import com.team_soop.soop.entity.*;
 import com.team_soop.soop.repository.FeedMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +17,7 @@ public class FeedService {
     @Autowired
     private FeedMapper feedMapper;
 
-        // 피드 POST
+    // 피드 POST
     @Transactional(rollbackFor = Exception.class)
     public void saveFeed(SaveFeedReqDto saveFeedReqDto) {
 
@@ -36,7 +30,7 @@ public class FeedService {
         }
 
     }
-        // 피드 전체 GET
+    // 피드 전체 GET
     public List<SearchFeedRespDto> searchFeeds() {
         List<FeedList> feedLists = feedMapper.searchFeeds();
         List<SearchFeedRespDto> searchFeedRespDtos = new ArrayList<>();
@@ -45,7 +39,7 @@ public class FeedService {
         }
         return searchFeedRespDtos;
     }
-        // 좋아요 등록
+    // 좋아요 등록
     public void likeFeed(int userId, int feedId) {
         feedMapper.saveFeedLike(FeedLike.builder().userId(userId).feedId(feedId).build());
     }
@@ -54,7 +48,18 @@ public class FeedService {
         feedMapper.deleteFeedLike(FeedLike.builder().userId(userId).feedId(feedId).build());
     }
 
+    // 좋아요 get
     public LikeStatus getLikeStatus(int userId, int feedId) {
         return feedMapper.getLikeStatus(userId, feedId);
     }
+
+    // 댓글 작성
+    @Transactional(rollbackFor = Exception.class)
+    public void saveFeedComment(SaveFeedCommentReqDto saveFeedCommentReqDto) {
+        FeedComment feedComment = saveFeedCommentReqDto.toFeedComment();
+
+        feedMapper.saveFeedComment(feedComment);
+    }
+
+
 }

@@ -37,9 +37,6 @@ public class LunchList {
     private List<LunchImgUrl> lunchImgUrl;
     // null 일 수 있음
     private List<LunchCategory> lunchCategoryName;
-    // null 일 수 있음
-    private List<LunchComment> lunchComment;
-
 
     public List<Integer> toLunchLikeUserIds() {
         List<Integer> lunchLikeUserIds = new ArrayList<>();
@@ -89,7 +86,6 @@ public class LunchList {
                 .lunchLikeUserIds(toLunchLikeUserIds())
                 .lunchImgUrls(toLunchImgUrl())
                 .lunchCategoryNames(toLunchCategory())
-                .lunchComments(lunchComment)
                 .build();
     }
 

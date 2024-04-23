@@ -7,15 +7,6 @@
 
 <mapper namespace="com.team_soop.soop.repository.LunchMapper">
 
-<!--    <resultMap id="LunchCommentMap" type="com.team_soop.soop.entity.LunchComment">-->
-<!--        <id property="lunchCommentId"  column="lunch_comment_id"/>-->
-<!--        <result property="lunchId" column="lunch_id"/>-->
-<!--        <result property="lunchCommentId" column="lunch_comment_user_id" />-->
-<!--        <result property="lunchCommentContent" column="lunch_comment_content" />-->
-<!--        <result property="createDate" column="create_date"/>-->
-<!--        <result property="updateDate" column="update_date"/>-->
-<!--    </resultMap>-->
-
     <resultMap id="LunchCategoryMap" type="com.team_soop.soop.entity.LunchCategory">
         <result property="lunchCategoryName" column="lunch_category_name"/>
     </resultMap>
@@ -44,13 +35,12 @@
         <collection property="lunchImgUrl"  javaType="list" resultMap="LunchImgUrlMap" />
         <collection property="lunchLikeUserId" javaType="list" resultMap="LunchLikeMap"/>
         <collection property="lunchCategoryName" javaType="list" resultMap="LunchCategoryMap"/>
-<!--        <collection property="lunchComment" javaType="list" resultMap="LunchCommentMap"/>-->
     </resultMap>
 
     <resultMap id="lunchCommentUserInfoResultMap" type="com.team_soop.soop.entity.LunchComment">
         <id property="lunchCommentId" column="lunch_comment_id"/>
         <result property="lunchId" column="lunch_id"/>
-        <result property="lunchCommentId" column="lunch_comment_user_id"/>
+        <result property="lunchCommentUserId" column="lunch_comment_user_id"/>
         <result property="lunchCommentContent" column="lunch_comment_content"/>
         <result property="lunchCommentNickName" column="nickname"/>
         <result property="lunchCommentUserProfileImgUrl" column="profile_img_url" />
@@ -59,6 +49,23 @@
     </resultMap>
 
 
+    <delete id="deleteComment" parameterType="integer">
+        delete
+        from
+            lunch_comment_tb
+        where
+            lunch_comment_id = #{commentId}
+    </delete>
+    
+    <update id="modifyComment" parameterType="com.team_soop.soop.entity.LunchComment">
+        update
+            lunch_comment_tb
+        set
+            lunch_comment_content = #{lunchCommentContent},
+            update_date = now()
+        where
+            lunch_comment_id = #{lunchCommentId}
+    </update>
 
 
     <insert
@@ -115,26 +122,17 @@
 
             llt.lunch_like_user_id,
             liut.lunch_img_url,
-            lctt.lunch_category_name,
-
-<!--            lc.lunch_comment_id,-->
-<!--            lc.lunch_id,-->
-<!--            lc.lunch_comment_user_id,-->
-<!--            lc.lunch_comment_content,-->
-<!--            lc.create_date,-->
-<!--            lc.update_date-->
+            lctt.lunch_category_name
         from
             lunch_tb lt
             left outer join lunch_img_url_tb liut on ( liut.lunch_id = lt.lunch_id )
             left outer join lunch_like_tb llt on ( llt.lunch_id = lt.lunch_id )
             left outer join lunch_category_tb lctt on ( lctt.lunch_id = lt.lunch_id )
-<!--            left outer join lunch_comment_tb lc on ( lc.lunch_id = lt.lunch_id )-->
             left outer join user_tb ut on ( ut.user_id = lt.user_id )
     </select>
 
     <select
         id="searchLunchComment"
-        parameterType="integer"
         resultMap="lunchCommentUserInfoResultMap"
     >
         select
@@ -144,16 +142,16 @@
             lct.lunch_comment_content,
 
             ut.nickname,
-            ut.profile_img_url.
+            ut.profile_img_url,
 
             lct.create_date,
-            lct.update_date,
+            lct.update_date
         from
             lunch_tb lt
             left outer join lunch_comment_tb lct on ( lct.lunch_id = lt.lunch_id )
             left outer join user_tb ut on ( ut.user_id = lct.lunch_comment_user_id )
         where
-            lunch_id = #{detailLunchId}
+            lct.lunch_id = #{detailLunchId}
     </select>
 
 

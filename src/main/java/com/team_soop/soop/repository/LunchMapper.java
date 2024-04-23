@@ -16,4 +16,7 @@ public interface LunchMapper {
     public int saveLunchComment(LunchComment lunchComment);
     public List<LunchList> searchLunchList();
     public List <LunchComment> searchLunchComment(int detailLunchId);
+    public int modifyComment(LunchComment lunchComment);
+    public int deleteComment(int commentId);
 }
+

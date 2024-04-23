@@ -1,8 +1,6 @@
 package com.team_soop.soop.service;
 
-import com.team_soop.soop.dto.SaveLunchCommentReqDto;
-import com.team_soop.soop.dto.SaveLunchReqDto;
-import com.team_soop.soop.dto.SearchLunchRespDto;
+import com.team_soop.soop.dto.*;
 import com.team_soop.soop.entity.Lunch;
 import com.team_soop.soop.entity.LunchComment;
 import com.team_soop.soop.entity.LunchList;
@@ -49,18 +47,10 @@ public class LunchService {
         lunchMapper.saveLunchComment(lunchComment);
     }
 
-    // 런치페이지, 런치상세페이지 DB들고오기
+    // 런치상세페이지 DB들고오기
     @Transactional(rollbackFor = Exception.class)
     public List<SearchLunchRespDto> searchLunchList () {
         List<LunchList> lunchLists = lunchMapper.searchLunchList();
-
-//        for(LunchList lunchList : lunchLists) {
-//            List<LunchComment> lunchComments = lunchList.getLunchComment();
-//            for(LunchComment lunchComment : lunchComments) {
-//                 lunchMapper.searchLunchComment(lunchComment.getLunchCommentUserId());
-//            }
-//        }
-
 
         List<SearchLunchRespDto> searchLunchRespDtos = new ArrayList<>();
 
@@ -72,14 +62,34 @@ public class LunchService {
     }
 
     // 런치 상세페이지 댓글 들고오기
-//    @Transactional(rollbackFor = Exception.class)
-//    public List<LunchComment> searchLunchComment (int detailLunchId) {
-//        List<LunchComment> lunchComments = lunchMapper.searchLunchComment(detailLunchId);
-//
-//    }
+    @Transactional(rollbackFor = Exception.class)
+    public List<SearchLunchCommentRespDto> searchLunchComment1 (int detailLunchId) {
+        List<LunchComment> lunchComments = lunchMapper.searchLunchComment(detailLunchId);
 
+        List<SearchLunchCommentRespDto> searchLunchCommentRespDtos = new ArrayList<>();
 
+        if(lunchComments == null) {
+            System.out.println("널이랍니다");
+        }
 
+        for(LunchComment lunchComment  : lunchComments) {
+            searchLunchCommentRespDtos.add(lunchComment.toSearchLunchCommentRespDto());
+        }
+
+        return searchLunchCommentRespDtos;
+    }
+
+    // 런치 상세페이지 댓글 수정
+    @Transactional(rollbackFor = Exception.class)
+    public void updateComment(UpdateLunchCommentReqDto updateLunchCommentReqDto) {
+        lunchMapper.modifyComment(updateLunchCommentReqDto.toLunchComment());
+    }
+
+    // 런치 상세페이지 댓글 삭제
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteComment(int commentId){
+        lunchMapper.deleteComment(commentId);
+    }
 
 
 

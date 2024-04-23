@@ -2,13 +2,14 @@ package com.team_soop.soop.controller;
 
 import com.team_soop.soop.aop.annotation.ParamsPrintAspect;
 import com.team_soop.soop.aop.annotation.ValidAspect;
-import com.team_soop.soop.dto.SaveFeedLikeReqDto;
+import com.team_soop.soop.dto.LikeFeedReqDto;
+import com.team_soop.soop.dto.LikeFeedRespDto;
 import com.team_soop.soop.dto.SaveFeedReqDto;
 import com.team_soop.soop.security.PrincipalUser;
 import com.team_soop.soop.service.FeedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,16 +39,29 @@ public class FeedController {
     }
 
     @ParamsPrintAspect
-    @PostMapping("/like")
-    public ResponseEntity<?> feedLike(@RequestBody SaveFeedLikeReqDto saveFeedLikeReqDto) {
-        feedService.likeFeed(saveFeedLikeReqDto);
+    @PostMapping("/{feedId}/like")
+    public ResponseEntity<?> feedLike(@PathVariable int feedId) {
+        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int userId = principalUser.getUserId();
+        feedService.likeFeed(userId, feedId);
         return ResponseEntity.ok(null);
     }
 
-    @DeleteMapping("/like")
+    @ParamsPrintAspect
+    @DeleteMapping("/{feedId}/like")
     public ResponseEntity<?> feedUnLike(@PathVariable int feedId) {
-
+        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int userId = principalUser.getUserId();
+        feedService.unLikeFeed(userId, feedId);
         return ResponseEntity.ok(null);
+    }
+
+    @ParamsPrintAspect
+    @GetMapping("/{feedId}/like")
+    public ResponseEntity<?> getFeedLike(@PathVariable int feedId) {
+        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int userId = principalUser.getUserId();
+        return ResponseEntity.ok(feedService.getLikeStatus(userId, feedId));
     }
 
 }

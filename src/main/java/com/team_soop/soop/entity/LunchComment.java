@@ -1,5 +1,6 @@
 package com.team_soop.soop.entity;
 
+import com.team_soop.soop.dto.SearchLunchCommentRespDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,4 +21,18 @@ public class LunchComment {
     private String lunchCommentUserProfileImgUrl;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+
+    public SearchLunchCommentRespDto toSearchLunchCommentRespDto() {
+        return SearchLunchCommentRespDto.builder()
+                .lunchCommentId(lunchCommentId)
+                .lunchId(lunchId)
+                .lunchCommentUserId(lunchCommentUserId)
+                .lunchCommentContent(lunchCommentContent)
+                .lunchCommentNickName(lunchCommentNickName)
+                .lunchCommentUserProfileImgUrl(lunchCommentUserProfileImgUrl)
+                .createDate(createDate)
+                .updateDate(updateDate)
+                .build();
+    }
+
 }

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team_soop.soop.repository.StudyMapper">
+    <resultMap id="studyCategoryResultMap" type="com.team_soop.soop.entity.StudyCategory">
+        <id property="studyCategoryId" column="study_category_id" />
+        <result property="studyCategoryName" column="study_category_name" />
+    </resultMap>
+
+    <resultMap id="UserResultMap" type="com.team_soop.soop.entity.User">
+        <id property="userId" column="user_id" />
+        <result property="nickname" column="nickname"/>
+        <result property="profileImgUrl" column="profile_img_url" />
+    </resultMap>
+
+    <resultMap id="studyGroupResultMap" type="com.team_soop.soop.entity.StudyGroup">
+        <id property="studyId" column="study_id" />
+        <result property="menuCategoryId" column="menu_category_id" />
+        <result property="managerUserId" column="manager_user_id" />
+        <result property="studyTitle" column="study_title" />
+        <result property="studyContent" column="study_content" />
+        <result property="studySkills" column="study_skills" />
+        <result property="studyMemberLimited" column="study_member_limited" />
+        <result property="studyPeriodEnd" column="study_period_end" />
+        <result property="memberCount" column="member_count" />
+        <association property="userInfo" resultMap="UserResultMap" />
+    </resultMap>
+
+    <select id="searchStudyCategories" resultMap="studyCategoryResultMap">
+        select
+            study_category_id,
+            study_category_name
+        from
+            study_category_tb
+    </select>
+
+    <insert id="saveStudyGroup" parameterType="com.team_soop.soop.entity.StudyGroup">
+        insert into study_tb
+        values (0, 2, #{managerUserId}, #{studyTitle}, #{studyContent}, #{studySkils}, #{studyMemberLimited}, #{studyPeriodEnd}, now(), now())
+    </insert>
+
+    <select id="searchStudyGroupList" resultMap="studyGroupResultMap" >
+        select
+            st.study_id,
+            ut.user_id,
+            ut.nickname,
+            st.study_title,
+            st.study_period_end,
+            st.study_skills,
+            st.study_member_limited,
+            count(srt.user_id) as member_count
+        from
+            study_tb st
+            left outer join user_tb ut on (ut.user_id = st.manager_user_id)
+            left outer join study_recruitment_tb srt on (srt.study_id = st.study_id)
+        group by
+            st.study_id;
+    </select>
+
+</mapper>

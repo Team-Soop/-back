@@ -19,3 +19,4 @@ public interface LunchMapper {
     public int modifyComment(LunchComment lunchComment);
     public int deleteComment(int commentId);
 }
+

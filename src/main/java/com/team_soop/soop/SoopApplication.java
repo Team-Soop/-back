@@ -9,5 +9,4 @@ public class SoopApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SoopApplication.class, args);
 	}
-
 }

@@ -28,6 +28,17 @@
         <result property="createDate" column="create_date" />
     </resultMap>
 
+    <resultMap id="FeedCommentResultMap" type="com.team_soop.soop.entity.FeedComment">
+        <id property="feedCommentId" column="feed_comment_id"/>
+        <result property="feedId" column="feed_id"/>
+        <result property="feedCommentUserId" column="user_id"/>
+        <result property="feedCommentContent" column="feed_comment_content"/>
+        <result property="feedCommentNickName" column="nickname"/>
+        <result property="feedCommentUserProfileImgUrl" column="profile_img_url"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+
     <insert
             id="saveFeed"
             parameterType="com.team_soop.soop.entity.Feed"
@@ -107,4 +118,25 @@
         and feed_id = #{feedId}
     </select>
 
+    <select
+        id="searchFeedComment"
+        resultMap="FeedCommentResultMap"
+    >
+        select
+            fct.feed_comment_id,
+            fct.feed_id,
+            fct.user_id,
+            fct.feed_comment_content,
+
+            ut.nickname,
+            ut.profile_img_url,
+
+            fct.create_date,
+            fct.update_date
+        from
+            feed_comment_tb fct
+            left outer join user_tb ut on ( ut.user_id = fct.user_id )
+        where
+            fct.feed_id = #{feedId};
+    </select>
 </mapper>

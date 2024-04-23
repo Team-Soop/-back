@@ -20,4 +20,18 @@ public class FeedComment {
     private String feedCommentUserProfileImgUrl;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+
+    public SearchFeedCommentRespDto toSearchFeedCommentRespDto() {
+        return SearchFeedCommentRespDto.builder()
+                .feedCommentId(feedCommentId)
+                .feedId(feedId)
+                .feedCommentUserId(feedCommentUserId)
+                .feedCommentContent(feedCommentContent)
+                .feedCommentNickName(feedCommentNickName)
+                .feedCommentUserProfileImgUrl(feedCommentUserProfileImgUrl)
+                .createDate(createDate)
+                .updateDate(updateDate)
+                .build();
+    }
+
 }

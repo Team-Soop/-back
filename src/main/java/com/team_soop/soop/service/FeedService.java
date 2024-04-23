@@ -1,5 +1,6 @@
 package com.team_soop.soop.service;
 
+import com.team_soop.soop.aop.annotation.ParamsPrintAspect;
 import com.team_soop.soop.dto.*;
 import com.team_soop.soop.entity.*;
 import com.team_soop.soop.repository.FeedMapper;
@@ -54,11 +55,25 @@ public class FeedService {
     }
 
     // 댓글 작성
+    @ParamsPrintAspect
     @Transactional(rollbackFor = Exception.class)
-    public void saveFeedComment(SaveFeedCommentReqDto saveFeedCommentReqDto) {
+    public void saveFeedComment(SaveFeedCommentReqDto saveFeedCommentReqDto, int userId) {
+        saveFeedCommentReqDto.setCommentUserId(userId);
         FeedComment feedComment = saveFeedCommentReqDto.toFeedComment();
-
         feedMapper.saveFeedComment(feedComment);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public List<SearchFeedCommentRespDto> searchFeedComment(int feedId) {
+        List<FeedComment> feedComments = feedMapper.searchFeedComment(feedId);
+
+        List<SearchFeedCommentRespDto> SearchFeedCommentRespDto = new ArrayList<>();
+
+        for(FeedComment feedComment : feedComments){
+            SearchFeedCommentRespDto.add(feedComment.toSearchFeedCommentRespDto());
+        }
+
+        return SearchFeedCommentRespDto;
     }
 
 

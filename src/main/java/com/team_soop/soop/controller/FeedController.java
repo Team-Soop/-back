@@ -35,7 +35,6 @@ public class FeedController {
     @GetMapping()
     @ResponseBody
     public ResponseEntity<?> feedList() {
-
         return ResponseEntity.ok(feedService.searchFeeds());
     }
 
@@ -57,7 +56,7 @@ public class FeedController {
         return ResponseEntity.ok(null);
     }
 
-    @ParamsPrintAspect
+
     @GetMapping("/{feedId}/like")
     public ResponseEntity<?> getFeedLike(@PathVariable int feedId) {
         PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -70,19 +69,21 @@ public class FeedController {
     public ResponseEntity<?> feedCommentSave(@RequestBody SaveFeedCommentReqDto saveFeedCommentReqDto) {
         PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = principalUser.getUserId();
-        saveFeedCommentReqDto.setCommentUserId(userId);
-        feedService.saveFeedComment(saveFeedCommentReqDto);
+        System.out.println(userId);
+
+        feedService.saveFeedComment(saveFeedCommentReqDto, userId);
 
         return ResponseEntity.ok(true);
     }
 
     // 댓글 GET
-    @ParamsPrintAspect
     @GetMapping("/{feedId}/comment")
     public ResponseEntity<?> feedCommentSearch(@PathVariable int feedId) {
-        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        int userId = principalUser.getUserId();
-        return ResponseEntity.ok(true);
+        return ResponseEntity.ok(feedService.searchFeedComment(feedId));
     }
+
+
+
+
 
 }

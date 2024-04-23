@@ -19,7 +19,7 @@ public class FeedList {
     private String feedContent;
     private List<FeedImgUrl> feedImgUrl;
     private int feedLikeCount;
-    private List<FeedComment> feedComment;
+//    private List<FeedComment> feedComment;
 
     public SearchFeedRespDto searchFeedRespDto() {
         return SearchFeedRespDto.builder()
@@ -29,7 +29,6 @@ public class FeedList {
                 .username(username)
                 .feedContent(feedContent)
                 .feedImgUrl(feedImgUrl.stream().map(FeedImgUrl::getFeedImgUrl).collect(Collectors.toList()))
-                .feedComment(feedComment.stream().map(FeedComment::getFeedCommentContent).collect(Collectors.toList()))
                 .build();
     }
 }

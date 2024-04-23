@@ -4,9 +4,33 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.team_soop.soop.repository.SaveBoardMapper">
-    <insert id="saveLunchBoard">
+
+    <insert id="saveAddBoard">
         insert into save_board_tb
         values
-            (0, #{useId}, #{boardId}, #{menuId}, now());
+            (0, #{userId}, #{boardMenuId}, #{boarId}, now());
     </insert>
+
+    <delete id="deleteSaveBoard">
+        delete
+        from
+            save_board_tb
+        where
+            save_board_userId = #{userId}
+        and menu_category_id = #{menuId}
+        and board_id = #{lunchId}
+    </delete>
+
+    <select id="getSaveBoardStatus" resultType="com.team_soop.soop.entity.SaveBoardStatus">
+        select
+            count(*) as saveBoardStatus
+        from
+            save_board_tb
+        where
+            save_board_userId = #{userId}
+        and menu_category_id = #{menuId}
+        and board_id = #{lunchId}
+    </select>
+
+
 </mapper>

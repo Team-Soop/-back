@@ -14,8 +14,10 @@ import java.time.LocalDateTime;
 public class FeedComment {
     private int feedCommentId;
     private int feedId;
-    private int userId;
+    private int feedCommentUserId;
     private String feedCommentContent;
+    private String feedCommentNickName;
+    private String feedCommentUserProfileImgUrl;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 }

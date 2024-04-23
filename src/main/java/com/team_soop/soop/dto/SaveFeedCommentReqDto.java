@@ -2,12 +2,14 @@ package com.team_soop.soop.dto;
 
 import com.team_soop.soop.entity.FeedComment;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class SaveFeedCommentReqDto {
     private int feedId;
     private int commentUserId;
@@ -16,7 +18,7 @@ public class SaveFeedCommentReqDto {
 
     public FeedComment toFeedComment () {
         return FeedComment.builder()
-                .feedCommentId(feedId)
+                .feedId(feedId)
                 .feedCommentUserId(commentUserId)
                 .feedCommentContent(commentContent)
                 .build();

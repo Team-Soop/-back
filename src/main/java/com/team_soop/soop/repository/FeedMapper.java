@@ -24,4 +24,5 @@ public interface FeedMapper {
 
     // 피드 댓글
     public int saveFeedComment(FeedComment feedComment);
+    public List<FeedComment> searchFeedComment(int feedId);
 }

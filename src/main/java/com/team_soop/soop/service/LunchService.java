@@ -68,10 +68,6 @@ public class LunchService {
 
         List<SearchLunchCommentRespDto> searchLunchCommentRespDtos = new ArrayList<>();
 
-        if(lunchComments == null) {
-            System.out.println("널이랍니다");
-        }
-
         for(LunchComment lunchComment  : lunchComments) {
             searchLunchCommentRespDtos.add(lunchComment.toSearchLunchCommentRespDto());
         }

@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class SearchStudyCategoryRespDto {
     private int studyCategoryId;
     private String studyCategoryName;
+    private boolean checkState;
 }

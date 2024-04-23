@@ -18,6 +18,7 @@ public class StudyCategory {
         return SearchStudyCategoryRespDto.builder()
                 .studyCategoryId(studyCategoryId)
                 .studyCategoryName(studyCategoryName)
+                .checkState(false)
                 .build();
     }
 }

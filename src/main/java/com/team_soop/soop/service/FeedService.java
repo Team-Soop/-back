@@ -63,6 +63,7 @@ public class FeedService {
         feedMapper.saveFeedComment(feedComment);
     }
 
+    // 댓글 리스트 조회
     @Transactional(rollbackFor = Exception.class)
     public List<SearchFeedCommentRespDto> searchFeedComment(int feedId) {
         List<FeedComment> feedComments = feedMapper.searchFeedComment(feedId);
@@ -75,6 +76,37 @@ public class FeedService {
 
         return SearchFeedCommentRespDto;
     }
+
+    // 댓글 수정
+    @Transactional(rollbackFor = Exception.class)
+    public void updateComment(UpdateFeedCommentReqDto updateFeedCommentReqDto) {
+        feedMapper.modifyComment(updateFeedCommentReqDto.toFeedComment());
+    }
+
+    // 댓글 삭제
+    @ParamsPrintAspect
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteComment(int commentId, int userId) {
+        feedMapper.deleteComment(commentId, userId);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

@@ -2,10 +2,7 @@ package com.team_soop.soop.controller;
 
 import com.team_soop.soop.aop.annotation.ParamsPrintAspect;
 import com.team_soop.soop.aop.annotation.ValidAspect;
-import com.team_soop.soop.dto.LikeFeedReqDto;
-import com.team_soop.soop.dto.LikeFeedRespDto;
-import com.team_soop.soop.dto.SaveFeedCommentReqDto;
-import com.team_soop.soop.dto.SaveFeedReqDto;
+import com.team_soop.soop.dto.*;
 import com.team_soop.soop.security.PrincipalUser;
 import com.team_soop.soop.service.FeedService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +79,22 @@ public class FeedController {
         return ResponseEntity.ok(feedService.searchFeedComment(feedId));
     }
 
+    // 댓글 PUT
+    @PutMapping("/comment/update")
+    public ResponseEntity<?> feedCommentPut(@RequestBody UpdateFeedCommentReqDto updateFeedCommentReqDto) {
+        feedService.updateComment(updateFeedCommentReqDto);
+        return ResponseEntity.ok(true);
+    }
 
+    // 댓글 삭제
+    @DeleteMapping("/comment/delete/{commentId}")
+    public ResponseEntity<?> feedCommentDelete(@PathVariable int commentId) {
+        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int userId = principalUser.getUserId();
+
+        feedService.deleteComment(commentId, userId);
+        return ResponseEntity.ok(true);
+    }
 
 
 

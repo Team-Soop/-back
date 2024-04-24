@@ -7,10 +7,14 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class LunchLikeUserId {
-    private int lunchLikeUserId;
+@Data
+public class LunchLike {
+    private int lunchLikeId;
+    private int lunchId;
+    private int userId;
+    private LocalDateTime createDate;
+
 }

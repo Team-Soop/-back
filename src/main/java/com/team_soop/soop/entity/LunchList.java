@@ -30,23 +30,10 @@ public class LunchList {
     private String nickName;
     // null 일 수 있음
     private String profileImgUrl;
-
-    // null 일 수 있음
-    private List<LunchLikeUserId> lunchLikeUserId;
     // null 일 수 있음
     private List<LunchImgUrl> lunchImgUrl;
     // null 일 수 있음
     private List<LunchCategory> lunchCategoryName;
-
-    public List<Integer> toLunchLikeUserIds() {
-        List<Integer> lunchLikeUserIds = new ArrayList<>();
-
-        for(LunchLikeUserId findLunchLikeUserId : lunchLikeUserId) {
-            lunchLikeUserIds.add(findLunchLikeUserId.getLunchLikeUserId());
-        }
-
-        return lunchLikeUserIds;
-    }
 
     public List<String> toLunchImgUrl() {
         List<String> lunchImgUrls = new ArrayList<>();
@@ -83,7 +70,6 @@ public class LunchList {
                 .updateDate(updateDate)
                 .nickName(nickName)
                 .profileImgUrl(profileImgUrl)
-                .lunchLikeUserIds(toLunchLikeUserIds())
                 .lunchImgUrls(toLunchImgUrl())
                 .lunchCategoryNames(toLunchCategory())
                 .build();

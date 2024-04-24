@@ -44,7 +44,7 @@ public class FeedService {
     public void likeFeed(int userId, int feedId) {
         feedMapper.saveFeedLike(FeedLike.builder().userId(userId).feedId(feedId).build());
     }
-
+    // 좋아요 취소
     public void unLikeFeed(int userId, int feedId) {
         feedMapper.deleteFeedLike(FeedLike.builder().userId(userId).feedId(feedId).build());
     }

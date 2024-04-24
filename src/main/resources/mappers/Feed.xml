@@ -39,6 +39,26 @@
         <result property="updateDate" column="update_date"/>
     </resultMap>
 
+    <delete id="deleteComment" parameterType="integer">
+        delete
+        from
+            feed_comment_tb
+        where
+            feed_comment_id = #{commentId}
+        and user_id = #{userId}
+    </delete>
+
+    <update id="modifyComment" parameterType="com.team_soop.soop.entity.FeedComment">
+        update
+            feed_comment_tb
+        set
+            feed_comment_content = #{feedCommentContent},
+            update_date = now()
+        where
+            feed_comment_id = #{feedCommentId}
+        and user_id = #{feedCommentUserId}
+    </update>
+
     <insert
             id="saveFeed"
             parameterType="com.team_soop.soop.entity.Feed"

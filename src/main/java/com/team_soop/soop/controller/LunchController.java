@@ -64,7 +64,25 @@ public class LunchController {
     public ResponseEntity<?> lunchLike(@PathVariable int lunchId) {
         PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = principalUser.getUserId();
+        lunchService.saveLunchLike(userId, lunchId);
+        return ResponseEntity.ok(null);
+    }
 
+    // 좋아요,추천 상태
+    @GetMapping("/{lunchId}/like")
+    public ResponseEntity<?> getLunchLike(@PathVariable int lunchId) {
+        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int userId = principalUser.getUserId();
+
+        return ResponseEntity.ok(lunchService.getLikeStatus(userId, lunchId));
+    }
+
+    // 좋아요,추천 취소
+    @DeleteMapping("/{lunchId}/like")
+    public ResponseEntity<?> lunchUnLike(@PathVariable int lunchId) {
+        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int userId = principalUser.getUserId();
+        lunchService.unLikeLunch(userId, lunchId);
         return ResponseEntity.ok(null);
     }
 

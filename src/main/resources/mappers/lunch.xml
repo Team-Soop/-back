@@ -11,10 +11,6 @@
         <result property="lunchCategoryName" column="lunch_category_name"/>
     </resultMap>
 
-    <resultMap id="LunchLikeMap" type="com.team_soop.soop.entity.LunchLikeUserId">
-        <result property="lunchLikeUserId" column="lunch_like_user_id"/>
-    </resultMap>
-
     <resultMap id="LunchImgUrlMap" type="com.team_soop.soop.entity.LunchImgUrl">
         <result property="lunchImgUrl" column="lunch_img_url"/>
     </resultMap>
@@ -33,7 +29,6 @@
         <result property="nickName" column="nickname"/>
         <result property="profileImgUrl" column="profile_img_url"/>
         <collection property="lunchImgUrl"  javaType="list" resultMap="LunchImgUrlMap" />
-        <collection property="lunchLikeUserId" javaType="list" resultMap="LunchLikeMap"/>
         <collection property="lunchCategoryName" javaType="list" resultMap="LunchCategoryMap"/>
     </resultMap>
 
@@ -55,6 +50,14 @@
             lunch_comment_tb
         where
             lunch_comment_id = #{commentId}
+    </delete>
+
+    <delete id="deleteLunchLike">
+        delete
+        from
+            lunch_like_tb
+        where
+            lunch_id = #{lunchId} and lunch_like_user_id = #{userId}
     </delete>
     
     <update id="modifyComment" parameterType="com.team_soop.soop.entity.LunchComment">
@@ -101,6 +104,12 @@
         (0, #{lunchId}, #{lunchCommentUserId}, #{lunchCommentContent}, now(), now())
     </insert>
 
+    <insert id="saveLunchLike">
+        insert into lunch_like_tb
+        values
+            (0, #{lunchId}, #{userId}, now())
+    </insert>
+
     <select
         id="searchLunchList"
         resultMap="lunchResultMap"
@@ -120,13 +129,11 @@
             ut.nickname,
             ut.profile_img_url,
 
-            llt.lunch_like_user_id,
             liut.lunch_img_url,
             lctt.lunch_category_name
         from
             lunch_tb lt
             left outer join lunch_img_url_tb liut on ( liut.lunch_id = lt.lunch_id )
-            left outer join lunch_like_tb llt on ( llt.lunch_id = lt.lunch_id )
             left outer join lunch_category_tb lctt on ( lctt.lunch_id = lt.lunch_id )
             left outer join user_tb ut on ( ut.user_id = lt.user_id )
     </select>
@@ -154,7 +161,22 @@
             lct.lunch_id = #{detailLunchId}
     </select>
 
-
+    <select id="getLikeLunchStatus" resultType="com.team_soop.soop.entity.LikeStatus">
+        select
+            count(*) as likeStatus,
+            (select
+                count(*) as total_count
+            from
+                lunch_like_tb
+            where
+                lunch_id = #{lunchId}
+            ) as totalCount
+        from
+            lunch_like_tb
+        where
+            lunch_like_user_id = #{userId}
+        and lunch_id = #{lunchId}
+    </select>
 
 
 

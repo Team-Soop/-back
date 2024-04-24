@@ -1,9 +1,8 @@
 package com.team_soop.soop.service;
 
+import com.team_soop.soop.aop.annotation.ParamsPrintAspect;
 import com.team_soop.soop.dto.*;
-import com.team_soop.soop.entity.Lunch;
-import com.team_soop.soop.entity.LunchComment;
-import com.team_soop.soop.entity.LunchList;
+import com.team_soop.soop.entity.*;
 import com.team_soop.soop.repository.LunchMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -87,6 +86,23 @@ public class LunchService {
         lunchMapper.deleteComment(commentId);
     }
 
+    // 런치 좋아요, 추천 등록
+    @Transactional(rollbackFor = Exception.class)
+    public void saveLunchLike(int userId, int lunchId) {
+        lunchMapper.saveLunchLike(LunchLike.builder().userId(userId).lunchId(lunchId).build());
+    }
+
+    // 런치 좋아요, 추천 상태 get
+    @Transactional(rollbackFor = Exception.class)
+    public LikeStatus getLikeStatus(int userId, int lunchId) {
+        return lunchMapper.getLikeLunchStatus(userId, lunchId);
+    }
+
+    // 런치 좋아요,추천 취소
+    @Transactional(rollbackFor = Exception.class)
+    public void unLikeLunch(int userId, int lunchId) {
+        lunchMapper.deleteLunchLike(LunchLike.builder().userId(userId).lunchId(lunchId).build());
+    }
 
 
 }

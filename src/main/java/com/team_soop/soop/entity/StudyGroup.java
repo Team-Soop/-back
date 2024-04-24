@@ -1,6 +1,7 @@
 package com.team_soop.soop.entity;
 
 import com.team_soop.soop.dto.SearchStudyGroupListRespDto;
+import com.team_soop.soop.dto.SearchStudyGroupRespDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,27 +16,35 @@ import java.util.Date;
 @Builder
 public class StudyGroup {
     private int studyId;
-    private int menuCategoryId;
     private int managerUserId;
     private String studyTitle;
     private String studyContent;
     private String studySkills;
+    private LocalDateTime studyPeriodEnd;
+    private LocalDateTime contentCreateTime;
     private int memberCount;
     private int studyMemberLimited;
-    private LocalDateTime studyPeriodEnd;
+    private int timeCount;
+    private int waitingMemberCount;
     private User userInfo;
 
-    public SearchStudyGroupListRespDto toSearchStudyGroupListRespDto(Date dDay){
+    public SearchStudyGroupListRespDto toSearchStudyGroupListRespDto(){
         return SearchStudyGroupListRespDto.builder()
                 .studyId(studyId)
                 .studyTitle(studyTitle)
                 .studySkills(studySkills)
                 .memberCount(memberCount)
                 .studyMemberLimited(studyMemberLimited)
-                .periodEndDDay(dDay)
+                .timeCount(timeCount)
                 .userId(userInfo.getUserId())
                 .nickname(userInfo.getNickname())
                 .profileImgUrl(userInfo.getProfileImgUrl())
+                .build();
+    }
+
+    public SearchStudyGroupRespDto toSearchStudyGroupRespDto(){
+        return SearchStudyGroupRespDto.builder()
+
                 .build();
     }
 }

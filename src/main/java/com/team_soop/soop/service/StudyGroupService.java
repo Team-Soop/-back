@@ -21,19 +21,6 @@ public class StudyGroupService {
     @Autowired
     StudyMapper studyMapper;
 
-    public Date dDayCalculate(LocalDateTime studyPeriodEnd) {
-        boolean isPeriodEnd;
-        Date todayDate = new Date();
-        Date dDayDate = new Date();
-
-        System.out.println(studyPeriodEnd);
-        System.out.println(todayDate);
-        System.out.println(dDayDate);
-
-
-        return dDayDate;
-    }
-
     public List<SearchStudyCategoryRespDto> searchStudyCategory() {
         List<StudyCategory> studyCategories = studyMapper.searchStudyCategories();
         List<SearchStudyCategoryRespDto> searchStudyCategoryRespDtos = new ArrayList<>();
@@ -53,12 +40,8 @@ public class StudyGroupService {
         List<SearchStudyGroupListRespDto> searchStudyGroupListRespDtos = new ArrayList<>();
 
         for (StudyGroup studyGroup : studyGroupList) {
-            System.out.println(studyGroup);
-            searchStudyGroupListRespDtos.add(studyGroup.toSearchStudyGroupListRespDto(dDayCalculate(studyGroup.getStudyPeriodEnd())));
+            searchStudyGroupListRespDtos.add(studyGroup.toSearchStudyGroupListRespDto());
         }
-
         return searchStudyGroupListRespDtos;
     }
-
-//    public testDDayCalculate()
 }

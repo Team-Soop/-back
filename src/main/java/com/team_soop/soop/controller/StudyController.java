@@ -19,7 +19,6 @@ public class StudyController {
         return ResponseEntity.ok(studyGroupService.searchStudyCategory());
     }
 
-    @ParamsPrintAspect
     @PostMapping("/save")
     public ResponseEntity<?> saveStudyGroup(@RequestBody SaveStudyGroupReqDto saveStudyGroupReqDto) {
         studyGroupService.saveStudyGroup(saveStudyGroupReqDto);
@@ -28,7 +27,12 @@ public class StudyController {
 
     @GetMapping("/boardlist")
     public ResponseEntity<?> searchStudyGroupList() {
-        System.out.println(studyGroupService.searchStudyGroupList());
+        return ResponseEntity.ok(studyGroupService.searchStudyGroupList());
+    }
+
+    @GetMapping("/board/{studyId}")
+    public ResponseEntity<?> searchStudyGroup(@PathVariable int studyId) {
+        System.out.println(studyId);
         return ResponseEntity.ok(null);
     }
 }

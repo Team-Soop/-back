@@ -18,7 +18,7 @@ public class SearchStudyGroupListRespDto {
     private String studySkills;
     private int memberCount;
     private int studyMemberLimited;
-    private Date periodEndDDay;
+    private int timeCount;
     private int userId;
     private String nickname;
     private String profileImgUrl;

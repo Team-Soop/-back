@@ -9,7 +9,10 @@ import java.util.List;
 
 @Mapper
 public interface StudyMapper {
-    public List<StudyCategory> searchStudyCategories();
     public int saveStudyGroup(StudyGroup studyGroup);
+    public int updateStudyGroup(StudyGroup studyGroup);
+    public List<StudyCategory> searchStudyCategories();
     public List<StudyGroup> searchStudyGroupList();
+    public StudyGroup searchStudyGroup(int studyId);
+    public int deleteStudyGroup(int studyId);
 }

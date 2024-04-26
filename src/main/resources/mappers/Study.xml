@@ -90,4 +90,26 @@
          st.study_id = #{studyId}
     </select>
 
+    <update id="updateStudyGroup" parameterType="com.team_soop.soop.entity.StudyGroup" >
+        update
+            study_tb
+        set
+            study_title = #{studyTitle},
+            study_content = #{studyContent},
+            study_skills = #{studySkills},
+            study_period_end = #{studyPeriodEnd},
+            study_member_limited = #{studyMemberLimited},
+            update_date = now()
+        where
+            study_id = #{studyId}
+    </update>
+
+    <delete id="deleteStudyGroup" parameterType="int">
+        delete
+        from
+            study_tb
+        where
+            study_id = #{studyId}
+    </delete>
+
 </mapper>

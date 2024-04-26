@@ -1,8 +1,6 @@
 package com.team_soop.soop.service;
 
-import com.team_soop.soop.dto.SaveStudyGroupReqDto;
-import com.team_soop.soop.dto.SearchStudyCategoryRespDto;
-import com.team_soop.soop.dto.SearchStudyGroupListRespDto;
+import com.team_soop.soop.dto.*;
 import com.team_soop.soop.entity.StudyCategory;
 import com.team_soop.soop.entity.StudyGroup;
 import com.team_soop.soop.repository.StudyMapper;
@@ -31,8 +29,8 @@ public class StudyGroupService {
         return searchStudyCategoryRespDtos;
     }
 
-    public void saveStudyGroup(SaveStudyGroupReqDto saveStudyGroupReqDto) {
-        studyMapper.saveStudyGroup(saveStudyGroupReqDto.toEntity());
+    public int saveStudyGroup(SaveStudyGroupReqDto saveStudyGroupReqDto) {
+        return studyMapper.saveStudyGroup(saveStudyGroupReqDto.toEntity());
     }
 
     public List<SearchStudyGroupListRespDto> searchStudyGroupList() {
@@ -43,5 +41,17 @@ public class StudyGroupService {
             searchStudyGroupListRespDtos.add(studyGroup.toSearchStudyGroupListRespDto());
         }
         return searchStudyGroupListRespDtos;
+    }
+
+    public SearchStudyGroupRespDto searchStudyGroup(int studyId) {
+        return studyMapper.searchStudyGroup(studyId).toSearchStudyGroupRespDto();
+    }
+
+    public int updateStudyGroup(int studyId, UpdateStudyGroupReqDto updateStudyGroupReqDto){
+        return studyMapper.updateStudyGroup(updateStudyGroupReqDto.toEntity(studyId));
+    }
+
+    public int deleteStudyGroup(int studyId) {
+        return studyMapper.deleteStudyGroup(studyId);
     }
 }

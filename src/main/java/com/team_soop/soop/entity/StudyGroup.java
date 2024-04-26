@@ -44,7 +44,19 @@ public class StudyGroup {
 
     public SearchStudyGroupRespDto toSearchStudyGroupRespDto(){
         return SearchStudyGroupRespDto.builder()
-
+                .studyId(studyId)
+                .managerUserId(managerUserId)
+                .studyTitle(studyTitle)
+                .studyContent(studyContent)
+                .studySkills(studySkills)
+                .studyPeriodEnd(studyPeriodEnd)
+                .contentCreateTime(contentCreateTime)
+                .studyMemberLimited(studyMemberLimited)
+                .memberCount(memberCount)
+                .timeCount(timeCount)
+                .waitingMemberCount(waitingMemberCount)
+                .nickName(userInfo.getNickname())
+                .profileImgUrl(userInfo.getProfileImgUrl())
                 .build();
     }
 }

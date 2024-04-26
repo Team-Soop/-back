@@ -1,5 +1,6 @@
 package com.team_soop.soop.controller.advice;
 
+import com.team_soop.soop.exception.MenuCategoryException;
 import com.team_soop.soop.exception.SaveException;
 import com.team_soop.soop.exception.ValidException;
 import org.springframework.http.ResponseEntity;
@@ -30,4 +31,10 @@ public class ExceptionControllerAdvice {
     public ResponseEntity<?> badCredentialsException(BadCredentialsException e) {
         return ResponseEntity.badRequest().body(e.getMessage());
     }
+
+    @ExceptionHandler(MenuCategoryException.class)
+    public ResponseEntity<?> menuCategoryException(MenuCategoryException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
+
 }

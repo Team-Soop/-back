@@ -12,7 +12,7 @@ public class SignupReqDto {
 
     @Pattern(regexp = "^[A-Za-z0-9]{4,10}$", message = "영문자, 숫자 5 ~ 10자리 형식이어야 합니다")
     private String username;
-    @Pattern(regexp = "^(?=.*[가-힣a-zA-Z])[가-힣a-zA-Z!@#$%^&*()?_0-9]{2,8}$", message = "최소한 한 글자 이상의 한글, 영문자가 반드시 포함되고 2에서 8자리 형식이어야 합니다")
+    @Pattern(regexp = "^(?=.*[가-힣a-zA-Z])[가-힣a-zA-Z!@#$%^&*()?_0-9]{2,6}$", message = "최소한 한 글자 이상의 한글, 영문자가 반드시 포함되고 2에서 6자리 형식이어야 합니다")
     private String nickname;
     @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{7,128}$", message = "하나의 영문자, 숫자, 특수문자를 포함한 5 ~ 128자리 형식이어야 합니다")
     private String password;    // 1q2w3e4r!

@@ -20,6 +20,7 @@ public class StudyController {
         return ResponseEntity.ok(studyGroupService.searchStudyCategory());
     }
 
+    @ParamsPrintAspect
     @PostMapping("/save")
     public ResponseEntity<?> saveStudyGroup(@RequestBody SaveStudyGroupReqDto saveStudyGroupReqDto) {
         studyGroupService.saveStudyGroup(saveStudyGroupReqDto);

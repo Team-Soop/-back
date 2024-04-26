@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -12,7 +13,7 @@ public class SearchStudyGroupRespDto {
     private int managerUserId;
     private String studyTitle;
     private String studyContent;
-    private String studySkills;
+    private List<Integer> studySkills;
     private LocalDateTime studyPeriodEnd;
     private LocalDateTime contentCreateTime;
     private int studyMemberLimited;

@@ -7,8 +7,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.lang.reflect.Array;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -28,11 +32,23 @@ public class StudyGroup {
     private int waitingMemberCount;
     private User userInfo;
 
+    public List<Integer> toStudySkillsList(String studySkills) {
+        List<String> studySkillsList = Arrays.asList(studySkills.split(","));
+        List<Integer> studySkillsIntList = new ArrayList<>();
+
+        for(String skill : studySkillsList) {
+            studySkillsIntList.add(Integer.parseInt(skill));
+        }
+
+        return studySkillsIntList;
+    }
+
     public SearchStudyGroupListRespDto toSearchStudyGroupListRespDto(){
+
         return SearchStudyGroupListRespDto.builder()
                 .studyId(studyId)
                 .studyTitle(studyTitle)
-                .studySkills(studySkills)
+                .studySkills(toStudySkillsList(studySkills))
                 .memberCount(memberCount)
                 .studyMemberLimited(studyMemberLimited)
                 .timeCount(timeCount)
@@ -43,12 +59,13 @@ public class StudyGroup {
     }
 
     public SearchStudyGroupRespDto toSearchStudyGroupRespDto(){
+
         return SearchStudyGroupRespDto.builder()
                 .studyId(studyId)
                 .managerUserId(managerUserId)
                 .studyTitle(studyTitle)
                 .studyContent(studyContent)
-                .studySkills(studySkills)
+                .studySkills(toStudySkillsList(studySkills))
                 .studyPeriodEnd(studyPeriodEnd)
                 .contentCreateTime(contentCreateTime)
                 .studyMemberLimited(studyMemberLimited)

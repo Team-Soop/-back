@@ -14,7 +14,9 @@
         values(0, #{menuCategoryId}, #{boardId} ,#{reportCategories}, #{reportContent}, #{userId}, now())
     </insert>
 
-    <select id="searchAllReportList" resultType="com.team_soop.soop.entity.Report">
+
+
+    <select id="searchReportList" resultType="com.team_soop.soop.entity.Report">
         select
             rt.report_id as reportId,
             rt.menu_category_id as menuCategoryId,
@@ -29,6 +31,11 @@
         from
             report_tb rt
             left outer join user_tb ut on (ut.user_id = rt.user_id )
+        where
+            1 = 1
+            <if test="menuCategoryId != 0">
+                and menu_category_id = #{menuCategoryId}
+            </if>
     </select>
 
 

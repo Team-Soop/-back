@@ -40,7 +40,7 @@
 
     <insert id="saveStudyGroup" parameterType="com.team_soop.soop.entity.StudyGroup">
         insert into study_tb
-        values (0, 2, #{managerUserId}, #{studyTitle}, #{studyContent}, #{studySkils}, #{studyMemberLimited}, #{studyPeriodEnd}, now(), now())
+        values (0, 2, #{managerUserId}, #{studyTitle}, #{studyContent}, #{studySkills}, #{studyMemberLimited}, #{studyPeriodEnd}, now(), now())
     </insert>
 
     <select id="searchStudyGroupList" resultMap="studyGroupResultMap" >

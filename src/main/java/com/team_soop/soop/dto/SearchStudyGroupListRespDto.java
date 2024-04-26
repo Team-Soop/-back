@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Builder
@@ -15,7 +16,7 @@ import java.util.Date;
 public class SearchStudyGroupListRespDto {
     private int studyId;
     private String studyTitle;
-    private String studySkills;
+    private List<Integer> studySkills;
     private int memberCount;
     private int studyMemberLimited;
     private int timeCount;

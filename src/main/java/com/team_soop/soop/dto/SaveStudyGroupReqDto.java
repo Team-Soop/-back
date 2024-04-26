@@ -27,13 +27,13 @@ public class SaveStudyGroupReqDto {
             stringBuilder.append(studySkill.getStudyCategoryId());
             stringBuilder.append(",");
         }
-        String studySkilsString = stringBuilder.substring(0, stringBuilder.length() - 1);
+        String studySkillsString = stringBuilder.substring(0, stringBuilder.length() - 1);
 
         return StudyGroup.builder()
                 .managerUserId(managerUserId)
                 .studyTitle(studyTitle)
                 .studyContent(studyContent)
-                .studySkills(studySkilsString)
+                .studySkills(studySkillsString)
                 .studyMemberLimited(studyMemberLimited)
                 .studyPeriodEnd(studyPeriodEnd)
                 .build();

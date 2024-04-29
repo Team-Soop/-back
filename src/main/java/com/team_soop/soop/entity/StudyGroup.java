@@ -30,7 +30,7 @@ public class StudyGroup {
     private int studyMemberLimited;
     private int timeCount;
     private int waitingMemberCount;
-    private User userInfo;
+    private User user;
 
     public List<Integer> toStudySkillsList(String studySkills) {
         List<String> studySkillsList = Arrays.asList(studySkills.split(","));
@@ -52,9 +52,9 @@ public class StudyGroup {
                 .memberCount(memberCount)
                 .studyMemberLimited(studyMemberLimited)
                 .timeCount(timeCount)
-                .userId(userInfo.getUserId())
-                .nickname(userInfo.getNickname())
-                .profileImgUrl(userInfo.getProfileImgUrl())
+                .userId(user.getUserId())
+                .nickname(user.getNickname())
+                .profileImgUrl(user.getProfileImgUrl())
                 .build();
     }
 
@@ -72,8 +72,8 @@ public class StudyGroup {
                 .memberCount(memberCount)
                 .timeCount(timeCount)
                 .waitingMemberCount(waitingMemberCount)
-                .nickName(userInfo.getNickname())
-                .profileImgUrl(userInfo.getProfileImgUrl())
+                .nickName(user.getNickname())
+                .profileImgUrl(user.getProfileImgUrl())
                 .build();
     }
 }

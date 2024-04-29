@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.team_soop.soop.repository.BoardMapper">
+
+<!-- feed 패이지 게시판 삭제 -->
+<!--______________________-->
+    <delete id="deleteFeedBoard">
+        delete
+        from
+            feed_tb ft
+            left outer join feed_img_url_tb fiut on (fiut.feed_id = ft.feed_id)
+            left outer join feed_like_tb flt on (flt.feed_id = ft.feed_id)
+        where
+            ft.feed_id = #{boardId}
+    </delete>
+
+    <delete id="deleteFeedCommentBoard">
+        delete
+        from
+            feed_comment_tb fct
+        where
+            fct.feed_id = #{boardId}
+    </delete>
+
+    <delete id="deleteFeedImgUrlBoard">
+        delete
+        from
+            feed_img_url_tb fiut
+        where
+            fiut.feed_id = #{boardId}
+    </delete>
+
+    <delete id="deleteFeedLike">
+        delete
+        from
+            feed_like_tb flt
+        where
+            flt.feed_id = #{boardId}
+    </delete>
+
+
+
+
+
+
+<!-- 스터디 페이지 게시판 삭제 -->
+<!--______________________-->
+    <delete id="deleteStudyBoard">
+        delete
+        from
+            study_tb st
+            left outer join study_waiting_particle_tb swpt on (swpt.study_id = st.study_id);
+        where
+            st.study_id = #{boardId}
+    </delete>
+
+    <delete id="deleteStudyRecruitmentBoard">
+        delete
+        from
+            study_recruitment_tb srt
+        where
+            srt.study_id = #{boardId}
+    </delete>
+
+    <delete id="deleteStudyWaitingBoard">
+        delete
+        from
+            study_waiting_particle_tb swpt
+        where
+            swpt.study_id = #{boardId}
+    </delete>
+
+
+<!--점심페이지 게시판 삭제-->
+<!--_________________-->
+    <delete id="deleteLunchBoard">
+        delete
+        from
+            lunch_tb lt
+        where
+            lt.lunch_id = #{boardId}
+    </delete>
+
+    <delete id="deleteLunchCategoryBoard">
+        delete
+        from
+            lunch_category_tb lct
+        where
+            lct.lunch_id = #{boardId}
+    </delete>
+
+    <delete id="deleteLunchCommentBoard">
+        delete
+        from
+            lunch_comment_tb lcmt
+        where
+            lcmt.lunch_id = #{boardId}
+    </delete>
+
+    <delete id="deleteLunchImgUrlBoard">
+        delete
+        from
+            lunch_img_url_tb liut
+        where
+            liut.lunch_id = #{boardId}
+    </delete>
+
+    <delete id="deleteLunchLike">
+        delete
+        from
+            lunch_like_tb llt
+        where
+            llt.lunch_id = #{boardId}
+    </delete>
+
+
+
+
+<!-- 즐겨찾기 된 게시판 삭제  -->
+    <delete id="deleteSaveBoard">
+        delete
+        from
+            save_board_tb sbt
+        where
+            sbt.board_id = #{boardId}
+        and menu_category_id = #{menuId}
+    </delete>
+
+
+
+</mapper>

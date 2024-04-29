@@ -36,7 +36,7 @@
         <result property="userId" column="user_id" />
         <result property="applyMessage" column="apply_message" />
         <result property="createDate" column="create_date" />
-        <association property="user" resultMap="UserResultMap"
+        <association property="user" resultMap="UserResultMap"/>
     </resultMap>
 
     <select id="searchStudyCategories" resultMap="studyCategoryResultMap">

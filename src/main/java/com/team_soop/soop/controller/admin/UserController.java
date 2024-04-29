@@ -1,4 +1,4 @@
-package com.team_soop.soop.controller;
+package com.team_soop.soop.controller.admin;
 
 import com.team_soop.soop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Controller
-@RequestMapping("user")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired

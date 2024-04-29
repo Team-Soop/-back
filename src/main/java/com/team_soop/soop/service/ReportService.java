@@ -20,7 +20,14 @@ public class ReportService {
     ReportMapper reportMapper;
 
     public void saveReport(SaveReportReqDto saveReportReqDto, int userId) {
-        reportMapper.saveReport(saveReportReqDto.toReportEntity(userId));
+
+        List<Report> reportList = reportMapper.searchReportListUser(saveReportReqDto.getMenuCategoryId(), userId, saveReportReqDto.getBoardId());
+
+        if(reportList.size() > 0) {
+            reportMapper.saveReport(saveReportReqDto.toReportEntity(userId));
+        }
+
+
     }
 
 

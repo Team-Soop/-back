@@ -10,4 +10,5 @@ import java.util.List;
 public interface ReportMapper {
     public int saveReport(Report report);
     public List<Report> searchReportList(@Param("menuCategoryId") int menuCategoryId);
+    public List<Report> searchReportListUser(@Param("menuCategoryId") int menuCategoryId, @Param("userId") int userId, @Param("boardId") int boardId);
 }

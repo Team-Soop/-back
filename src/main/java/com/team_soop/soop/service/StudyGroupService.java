@@ -1,10 +1,8 @@
 package com.team_soop.soop.service;
 
 import com.team_soop.soop.dto.*;
-import com.team_soop.soop.entity.RecruitmentMember;
 import com.team_soop.soop.entity.StudyCategory;
 import com.team_soop.soop.entity.StudyGroup;
-import com.team_soop.soop.entity.WaitingMember;
 import com.team_soop.soop.repository.StudyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,27 +53,5 @@ public class StudyGroupService {
 
     public int deleteStudyGroup(int studyId) {
         return studyMapper.deleteStudyGroup(studyId);
-    }
-
-    public List<SearchWaitingMemberRespDto> searchWaitingMember(int studyId) {
-        List<SearchWaitingMemberRespDto> searchWaitingMemberRespDtos = new ArrayList<>();
-        List<WaitingMember> waitingMembers = studyMapper.searchWaitingMember(studyId);
-
-        for(WaitingMember waitingMember : waitingMembers) {
-            searchWaitingMemberRespDtos.add(waitingMember.toSearchWaitingMemberRespDto());
-        }
-
-        return searchWaitingMemberRespDtos;
-    }
-
-    public List<SearchRecruitmentRespDto> searchRecruitmentMember(int studyId) {
-        List<SearchRecruitmentRespDto> searchRecruitmentRespDtos = new ArrayList<>();
-        List<RecruitmentMember> recruitmentMembers = studyMapper.searchRecruitmentMember(studyId);
-
-        for(RecruitmentMember recruitmentMember : recruitmentMembers) {
-            searchRecruitmentRespDtos.add(recruitmentMember.toSearchRecruitmentRespDto());
-        }
-
-        return searchRecruitmentRespDtos;
     }
 }

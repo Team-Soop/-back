@@ -9,7 +9,7 @@
         <id property="feedId" column="feed_id" />
         <result property="userId" column="user_id" />
         <result property="profileImgUrl" column="profile_img_url" />
-        <result property="username" column="username" />
+        <result property="nickname" column="nickname" />
         <result property="feedContent" column="feed_content" />
         <result property="feedLikeCount" column="like_count" />
         <collection property="feedImgUrl" javaType="List" resultMap="FeedImgUrlResultMap"/>
@@ -95,7 +95,7 @@
             ft.feed_id,
             ft.user_id,
             ut.profile_img_url,
-            ut.username,
+            ut.nickname,
             ft.feed_content,
             fiut.feed_img_url,
             (select count(*) from feed_like_tb where feed_id = ft.feed_id) as like_count
@@ -159,4 +159,52 @@
         where
             fct.feed_id = #{feedId};
     </select>
+
+    <select id="mypageSearchFeeds" resultMap="FeedResultMap" parameterType="int">
+        select distinct
+            ft.feed_id,
+            ft.user_id,
+            ut.profile_img_url,
+            ut.nickname,
+            ft.feed_content,
+            fiut.feed_img_url,
+            (select count(*) from feed_like_tb where feed_id = ft.feed_id) as like_count
+        from
+            feed_tb ft
+            left outer join feed_img_url_tb fiut on (fiut.feed_id = ft.feed_id)
+            left outer join user_tb ut on (ut.user_id = ft.user_id)
+            left outer join feed_like_tb flt on (flt.feed_id = ft.feed_id)
+        where
+            ft.user_id = #{userId}
+        ;
+    </select>
+
+    <delete id="deleteFeed">
+        delete
+        from
+            feed_tb
+        where
+            user_id = #{userId} and feed_id = #{feedId}
+    </delete>
+
+    <update id="updateFeed" parameterType="com.team_soop.soop.entity.Feed">
+        update
+            feed_tb
+        set
+            feed_content = #{feedContent},
+            update_date = now()
+        where
+            feed_id = #{feedId} and user_id = #{userId}
+    </update>
+
+    <update id="updateFeedImgUrl">
+        update
+            feed_img_url_tb
+        set
+            feed_img_url = concat(feed_img_url, ', ', #{feedImgUrls}
+
+        where
+            feed_id = #{feedId} and user_id = #{userId}
+
+    </update>
 </mapper>

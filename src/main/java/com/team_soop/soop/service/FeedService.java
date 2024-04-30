@@ -90,6 +90,30 @@ public class FeedService {
         feedMapper.deleteComment(commentId, userId);
     }
 
+    // 마이페이지 피드 조회
+    public List<SearchFeedRespDto> mypageSearchFeeds(int userId) {
+        List<FeedList> feedLists = feedMapper.mypageSearchFeeds(userId);
+        List<SearchFeedRespDto> searchFeedRespDtos = new ArrayList<>();
+        for (FeedList feedList : feedLists) {
+            searchFeedRespDtos.add(feedList.searchFeedRespDto());
+        }
+        return searchFeedRespDtos;
+    }
+
+    // 마이페이지 피드 삭제
+    public int deleteMypageFeed(int feedId) {
+        return feedMapper.deleteFeed(feedId);
+    }
+
+    // 마이페이지 피드 수정
+//    public void updateFeed(UpdateMypageFeedReqDto updateMypageFeedReqDto) {
+//        feedMapper.updateFeed(updateMypageFeedReqDto.toMypageFeed());
+//
+//        if(updateMypageFeedReqDto.getFeedImgUrls().size() != 0) {
+//            feedMapper.saveFeedImgUrl(feed.getFeedId(), saveFeedReqDto.getFeedImgUrls());
+//        }
+//    }
+
 
 
 

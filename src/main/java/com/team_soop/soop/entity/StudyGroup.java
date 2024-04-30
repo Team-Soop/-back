@@ -7,12 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -30,50 +26,37 @@ public class StudyGroup {
     private int studyMemberLimited;
     private int timeCount;
     private int waitingMemberCount;
-    private User user;
-
-    public List<Integer> toStudySkillsList(String studySkills) {
-        List<String> studySkillsList = Arrays.asList(studySkills.split(","));
-        List<Integer> studySkillsIntList = new ArrayList<>();
-
-        for(String skill : studySkillsList) {
-            studySkillsIntList.add(Integer.parseInt(skill));
-        }
-
-        return studySkillsIntList;
-    }
+    private User userInfo;
 
     public SearchStudyGroupListRespDto toSearchStudyGroupListRespDto(){
-
         return SearchStudyGroupListRespDto.builder()
                 .studyId(studyId)
                 .studyTitle(studyTitle)
-                .studySkills(toStudySkillsList(studySkills))
+                .studySkills(studySkills)
                 .memberCount(memberCount)
                 .studyMemberLimited(studyMemberLimited)
                 .timeCount(timeCount)
-                .userId(user.getUserId())
-                .nickname(user.getNickname())
-                .profileImgUrl(user.getProfileImgUrl())
+                .userId(userInfo.getUserId())
+                .nickname(userInfo.getNickname())
+                .profileImgUrl(userInfo.getProfileImgUrl())
                 .build();
     }
 
     public SearchStudyGroupRespDto toSearchStudyGroupRespDto(){
-
         return SearchStudyGroupRespDto.builder()
                 .studyId(studyId)
                 .managerUserId(managerUserId)
                 .studyTitle(studyTitle)
                 .studyContent(studyContent)
-                .studySkills(toStudySkillsList(studySkills))
+                .studySkills(studySkills)
                 .studyPeriodEnd(studyPeriodEnd)
                 .contentCreateTime(contentCreateTime)
                 .studyMemberLimited(studyMemberLimited)
                 .memberCount(memberCount)
                 .timeCount(timeCount)
                 .waitingMemberCount(waitingMemberCount)
-                .nickName(user.getNickname())
-                .profileImgUrl(user.getProfileImgUrl())
+                .nickName(userInfo.getNickname())
+                .profileImgUrl(userInfo.getProfileImgUrl())
                 .build();
     }
 }

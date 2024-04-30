@@ -8,24 +8,17 @@ import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @Data
-public class SaveFeedReqDto {
+public class UpdateMypageFeedReqDto {
     private int userId;
     @NotBlank
     @Pattern(regexp = "(<p>(?:[a-zA-Z0-9ㄱ-ㅎㅏ-ㅣ가-힣\\s\\p{Punct}]+|<[^<>]+>)*</p>)+")
     private String feedContent;
     private List<String> feedImgUrls;
 
-    public Feed toFeed() {
+    public Feed toMypageFeed() {
         return Feed.builder()
                 .userId(userId)
                 .feedContent(feedContent)
                 .build();
     }
-
-
-
 }
-
-
-
-

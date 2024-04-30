@@ -1,7 +1,8 @@
 package com.team_soop.soop.controller;
 
+import com.team_soop.soop.aop.annotation.ParamsPrintAspect;
 import com.team_soop.soop.security.PrincipalUser;
-import com.team_soop.soop.service.BookMarkService;
+import com.team_soop.soop.service.BoardSaveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,10 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/save")
-public class SaveBoardController {
+public class BoardSaveController {
 
     @Autowired
-    private BookMarkService bookMarkService;
+    private BoardSaveService boardSaveService;
 
     @PostMapping("/{boardId}/{menuId}/board")
     public ResponseEntity<?> saveLunchBoard(@PathVariable int boardId, @PathVariable int menuId) {
@@ -20,7 +21,7 @@ public class SaveBoardController {
         int userId = principalUser.getUserId();
         System.out.println(userId);
 
-        bookMarkService.saveBoard(userId, boardId, menuId);
+        boardSaveService.saveBoard(userId, boardId, menuId);
         return ResponseEntity.ok(null);
     }
 
@@ -29,7 +30,7 @@ public class SaveBoardController {
         PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = principalUser.getUserId();
 
-        bookMarkService.deleteSaveBoard(userId, menuId, boardId);
+        boardSaveService.deleteSaveBoard(userId, menuId, boardId);
         return ResponseEntity.ok(null);
     }
 
@@ -37,7 +38,7 @@ public class SaveBoardController {
     public ResponseEntity<?> getSaveLunchBoard(@PathVariable int boardId, @PathVariable int menuId) {
         PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = principalUser.getUserId();
-        return ResponseEntity.ok(bookMarkService.getSaveBoardStatus(userId, menuId, boardId));
+        return ResponseEntity.ok(boardSaveService.getSaveBoardStatus(userId, menuId, boardId));
     }
 
 }

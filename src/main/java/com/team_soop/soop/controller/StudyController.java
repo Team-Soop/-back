@@ -41,19 +41,8 @@ public class StudyController {
         return ResponseEntity.ok(studyGroupService.updateStudyGroup(studyId, updateStudyGroupReqDto));
     }
 
-    @DeleteMapping("/delete/{studyId}")
+    @DeleteMapping("delete/{studyId}")
     public ResponseEntity<?> deleteStudyGroup(@PathVariable int studyId) {
         return ResponseEntity.ok(studyGroupService.deleteStudyGroup(studyId));
-    }
-
-    @GetMapping("/search/waiting/{studyId}")
-    public ResponseEntity<?> searchWaitingMember(@PathVariable int studyId) {
-
-        return ResponseEntity.ok(studyGroupService.searchWaitingMember(studyId));
-    }
-
-    @GetMapping("/search/recruitment/{studyId}")
-    public ResponseEntity<?> searchRecruitment(@PathVariable int studyId) {
-        return ResponseEntity.ok(studyGroupService.searchRecruitmentMember(studyId));
     }
 }

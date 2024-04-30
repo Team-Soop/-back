@@ -27,4 +27,10 @@ public interface FeedMapper {
     public List<FeedComment> searchFeedComment(int feedId);
     public int modifyComment(FeedComment feedComment);
     public int deleteComment(@Param("commentId") int commentId, @Param("userId") int userId);
+
+    // 마이페이지 피드
+    public List<FeedList> mypageSearchFeeds(int userId);
+    public int deleteFeed(int feedId);
+    public int updateFeed(Feed feed);
+    public int updateFeedImgUrl(@Param("feedId") int feedId, @Param("feedImgUrls") List<String> feedImgUrls);
 }

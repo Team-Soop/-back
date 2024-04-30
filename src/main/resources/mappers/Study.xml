@@ -15,7 +15,7 @@
         <result property="profileImgUrl" column="profile_img_url" />
     </resultMap>
 
-    <resultMap id="StudyGroupResultMap" type="com.team_soop.soop.entity.StudyGroup">
+    <resultMap id="studyGroupResultMap" type="com.team_soop.soop.entity.StudyGroup">
         <id property="studyId" column="study_id" />
         <result property="managerUserId" column="manager_user_id" />
         <result property="studyTitle" column="study_title" />
@@ -27,24 +27,7 @@
         <result property="memberCount" column="member_count" />
         <result property="timeCount" column="time_count" />
         <result property="waitingMemberCount" column="waiting_member_count" />
-        <association property="user" resultMap="UserResultMap" />
-    </resultMap>
-
-    <resultMap id="WaitingMemberResultMap" type="com.team_soop.soop.entity.WaitingMember">
-        <id property="waitingId" column="waiting_id" />
-        <result property="studyId" column="study_id" />
-        <result property="userId" column="user_id" />
-        <result property="applyMessage" column="apply_message" />
-        <result property="createDate" column="create_date" />
-        <association property="user" resultMap="UserResultMap"/>
-    </resultMap>
-
-    <resultMap id="recruitmentResultMap" type="com.team_soop.soop.entity.RecruitmentMember">
-        <id property="recruitmentId" column="study_recruitment_id" />
-        <result property="studyId" column="study_id" />
-        <result property="userId" column="user_id" />
-        <result property="createDate" column="create_date" />
-        <association property="user" resultMap="UserResultMap"/>
+        <association property="userInfo" resultMap="UserResultMap" />
     </resultMap>
 
     <select id="searchStudyCategories" resultMap="studyCategoryResultMap">
@@ -57,10 +40,10 @@
 
     <insert id="saveStudyGroup" parameterType="com.team_soop.soop.entity.StudyGroup">
         insert into study_tb
-        values (0, 2, #{managerUserId}, #{studyTitle}, #{studyContent}, #{studySkills}, #{studyMemberLimited}, #{studyPeriodEnd}, now(), now())
+        values (0, 2, #{managerUserId}, #{studyTitle}, #{studyContent}, #{studySkils}, #{studyMemberLimited}, #{studyPeriodEnd}, now(), now())
     </insert>
 
-    <select id="searchStudyGroupList" resultMap="StudyGroupResultMap" >
+    <select id="searchStudyGroupList" resultMap="studyGroupResultMap" >
         select
             st.study_id,
             ut.user_id,
@@ -79,7 +62,7 @@
             st.study_id;
     </select>
     
-    <select id="searchStudyGroup" resultMap="StudyGroupResultMap" parameterType="int">
+    <select id="searchStudyGroup" resultMap="studyGroupResultMap" parameterType="int">
         select
             st.study_id,
             st.manager_user_id,
@@ -129,34 +112,4 @@
             study_id = #{studyId}
     </delete>
 
-    <select id="searchWaitingMember" resultMap="WaitingMemberResultMap" parameterType="int">
-        select
-            swmt.waiting_id,
-            swmt.study_id,
-            swmt.user_id,
-            ut.nickname,
-            swmt.apply_message,
-            swmt.create_date,
-            ut.profile_img_url
-        from
-            study_waiting_member_tb swmt
-            left outer join user_tb ut on (ut.user_id = swmt.user_id)
-        where
-            study_id = ${studyId}
-    </select>
-
-    <select id="searchRecruitmentMember" resultMap="recruitmentResultMap" parameterType="int">
-        select
-            srt.study_recruitment_id,
-            srt.study_id,
-            srt.user_id,
-            ut.nickname,
-            ut.profile_img_url,
-            srt.create_date
-        from
-            study_recruitment_tb srt
-            left outer join user_tb ut on (ut.user_id = srt.user_id)
-        where
-            study_id = ${studyId}
-    </select>
 </mapper>

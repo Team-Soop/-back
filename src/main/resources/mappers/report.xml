@@ -54,11 +54,43 @@
             report_tb rt
             left outer join user_tb ut on (ut.user_id = rt.user_id )
         where
-            user_id = #{userId}
-        and menu_category_id = #{menuCategoryId}
-        and report_board_id = #{boardId}
+            rt.user_id = #{userId}
+        and rt.menu_category_id = #{menuCategoryId}
+        and rt.report_board_id = #{boardId}
     </select>
 
+    <select id="searchReportCompleted" resultType="com.team_soop.soop.entity.Report">
+        select
+            rt.report_id as reportId,
+            rt.menu_category_id as menuCategoryId,
+            rt.report_board_id as boardId,
+            rt.report_category as reportCategories,
+            rt.report_content as reportContent,
+            rt.user_id as userId,
+            ut.username as userName,
+            ut.nickname as nickName,
+            ut.name,
+            rt.create_date as createDate
+        from
+            report_tb rt
+            left outer join user_tb ut on ( ut.user_id = rt.user_id )
+        where
+            rt.menu_category_id = #{menuCategoryId}
+        and rt.report_board_id = #{boardId}
+    </select>
+
+    <delete id="deleteReport" parameterType="com.team_soop.soop.entity.Report">
+        delete
+        form
+            report_tb rt
+        where
+        <foreach collection="completedReports" item="report" separator="and">
+            rt.menu_category_id = #{menuCategoryId}
+        </foreach>
+        <foreach collection="completedReports" item="report" separator="">
+            rt.report_board_id = #{boardId}
+        </foreach>
+    </delete>
 
 
 </mapper>

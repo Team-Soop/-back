@@ -39,6 +39,14 @@
         <association property="user" resultMap="UserResultMap"/>
     </resultMap>
 
+    <resultMap id="recruitmentResultMap" type="com.team_soop.soop.entity.RecruitmentMember">
+        <id property="recruitmentId" column="study_recruitment_id" />
+        <result property="studyId" column="study_id" />
+        <result property="userId" column="user_id" />
+        <result property="createDate" column="create_date" />
+        <association property="user" resultMap="UserResultMap"/>
+    </resultMap>
+
     <select id="searchStudyCategories" resultMap="studyCategoryResultMap">
         select
             study_category_id,
@@ -128,10 +136,26 @@
             swmt.user_id,
             ut.nickname,
             swmt.apply_message,
-            swmt.create_date
+            swmt.create_date,
+            ut.profile_img_url
         from
             study_waiting_member_tb swmt
             left outer join user_tb ut on (ut.user_id = swmt.user_id)
+        where
+            study_id = ${studyId}
+    </select>
+
+    <select id="searchRecruitmentMember" resultMap="recruitmentResultMap" parameterType="int">
+        select
+            srt.study_recruitment_id,
+            srt.study_id,
+            srt.user_id,
+            ut.nickname,
+            ut.profile_img_url,
+            srt.create_date
+        from
+            study_recruitment_tb srt
+            left outer join user_tb ut on (ut.user_id = srt.user_id)
         where
             study_id = ${studyId}
     </select>

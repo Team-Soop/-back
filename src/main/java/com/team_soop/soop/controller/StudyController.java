@@ -48,7 +48,12 @@ public class StudyController {
 
     @GetMapping("/search/waiting/{studyId}")
     public ResponseEntity<?> searchWaitingMember(@PathVariable int studyId) {
-        System.out.println(studyId);
-        return ResponseEntity.ok(null);
+
+        return ResponseEntity.ok(studyGroupService.searchWaitingMember(studyId));
+    }
+
+    @GetMapping("/search/recruitment/{studyId}")
+    public ResponseEntity<?> searchRecruitment(@PathVariable int studyId) {
+        return ResponseEntity.ok(studyGroupService.searchRecruitmentMember(studyId));
     }
 }

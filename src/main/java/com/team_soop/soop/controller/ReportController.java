@@ -30,4 +30,10 @@ public class ReportController {
         return ResponseEntity.ok(reportService.searchReport(searchReportReqDto));
     }
 
+    @GetMapping("/search/completed")
+    public ResponseEntity<?> searchReportCompleted(SearchReportReqDto searchReportReqDto) {
+        return ResponseEntity.ok(reportService.searchReportCompleted(searchReportReqDto));
+    }
+
+
 }

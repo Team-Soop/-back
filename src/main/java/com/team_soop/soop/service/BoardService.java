@@ -52,7 +52,6 @@ public class BoardService {
          successCount += boardMapper.deleteLunchImgUrlBoard(boardId);
          successCount += boardMapper.deleteLunchLike(boardId);
          successCount += boardMapper.deleteSaveBoard(boardId, 3);
-         System.out.println(successCount);
 
          return successCount;
      }
@@ -66,7 +65,7 @@ public class BoardService {
         switch (menuCategoryName) {
             case "자유게시판":
                 successCount = deleteFeedBoard(boardId);
-                if(successCount < 5) {
+                if(successCount < 1) {
                     throw new DeleteException();
                 }
                 menuCategoryId = 1;
@@ -89,9 +88,8 @@ public class BoardService {
                 throw new MenuCategoryException((Map.of("menuCategoryName", "맞는 메뉴이름이 없습니다.")));
         }
 
-        // 제거된 게시물들을 신고완료된 테이블로 이동
-        List<Report> completedReports = reportMapper.searchReportCompleted(menuCategoryId, boardId);
-        reportMapper.deleteReport(completedReports);
+        // work bench 에 트리거를 걸어둬서 자동으로 report_completed 에 저장
+        reportMapper.deleteReport(menuCategoryId, boardId);
 
     }
 

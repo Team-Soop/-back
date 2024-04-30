@@ -34,8 +34,6 @@ public class ReportService {
 
 
     public List<SearchReportRespDto> searchReport(SearchReportReqDto searchReportReqDto) {
-
-
         List<Report> reportList = reportMapper.searchReportList(searchReportReqDto.getMenuCategoryId());
         List<SearchReportRespDto> searchReportRespDtos = new ArrayList<>();
 
@@ -46,6 +44,16 @@ public class ReportService {
         return searchReportRespDtos;
     }
 
+    public List<SearchReportRespDto> searchReportCompleted(SearchReportReqDto searchReportReqDto) {
+        List<Report> reportList = reportMapper.searchReportCompleted(searchReportReqDto.getMenuCategoryId());
+        List<SearchReportRespDto> searchReportRespDtos = new ArrayList<>();
+
+        for( Report report : reportList ) {
+            searchReportRespDtos.add(report.toSearchReportRespDto());
+        }
+
+        return searchReportRespDtos;
+    }
 
 
 }

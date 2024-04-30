@@ -59,37 +59,37 @@
         and rt.report_board_id = #{boardId}
     </select>
 
+    <!-- 신고 처리 완료된 게시물 -->
     <select id="searchReportCompleted" resultType="com.team_soop.soop.entity.Report">
         select
-            rt.report_id as reportId,
-            rt.menu_category_id as menuCategoryId,
-            rt.report_board_id as boardId,
-            rt.report_category as reportCategories,
-            rt.report_content as reportContent,
-            rt.user_id as userId,
+            rct.report_completed_id as reportId,
+            rct.menu_category_id as menuCategoryId,
+            rct.report_board_id as boardId,
+            rct.report_category as reportCategories,
+            rct.report_content as reportContent,
+            rct.user_id as userId,
             ut.username as userName,
             ut.nickname as nickName,
             ut.name,
-            rt.create_date as createDate
+            rct.create_date as createDate
+        from
+            report_completed_tb rct
+            left outer join user_tb ut on (ut.user_id = rct.user_id )
+        where
+        1 = 1
+        <if test="menuCategoryId != 0">
+            and menu_category_id = #{menuCategoryId}
+        </if>
+    </select>
+
+
+    <delete id="deleteReport">
+        delete
         from
             report_tb rt
-            left outer join user_tb ut on ( ut.user_id = rt.user_id )
         where
             rt.menu_category_id = #{menuCategoryId}
         and rt.report_board_id = #{boardId}
-    </select>
-
-    <delete id="deleteReport" parameterType="com.team_soop.soop.entity.Report">
-        delete
-        form
-            report_tb rt
-        where
-        <foreach collection="completedReports" item="report" separator="and">
-            rt.menu_category_id = #{menuCategoryId}
-        </foreach>
-        <foreach collection="completedReports" item="report" separator="">
-            rt.report_board_id = #{boardId}
-        </foreach>
     </delete>
 
 

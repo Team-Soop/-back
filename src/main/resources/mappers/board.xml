@@ -52,7 +52,6 @@
         delete
         from
             study_tb st
-            left outer join study_waiting_particle_tb swpt on (swpt.study_id = st.study_id);
         where
             st.study_id = #{boardId}
     </delete>

@@ -1,7 +1,9 @@
 package com.team_soop.soop.controller;
 
 import com.team_soop.soop.aop.annotation.ParamsPrintAspect;
+import com.team_soop.soop.dto.AdmissionWaitingMemberReqDto;
 import com.team_soop.soop.dto.SaveStudyGroupReqDto;
+import com.team_soop.soop.dto.SaveWaitingMemberReqDto;
 import com.team_soop.soop.dto.UpdateStudyGroupReqDto;
 import com.team_soop.soop.service.StudyGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,14 +48,39 @@ public class StudyController {
         return ResponseEntity.ok(studyGroupService.deleteStudyGroup(studyId));
     }
 
-    @GetMapping("/search/waiting/{studyId}")
+    @GetMapping("/waiting/{studyId}")
     public ResponseEntity<?> searchWaitingMember(@PathVariable int studyId) {
 
         return ResponseEntity.ok(studyGroupService.searchWaitingMember(studyId));
     }
 
-    @GetMapping("/search/recruitment/{studyId}")
+    @GetMapping("/recruitment/{studyId}")
     public ResponseEntity<?> searchRecruitment(@PathVariable int studyId) {
         return ResponseEntity.ok(studyGroupService.searchRecruitmentMember(studyId));
+    }
+
+    // waiting_member_tb 데이터 추가
+    @PostMapping("/apply/period")
+    public ResponseEntity<?> applyPeriod(@RequestBody SaveWaitingMemberReqDto saveWaitingMemberReqDto){
+        return ResponseEntity.ok(studyGroupService.saveWaitingMember(saveWaitingMemberReqDto));
+    }
+
+    @ParamsPrintAspect
+    @PutMapping("/admission")
+    public ResponseEntity<?> admissionWaitingMember(@RequestBody AdmissionWaitingMemberReqDto admissionWaitingMemberReqDto) {
+        studyGroupService.admissionWaitingMember(admissionWaitingMemberReqDto);
+        return ResponseEntity.ok(null);
+    }
+
+    @PutMapping("/refuse/{waitingId}")
+    public ResponseEntity<?> refuseWaitingMember(@PathVariable int waitingId) {
+        studyGroupService.refuseWaitingMember(waitingId);
+        return ResponseEntity.ok(null);
+    }
+
+    @DeleteMapping("/recruitment/{recruitmentId}")
+    public ResponseEntity<?> deleteRecruitmentMember(@PathVariable int recruitmentId) {
+        studyGroupService.deleteRecruitmentMember(recruitmentId);
+        return ResponseEntity.ok(null);
     }
 }

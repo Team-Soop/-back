@@ -5,9 +5,11 @@ import com.team_soop.soop.entity.RecruitmentMember;
 import com.team_soop.soop.entity.StudyCategory;
 import com.team_soop.soop.entity.StudyGroup;
 import com.team_soop.soop.entity.WaitingMember;
+import com.team_soop.soop.exception.SaveException;
 import com.team_soop.soop.repository.StudyMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -77,5 +79,30 @@ public class StudyGroupService {
         }
 
         return searchRecruitmentRespDtos;
+    }
+
+    public int saveWaitingMember(SaveWaitingMemberReqDto saveWaitingMemberReqDto) {
+        return studyMapper.saveWaitingMember(saveWaitingMemberReqDto.toEntity());
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void admissionWaitingMember(AdmissionWaitingMemberReqDto admissionWaitingMemberReqDto) {
+        int saveCount = 0;
+        WaitingMember waitingmember = admissionWaitingMemberReqDto.toEntity();
+
+        saveCount += studyMapper.admissionWaitingMember(waitingmember.getWaitingId());
+        saveCount += studyMapper.saveRecruitmentMember(waitingmember);
+
+        if (saveCount < 2) {
+            throw new SaveException();
+        }
+    }
+
+    public void refuseWaitingMember(int waitingId) {
+        studyMapper.refuseWaitingMember(waitingId);
+    }
+
+    public void deleteRecruitmentMember(int recruitmentId){
+        studyMapper.deleteRecruitmentMember(recruitmentId);
     }
 }

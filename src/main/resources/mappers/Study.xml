@@ -96,7 +96,7 @@
             (select
                 count(*)
             from
-                study_waiting_particle_tb
+                study_waiting_member_tb
             where
                 study_id = #{studyId}) as waiting_member_count
         from
@@ -142,7 +142,8 @@
             study_waiting_member_tb swmt
             left outer join user_tb ut on (ut.user_id = swmt.user_id)
         where
-            study_id = ${studyId}
+            swmt.study_id = ${studyId}
+            and swmt.apply_state = 'wait'
     </select>
 
     <select id="searchRecruitmentMember" resultMap="recruitmentResultMap" parameterType="int">
@@ -159,4 +160,47 @@
         where
             study_id = ${studyId}
     </select>
+
+    <insert id="saveWaitingMember" parameterType="com.team_soop.soop.entity.WaitingMember">
+        insert into
+            study_waiting_member_tb (waiting_id, study_id, user_id, apply_message, apply_state, create_date)
+        values
+            (0, #{studyId}, #{userId}, #{applyMessage}, 'wait', now())
+    </insert>
+
+    <update id="admissionWaitingMember" parameterType="int">
+        update
+            study_waiting_member_tb
+        set
+            apply_state = 'admission',
+            apply_date = now()
+        where
+            waiting_id = ${waitingId}
+    </update>
+
+    <update id="refuseWaitingMember" parameterType="int">
+        update
+            study_waiting_member_tb
+        set
+            apply_state = 'refuse',
+            apply_date = now()
+        where
+            waiting_id = ${waitingId}
+    </update>
+
+    <insert id="saveRecruitmentMember" parameterType="com.team_soop.soop.entity.WaitingMember">
+        insert into
+            study_recruitment_tb
+        values
+            (0, #{studyId}, #{userId}, now())
+    </insert>
+
+    <delete id="deleteRecruitmentMember" parameterType="int">
+        delete
+        from
+            study_recruitment_tb
+        where
+            study_recruitment_id = #{recruitmentId}
+    </delete>
+
 </mapper>

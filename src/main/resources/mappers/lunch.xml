@@ -90,7 +90,7 @@
         </foreach>
     </insert>
 
-    <insert id="saveLunchCategory">
+    <insert id="saveLugnchCategory">
         insert into lunch_category_tb
         values
         <foreach collection="lunchCategories" item="lunchCategory" separator=",">

@@ -53,6 +53,69 @@
         values(0, #{userId}, #{roleId}, now(), now())
     </insert>
 
+    <select
+        id="findAllUser"
+        resultMap="UserResultMap"
+    >
+        select
+            ut.user_id,
+            ut.username,
+            ut.nickname,
+            ut.password,
+            ut.name,
+            ut.email,
+            ut.create_date,
+            ut.update_date,
+            rrt.role_register_id,
+            rrt.role_id,
+            rt.role_name,
+            rt.role_name_kor
+        from
+            user_tb ut
+            left outer join role_register_tb rrt on(rrt.user_id = ut.user_id)
+            left outer join role_tb rt on(rt.role_id = rrt.role_id)
+        where
+            1 = 1
+            <if test="roleId != 0">
+                and rrt.role_id = #{roleId}
+            </if>
+            <choose>
+                <when test="searchTypeId == 0">
+                    and (
+                        ut.user_id like concat('%', #{searchText}, '%')
+                        or ut.username like concat('%', #{searchText}, '%')
+                        or ut.nickname like concat('%', #{searchText}, '%')
+                        or ut.name like concat('%', #{searchText}, '%')
+                        or ut.email like concat('%', #{searchText}, '%')
+                        or ut.create_date like concat('%', #{searchText}, '%')
+                    )
+                </when>
+                <when test="searchTypeId == 1">
+                    and ut.user_id like concat('%', #{searchText}, '%')
+                </when>
+                <when test="searchTypeId == 2">
+                    and ut.username like concat('%', #{searchText}, '%')
+                </when>
+                <when test="searchTypeId == 3">
+                    and ut.nickname like concat('%', #{searchText}, '%')
+                </when>
+                <when test="searchTypeId == 4">
+                    and ut.name like concat('%', #{searchText}, '%')
+                </when>
+                <when test="searchTypeId == 5">
+                    and ut.email like concat('%', #{searchText}, '%')
+                </when>
+                <when test="searchTypeId == 6">
+                    and ut.create_date like concat('%', #{searchText}, '%')
+                </when>
+            </choose>
+    </select>
+
+
+
+
+
+
     <select id="findRoleRegisterByUserIdAndRoleId" resultMap="RoleRegisterResultMap">
         select
             rrt.role_register_id,

@@ -15,7 +15,7 @@ public class FeedList {
     private int feedId;
     private int userId;
     private String profileImgUrl;
-    private String username;
+    private String nickname;
     private String feedContent;
     private List<FeedImgUrl> feedImgUrl;
     private int feedLikeCount;
@@ -26,7 +26,7 @@ public class FeedList {
                 .feedId(feedId)
                 .userId(userId)
                 .profileImgUrl(profileImgUrl)
-                .username(username)
+                .nickname(nickname)
                 .feedContent(feedContent)
                 .feedImgUrl(feedImgUrl.stream().map(FeedImgUrl::getFeedImgUrl).collect(Collectors.toList()))
                 .build();

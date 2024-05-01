@@ -1,6 +1,5 @@
 package com.team_soop.soop.entity;
 
-import com.team_soop.soop.dto.SearchFeedRespDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

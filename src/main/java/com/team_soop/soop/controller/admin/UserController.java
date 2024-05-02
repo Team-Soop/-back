@@ -1,12 +1,14 @@
 package com.team_soop.soop.controller.admin;
 
+import com.team_soop.soop.aop.annotation.ParamsPrintAspect;
+import com.team_soop.soop.dto.SearchUserReqDto;
 import com.team_soop.soop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/user")
 public class UserController {
 
@@ -19,6 +21,10 @@ public class UserController {
         return ResponseEntity.ok(null);
     }
 
-//    @GetMapping("")
+    @ParamsPrintAspect
+    @GetMapping("/search")
+    public ResponseEntity<?> userSearch (SearchUserReqDto searchUserReqDto) {
+        return ResponseEntity.ok(userService.UserSearch(searchUserReqDto));
+    }
 
 }

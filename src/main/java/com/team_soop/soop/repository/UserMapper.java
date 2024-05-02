@@ -6,6 +6,8 @@ import com.team_soop.soop.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
     public User findUserByUsername(String username);
@@ -21,5 +23,7 @@ public interface UserMapper {
     public int saveOAuth2(OAuth2 oAuth2);
 
     public int modifyPassword(User user);
+
+    public List<User> findAllUser(@Param("roleId") int roleId, @Param("searchTypeId") int searchTypeId, @Param("searchText") String searchText);
 
 }

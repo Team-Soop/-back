@@ -47,6 +47,16 @@ public class StudyGroupService {
         return searchStudyGroupListRespDtos;
     }
 
+    public List<SearchStudyGroupListRespDto> mySearchStudyGroupList(int userId) {
+        List<StudyGroup> studyGroupList = studyMapper.mySearchStudyGroupList(userId);
+        List<SearchStudyGroupListRespDto> searchStudyGroupListRespDtos = new ArrayList<>();
+
+        for (StudyGroup studyGroup : studyGroupList) {
+            searchStudyGroupListRespDtos.add(studyGroup.toSearchStudyGroupListRespDto());
+        }
+        return searchStudyGroupListRespDtos;
+    }
+
     public SearchStudyGroupRespDto searchStudyGroup(int studyId) {
         return studyMapper.searchStudyGroup(studyId).toSearchStudyGroupRespDto();
     }

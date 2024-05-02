@@ -78,6 +78,26 @@
         group by
             st.study_id;
     </select>
+    <select id="mySearchStudyGroupList" resultMap="StudyGroupResultMap" parameterType="int">
+        select
+            st.study_id,
+            ut.user_id,
+            ut.nickname,
+            st.study_title,
+            st.study_period_end,
+            st.study_skills,
+            st.study_member_limited,
+            count(srt.user_id) as member_count,
+            TIMESTAMPDIFF(MINUTE, st.study_period_end, now()) as time_count
+        from
+            study_tb st
+            left outer join user_tb ut on (ut.user_id = st.manager_user_id)
+            left outer join study_recruitment_tb srt on (srt.study_id = st.study_id)
+        where
+            st.manager_user_id = #{userId}
+        group by
+            st.study_id;
+    </select>
     
     <select id="searchStudyGroup" resultMap="StudyGroupResultMap" parameterType="int">
         select

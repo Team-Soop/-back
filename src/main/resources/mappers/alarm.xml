@@ -5,14 +5,43 @@
 
 <mapper namespace="com.team_soop.soop.repository.AlarmMapper">
 
+    <resultMap id="UserResultMap" type="com.team_soop.soop.entity.User">
+        <id property="userId" column="user_id" />
+        <result property="nickname" column="nickname"/>
+        <result property="profileImgUrl" column="profile_img_url" />
+    </resultMap>
 
+    <resultMap id="ReportResultMap" type="com.team_soop.soop.entity.Alarm">
+        <id property="alarmId" column="user_alarm_id" />
+        <result property="alarmOrder" column="alarm_order" />
+        <result property="toUserId" column="to_user_id" />
+        <result property="fromUserId" column="from_user_id" />
+        <result property="content" column="alarm_content" />
+        <result property="createDate" column="create_date" />
+        <association property="toUser" resultMap="UserResultMap" />
+    </resultMap>
 
-
-
-    <insert id="sendAlarm" parameterType="com.team_soop.soop.entity.Alarm">
+    <insert id="sendReportAlarm" parameterType="com.team_soop.soop.entity.Alarm">
         insert into user_alarm_tb
-        values(0, #{toUserId}, #{fromUserId}, #{content}, now())
+        values(0, 0, #{toUserId}, #{fromUserId}, #{content}, now())
     </insert>
+
+    <select id="searchUserAlarmList" resultMap="ReportResultMap" parameterType="int">
+        select
+            uat.user_alarm_id,
+            uat.alarm_order,
+            uat.to_user_id,
+            ut.nickname,
+            ut.profile_img_url,
+            uat.from_user_id,
+            uat.alarm_content,
+            uat.create_date
+        from
+            user_alarm_tb uat
+            left outer join user_tb ut on (ut.user_id = uat.from_user_id)
+        where
+            uat.to_user_id = #{userId}
+    </select>
 
 
 

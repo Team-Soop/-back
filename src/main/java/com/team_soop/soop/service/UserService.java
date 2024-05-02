@@ -1,5 +1,6 @@
 package com.team_soop.soop.service;
 
+import com.team_soop.soop.aop.annotation.ParamsPrintAspect;
 import com.team_soop.soop.dto.SearchUserReqDto;
 import com.team_soop.soop.dto.SearchUserRespDto;
 import com.team_soop.soop.entity.User;
@@ -26,16 +27,21 @@ public class UserService {
     }
 
 
+    @ParamsPrintAspect
     public List<SearchUserRespDto> UserSearch(SearchUserReqDto searchUserReqDto) {
         List<SearchUserRespDto> searchUserRespDtos = new ArrayList<>();
+        int startIndex = (searchUserReqDto.getPage() - 1) * searchUserReqDto.getCount();
+
 
         List<User> users = userMapper.findAllUser(
+                startIndex,
+                searchUserReqDto.getCount(),
                 searchUserReqDto.getRoleId(),
                 searchUserReqDto.getSearchTypeId(),
                 searchUserReqDto.getSearchText()
         );
 
-
+        System.out.println(searchUserReqDto.getCount());
         for(User user : users) {
             searchUserRespDtos.add(user.toSearchUserRespDtos());
         }

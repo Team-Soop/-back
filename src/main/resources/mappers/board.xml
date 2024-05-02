@@ -67,9 +67,9 @@
     <delete id="deleteStudyWaitingBoard">
         delete
         from
-            study_waiting_particle_tb swpt
+            study_waiting_member_tb swmt
         where
-            swpt.study_id = #{boardId}
+            swmt.study_id = #{boardId}
     </delete>
 
 

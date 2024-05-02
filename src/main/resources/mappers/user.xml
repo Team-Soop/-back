@@ -109,6 +109,7 @@
                     and ut.create_date like concat('%', #{searchText}, '%')
                 </when>
             </choose>
+        limit #{startIndex}, #{count}
     </select>
 
 

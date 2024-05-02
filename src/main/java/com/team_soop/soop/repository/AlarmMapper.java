@@ -7,5 +7,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @Mapper
 public interface AlarmMapper {
-    public void sendAlarm(Alarm alarm);
+    public void sendReportAlarm(Alarm alarm);
 }

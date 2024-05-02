@@ -12,7 +12,7 @@ public class SearchFeedRespDto {
     private int feedId;
     private int userId;
     private String profileImgUrl;
-    private String username;
+    private String nickname;
     private String feedContent;
     private List<String> feedImgUrl;
 

@@ -85,12 +85,13 @@ public class User {
 
     public SearchUserRespDto toSearchUserRespDtos () {
         return SearchUserRespDto.builder()
-                .userID(userId)
+                .userId(userId)
                 .userName(username)
                 .nickName(nickname)
                 .name(name)
                 .email(email)
                 .roleNameKor(getRoleNameKor())
+                .profileImgUrl(profileImgUrl)
                 .createDate(createDate)
                 .build();
     }

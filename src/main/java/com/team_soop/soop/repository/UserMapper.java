@@ -5,6 +5,7 @@ import com.team_soop.soop.entity.RoleRegister;
 import com.team_soop.soop.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.parameters.P;
 
 import java.util.List;
 
@@ -24,6 +25,11 @@ public interface UserMapper {
 
     public int modifyPassword(User user);
 
-    public List<User> findAllUser(@Param("roleId") int roleId, @Param("searchTypeId") int searchTypeId, @Param("searchText") String searchText);
+    public List<User> findAllUser(
+            @Param("startIndex") int startIndex,
+            @Param("count") int count,
+            @Param("roleId") int roleId,
+            @Param("searchTypeId") int searchTypeId,
+            @Param("searchText") String searchText);
 
 }

@@ -6,10 +6,7 @@ import com.team_soop.soop.service.AlarmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/alarm")
@@ -25,6 +22,10 @@ public class AlarmController {
         return ResponseEntity.ok(null);
     }
 
+    @GetMapping("search/{userId}")
+    public ResponseEntity<?> searchUserAlarmList(@PathVariable int userId) {
+        return ResponseEntity.ok(alarmService.searchAlarmList(userId));
+    }
 
 
 

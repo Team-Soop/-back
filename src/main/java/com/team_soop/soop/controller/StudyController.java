@@ -33,6 +33,11 @@ public class StudyController {
         return ResponseEntity.ok(studyGroupService.searchStudyGroupList());
     }
 
+    @GetMapping("/boardlist/{userId}")
+    public ResponseEntity<?> mySearchStudyGroupList(@PathVariable int userId) {
+        return ResponseEntity.ok(studyGroupService.mySearchStudyGroupList(userId));
+    }
+
     @GetMapping("/board/{studyId}")
     public ResponseEntity<?> searchStudyGroup(@PathVariable int studyId) {
         return ResponseEntity.ok(studyGroupService.searchStudyGroup(studyId));

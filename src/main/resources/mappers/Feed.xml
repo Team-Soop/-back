@@ -9,7 +9,7 @@
         <id property="feedId" column="feed_id" />
         <result property="userId" column="user_id" />
         <result property="profileImgUrl" column="profile_img_url" />
-        <result property="username" column="username" />
+        <result property="nickname" column="nickname" />
         <result property="feedContent" column="feed_content" />
         <result property="feedLikeCount" column="like_count" />
         <collection property="feedImgUrl" javaType="List" resultMap="FeedImgUrlResultMap"/>
@@ -178,4 +178,49 @@
             ft.user_id = #{userId}
         ;
     </select>
+
+    <!-- 마이페이지 feed delete  -->
+    <delete id="mypageDeleteFeed">
+        delete
+        from
+            feed_tb ft
+            left outer join feed_img_url_tb fiut on (fiut.feed_id = ft.feed_id)
+            left outer join feed_like_tb flt on (flt.feed_id = ft.feed_id)
+        where
+            ft.feed_id = #{boardId}
+    </delete>
+
+    <delete id="mypageDeleteFeedComment">
+        delete
+        from
+            feed_comment_tb fct
+        where
+            fct.feed_id = #{boardId}
+    </delete>
+
+    <delete id="mypageDeleteFeedImgUrl">
+        delete
+        from
+            feed_img_url_tb fiut
+        where
+            fiut.feed_id = #{boardId}
+    </delete>
+
+    <delete id="mypageDeleteFeedLike">
+        delete
+        from
+            feed_like_tb flt
+        where
+            flt.feed_id = #{boardId}
+    </delete>
+
+    <!-- 즐겨찾기 된 게시판 삭제  -->
+    <delete id="deleteSaveBoard">
+        delete
+        from
+            save_board_tb sbt
+        where
+            sbt.board_id = #{boardId}
+            and menu_category_id = #{menuId}
+    </delete>
 </mapper>

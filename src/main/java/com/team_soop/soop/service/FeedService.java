@@ -3,13 +3,18 @@ package com.team_soop.soop.service;
 import com.team_soop.soop.aop.annotation.ParamsPrintAspect;
 import com.team_soop.soop.dto.*;
 import com.team_soop.soop.entity.*;
+import com.team_soop.soop.exception.DeleteException;
+import com.team_soop.soop.exception.MenuCategoryException;
+import com.team_soop.soop.repository.BoardMapper;
 import com.team_soop.soop.repository.FeedMapper;
+import com.team_soop.soop.repository.ReportMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,6 +22,10 @@ public class FeedService {
 
     @Autowired
     private FeedMapper feedMapper;
+    @Autowired
+    private BoardMapper boardMapper;
+    @Autowired
+    private ReportMapper reportMapper;
 
     // 피드 POST
     @Transactional(rollbackFor = Exception.class)
@@ -100,19 +109,39 @@ public class FeedService {
         return searchFeedRespDtos;
     }
 
+    // 자유게시판 삭제
+    public int mypageDeleteFeed (int feedId) {
+        int successCount = 0;
+        successCount += feedMapper.mypageDeleteFeed(feedId);
+        successCount += feedMapper.mypageDeleteFeedComment(feedId);
+        successCount += feedMapper.mypageDeleteFeedImgUrl(feedId);
+        successCount += feedMapper.mypageDeleteFeedLike(feedId);
+        successCount += feedMapper.deleteSaveBoard(1, feedId);
 
+        return successCount;
+    }
 
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteBoard(String menuCategoryName, int feedId) {
+        int successCount = 0;
+        int menuCategoryId = 0;
 
+        switch (menuCategoryName) {
+            case "자유게시판":
+                successCount = mypageDeleteFeed(feedId);
+                if(successCount < 1) {
+                    throw new DeleteException();
+                }
+                menuCategoryId = 1;
+                break;
+            default:
+                throw new MenuCategoryException((Map.of("menuCategoryName", "맞는 메뉴이름이 없습니다.")));
+        }
 
+        // work bench 에 트리거를 걸어둬서 자동으로 report_completed 에 저장
+        reportMapper.deleteReport(menuCategoryId, feedId);
 
-
-
-
-
-
-
-
-
+    }
 
 
 

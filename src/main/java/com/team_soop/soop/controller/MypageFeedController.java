@@ -1,6 +1,8 @@
 package com.team_soop.soop.controller;
 
 
+import com.team_soop.soop.aop.annotation.ParamsPrintAspect;
+import com.team_soop.soop.service.BoardService;
 import com.team_soop.soop.service.FeedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +14,21 @@ public class MypageFeedController {
 
     @Autowired
     private FeedService feedService;
+    @Autowired
+    private BoardService boardService;
 
     @ResponseBody
     @GetMapping("/{userId}")
     public ResponseEntity<?> mypageFeedList(@PathVariable int userId) {
         return ResponseEntity.ok(feedService.mypageSearchFeeds(userId));
     }
+
+    @ParamsPrintAspect
+    @DeleteMapping("/delete/{menuCategoryName}/{feedId}")
+    public ResponseEntity<?> deleteFeed(@PathVariable String menuCategoryName, @PathVariable int feedId) {
+        feedService.deleteBoard(menuCategoryName, feedId);
+        return ResponseEntity.ok(null);
+    }
+
+
 }

@@ -51,5 +51,4 @@ public class Alarm {
                 .createDate(createDate)
                 .build();
     }
-    private User toUser;
 }

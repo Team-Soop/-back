@@ -15,7 +15,6 @@
     </insert>
 
 
-
     <select id="searchReportList" resultType="com.team_soop.soop.entity.Report">
         select
             rt.report_id as reportId,

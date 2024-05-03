@@ -15,7 +15,7 @@ public class AlarmService {
     // 알람 보내기
     public void sendAlarmMessage(SendAlarmReqDto sendAlarmReqDto) {
         Alarm sendAlarm = sendAlarmReqDto.toAlarm();
-        alarmMapper.sendAlarm(sendAlarm);
+        alarmMapper.sendReportAlarm(sendAlarm);
     }
 
 

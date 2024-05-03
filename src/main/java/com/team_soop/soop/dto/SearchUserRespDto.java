@@ -13,11 +13,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class SearchUserRespDto {
-    private int userID;
+    private int userId;
     private String userName;
     private String nickName;
     private String name;
     private String email;
     private String roleNameKor;
+    private String profileImgUrl;
     private LocalDateTime createDate;
 }

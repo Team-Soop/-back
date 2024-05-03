@@ -9,9 +9,12 @@
 
 
 
-    <insert id="sendAlarm" parameterType="com.team_soop.soop.entity.Alarm">
+    <insert
+        id="sendReportAlarm"
+        parameterType="com.team_soop.soop.entity.Alarm"
+    >
         insert into user_alarm_tb
-        values(0, #{toUserId}, #{fromUserId}, #{content}, now())
+            values(0, 0, #{toUserId}, #{fromUserId}, #{content}, now())
     </insert>
 
 

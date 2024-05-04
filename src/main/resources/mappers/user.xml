@@ -38,6 +38,19 @@
         <collection property="oAuth2s" javaType="list" resultMap="OAuth2ResultMap" />
     </resultMap>
 
+    <resultMap id="UserSearchResultMap" type="com.team_soop.soop.entity.SearchUser">
+        <id property="userId" column="user_id" />
+        <result property="userName" column="username" />
+        <result property="nickName" column="nickname"/>
+        <result property="password" column="password" />
+        <result property="name" column="name" />
+        <result property="email" column="email" />
+        <result property="createDate" column="create_date" />
+        <result property="updateDate" column="update_date" />
+        <result property="profileImgUrl" column="profile_img_url"/>
+        <result property="roleId" column="role_id"/>
+    </resultMap>
+
     <insert
         id="saveUser"
         parameterType="com.team_soop.soop.entity.User"
@@ -55,7 +68,7 @@
 
     <select
         id="findAllUser"
-        resultMap="UserResultMap"
+        resultMap="UserSearchResultMap"
     >
         select
             ut.user_id,
@@ -66,52 +79,98 @@
             ut.email,
             ut.create_date,
             ut.update_date,
-            rrt.role_register_id,
-            rrt.role_id,
-            rt.role_name,
-            rt.role_name_kor
+            ut.profile_img_url,
+            (
+                select
+                    Max(rrt.role_id)
+                from
+                    role_register_tb rrt
+                    left outer join role_tb rt on(rt.role_id = rrt.role_id)
+                where
+                    ut.user_id = rrt.user_id
+            ) as role_id
         from
             user_tb ut
-            left outer join role_register_tb rrt on(rrt.user_id = ut.user_id)
-            left outer join role_tb rt on(rt.role_id = rrt.role_id)
+            left outer join role_register_tb arrt on (arrt.user_id = ut.user_id)
         where
             1 = 1
-            <if test="roleId != 0">
-                and rrt.role_id = #{roleId}
-            </if>
             <choose>
                 <when test="searchTypeId == 0">
                     and (
-                        ut.user_id like concat('%', #{searchText}, '%')
-                        or ut.username like concat('%', #{searchText}, '%')
-                        or ut.nickname like concat('%', #{searchText}, '%')
-                        or ut.name like concat('%', #{searchText}, '%')
-                        or ut.email like concat('%', #{searchText}, '%')
-                        or ut.create_date like concat('%', #{searchText}, '%')
+                    ut.username like concat('%', #{searchText}, '%')
+                    or ut.nickname like concat('%', #{searchText}, '%')
+                    or ut.name like concat('%', #{searchText}, '%')
+                    or ut.email like concat('%', #{searchText}, '%')
+                    or ut.create_date like concat('%', #{searchText}, '%')
                     )
                 </when>
                 <when test="searchTypeId == 1">
-                    and ut.user_id like concat('%', #{searchText}, '%')
-                </when>
-                <when test="searchTypeId == 2">
                     and ut.username like concat('%', #{searchText}, '%')
                 </when>
-                <when test="searchTypeId == 3">
+                <when test="searchTypeId == 2">
                     and ut.nickname like concat('%', #{searchText}, '%')
                 </when>
-                <when test="searchTypeId == 4">
+                <when test="searchTypeId == 3">
                     and ut.name like concat('%', #{searchText}, '%')
                 </when>
-                <when test="searchTypeId == 5">
+                <when test="searchTypeId == 4">
                     and ut.email like concat('%', #{searchText}, '%')
                 </when>
-                <when test="searchTypeId == 6">
+                <when test="searchTypeId == 5">
                     and ut.create_date like concat('%', #{searchText}, '%')
                 </when>
             </choose>
-        limit #{startIndex}, #{count}
+        group by
+            ut.username
+        having
+            1 = 1
+            <if test="roleId != 0">
+                and role_id = #{roleId}
+            </if>
     </select>
 
+    <select id="getUserCount" resultType="integer">
+        select
+            count(*)
+        from
+            user_tb ut
+            left outer join role_register_tb arrt on (arrt.user_id = ut.user_id)
+        where
+            1 = 1
+            <choose>
+                <when test="searchTypeId == 0">
+                    and (
+                    ut.username like concat('%', #{searchText}, '%')
+                    or ut.nickname like concat('%', #{searchText}, '%')
+                    or ut.name like concat('%', #{searchText}, '%')
+                    or ut.email like concat('%', #{searchText}, '%')
+                    or ut.create_date like concat('%', #{searchText}, '%')
+                    )
+                </when>
+                <when test="searchTypeId == 1">
+                    and ut.username like concat('%', #{searchText}, '%')
+                </when>
+                <when test="searchTypeId == 2">
+                    and ut.nickname like concat('%', #{searchText}, '%')
+                </when>
+                <when test="searchTypeId == 3">
+                    and ut.name like concat('%', #{searchText}, '%')
+                </when>
+                <when test="searchTypeId == 4">
+                    and ut.email like concat('%', #{searchText}, '%')
+                </when>
+                <when test="searchTypeId == 5">
+                    and ut.create_date like concat('%', #{searchText}, '%')
+                </when>
+            </choose>
+        group by
+            ut.username
+        having
+            1 = 1
+            <if test="roleId != 0">
+                and role_id = #{roleId}
+            </if>
+    </select>
 
 
 

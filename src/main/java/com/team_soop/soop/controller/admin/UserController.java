@@ -2,6 +2,7 @@ package com.team_soop.soop.controller.admin;
 
 import com.team_soop.soop.aop.annotation.ParamsPrintAspect;
 import com.team_soop.soop.dto.SearchUserReqDto;
+import com.team_soop.soop.entity.SearchUser;
 import com.team_soop.soop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,11 @@ public class UserController {
     @GetMapping("/search")
     public ResponseEntity<?> userSearch (SearchUserReqDto searchUserReqDto) {
         return ResponseEntity.ok(userService.UserSearch(searchUserReqDto));
+    }
+
+    @GetMapping("/search/count")
+    public ResponseEntity<?> getCount(SearchUserReqDto searchUserReqDto) {
+        return ResponseEntity.ok(null);
     }
 
 }

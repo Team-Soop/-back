@@ -2,6 +2,7 @@ package com.team_soop.soop.repository;
 
 import com.team_soop.soop.entity.OAuth2;
 import com.team_soop.soop.entity.RoleRegister;
+import com.team_soop.soop.entity.SearchUser;
 import com.team_soop.soop.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -25,11 +26,17 @@ public interface UserMapper {
 
     public int modifyPassword(User user);
 
-    public List<User> findAllUser(
-            @Param("startIndex") int startIndex,
-            @Param("count") int count,
+    public List<SearchUser> findAllUser(
+//            @Param("startIndex") int startIndex,
+//            @Param("count") int count,
             @Param("roleId") int roleId,
             @Param("searchTypeId") int searchTypeId,
             @Param("searchText") String searchText);
+
+    public int getUserCount(
+            @Param("roleId") int roleId,
+            @Param("searchTypeId") int searchTypeId,
+            @Param("searchText") String searchText);
+
 
 }

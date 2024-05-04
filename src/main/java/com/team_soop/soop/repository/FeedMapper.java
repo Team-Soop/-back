@@ -30,4 +30,11 @@ public interface FeedMapper {
 
     // 마이페이지 피드
     public List<FeedList> mypageSearchFeeds(int userId);
+    public int mypageDeleteFeed(@Param("feedId") int feedId);
+    public int mypageDeleteFeedComment(@Param("feedId") int feedId);
+    public int mypageDeleteFeedImgUrl(@Param("feedId") int feedId);
+    public int mypageDeleteFeedLike(@Param("feedId") int feedId);
+
+    // 즐겨찾기 게시판 삭제
+    public int deleteSaveBoard(@Param("boardId") int boardId, @Param("menuId") int menuId);
 }

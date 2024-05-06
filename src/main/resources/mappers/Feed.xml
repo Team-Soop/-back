@@ -184,10 +184,8 @@
         delete
         from
             feed_tb ft
-            left outer join feed_img_url_tb fiut on (fiut.feed_id = ft.feed_id)
-            left outer join feed_like_tb flt on (flt.feed_id = ft.feed_id)
         where
-            ft.feed_id = #{boardId}
+            ft.feed_id = #{feedId}
     </delete>
 
     <delete id="mypageDeleteFeedComment">
@@ -195,7 +193,7 @@
         from
             feed_comment_tb fct
         where
-            fct.feed_id = #{boardId}
+            fct.feed_id = #{feedId}
     </delete>
 
     <delete id="mypageDeleteFeedImgUrl">
@@ -203,7 +201,7 @@
         from
             feed_img_url_tb fiut
         where
-            fiut.feed_id = #{boardId}
+            fiut.feed_id = #{feedId}
     </delete>
 
     <delete id="mypageDeleteFeedLike">
@@ -211,7 +209,7 @@
         from
             feed_like_tb flt
         where
-            flt.feed_id = #{boardId}
+            flt.feed_id = #{feedId}
     </delete>
 
     <!-- 즐겨찾기 된 게시판 삭제  -->
@@ -220,7 +218,7 @@
         from
             save_board_tb sbt
         where
-            sbt.board_id = #{boardId}
+            sbt.board_id = #{feedId}
             and menu_category_id = #{menuId}
     </delete>
 </mapper>

@@ -91,5 +91,14 @@
         and rt.report_board_id = #{boardId}
     </delete>
 
+    <delete id="deleteReportFeed">
+        delete
+        from
+            report_tb rt
+        where
+            rt.menu_category_id = #{menuCategoryId}
+        and rt.report_board_id = #{feedId}
+    </delete>
+
 
 </mapper>

@@ -36,5 +36,5 @@ public interface FeedMapper {
     public int mypageDeleteFeedLike(@Param("feedId") int feedId);
 
     // 즐겨찾기 게시판 삭제
-    public int deleteSaveBoard(@Param("boardId") int boardId, @Param("menuId") int menuId);
+    public int deleteSaveBoard(@Param("feedId") int feedId, @Param("menuId") int menuId);
 }

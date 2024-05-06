@@ -90,7 +90,7 @@
         </foreach>
     </insert>
 
-    <insert id="saveLugnchCategory">
+    <insert id="saveLunchCategory">
         insert into lunch_category_tb
         values
         <foreach collection="lunchCategories" item="lunchCategory" separator=",">
@@ -109,6 +109,36 @@
         values
             (0, #{lunchId}, #{userId}, now())
     </insert>
+
+    <select
+        id="myPageSearchLunch"
+        resultMap="lunchResultMap"
+    >
+        select
+            lt.lunch_id,
+            lt.user_id,
+            lt.lunch_title,
+            lt.lunch_content,
+            lt.lunch_place_name,
+            lt.lunch_place_x,
+            lt.lunch_place_y,
+            lt.lunch_place_url,
+            lt.create_date,
+            lt.update_date,
+
+            ut.nickname,
+            ut.profile_img_url,
+
+            liut.lunch_img_url,
+            lctt.lunch_category_name
+        from
+            lunch_tb lt
+            left outer join lunch_img_url_tb liut on ( liut.lunch_id = lt.lunch_id )
+            left outer join lunch_category_tb lctt on ( lctt.lunch_id = lt.lunch_id )
+            left outer join user_tb ut on ( ut.user_id = lt.user_id )
+        where
+            lt.user_id = #{userId}
+    </select>
 
     <select
         id="searchLunchList"

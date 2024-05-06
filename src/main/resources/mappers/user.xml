@@ -66,6 +66,15 @@
         values(0, #{userId}, #{roleId}, now(), now())
     </insert>
 
+    <insert id="updateSaveRoles">
+        insert into role_register_tb
+        values
+        <foreach collection="updateRoleIds" item="updateRoleId" separator=",">
+            (0, #{userId}, #{updateRoleId}, now(), now())
+        </foreach>
+    </insert>
+
+
     <select
         id="findAllUser"
         resultMap="UserSearchResultMap"
@@ -127,24 +136,45 @@
             <if test="roleId != 0">
                 and role_id = #{roleId}
             </if>
+        limit #{startIndex}, #{count}
     </select>
 
     <select id="getUserCount" resultType="integer">
-        select
-            count(*)
-        from
-            user_tb ut
-            left outer join role_register_tb arrt on (arrt.user_id = ut.user_id)
-        where
-            1 = 1
+        SELECT
+            COUNT(*)
+        FROM (
+            select
+                ut.user_id,
+                ut.username,
+                ut.nickname,
+                ut.password,
+                ut.name,
+                ut.email,
+                ut.create_date,
+                ut.update_date,
+                ut.profile_img_url,
+                (
+                    select
+                        Max(rrt.role_id)
+                    from
+                        role_register_tb rrt
+                        left outer join role_tb rt on(rt.role_id = rrt.role_id)
+                    where
+                        ut.user_id = rrt.user_id
+                ) as role_id
+            from
+                user_tb ut
+                left outer join role_register_tb arrt on (arrt.user_id = ut.user_id)
+            where
+                1 = 1
             <choose>
                 <when test="searchTypeId == 0">
                     and (
-                    ut.username like concat('%', #{searchText}, '%')
-                    or ut.nickname like concat('%', #{searchText}, '%')
-                    or ut.name like concat('%', #{searchText}, '%')
-                    or ut.email like concat('%', #{searchText}, '%')
-                    or ut.create_date like concat('%', #{searchText}, '%')
+                        ut.username like concat('%', #{searchText}, '%')
+                        or ut.nickname like concat('%', #{searchText}, '%')
+                        or ut.name like concat('%', #{searchText}, '%')
+                        or ut.email like concat('%', #{searchText}, '%')
+                        or ut.create_date like concat('%', #{searchText}, '%')
                     )
                 </when>
                 <when test="searchTypeId == 1">
@@ -170,6 +200,7 @@
             <if test="roleId != 0">
                 and role_id = #{roleId}
             </if>
+            ) AS subquery_alias;
     </select>
 
 
@@ -260,5 +291,32 @@
             user_id = #{userId}
     </update>
 
+    <delete id="updateDeleteRole">
+        delete
+        from
+            role_register_tb rrt
+        where
+            rrt.user_id = #{userId}
+    </delete>
+
+    <delete id="deleteUserRole">
+        delete
+        from
+            role_register_tb rrt
+        where
+            <foreach collection="userIds" item="id" separator=",">
+            rrt.user_id = #{id}
+            </foreach>
+    </delete>
+
+    <delete id="deleteUserInfo">
+        delete
+        from
+            user_tb ut
+        where
+            <foreach collection="userIds" item="id" separator=",">
+            ut.user_id = #{id}
+            </foreach>
+    </delete>
 
 </mapper>

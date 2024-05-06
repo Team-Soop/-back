@@ -26,6 +26,8 @@ public interface LunchMapper {
     public int modifyComment(LunchComment lunchComment);
     public int deleteComment(int commentId);
 
+    // 마이페이지 런치
+    public List<LunchList> myPageSearchLunch(int userId);
 
 }
 

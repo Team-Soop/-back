@@ -27,8 +27,8 @@ public interface UserMapper {
     public int modifyPassword(User user);
 
     public List<SearchUser> findAllUser(
-//            @Param("startIndex") int startIndex,
-//            @Param("count") int count,
+            @Param("startIndex") int startIndex,
+            @Param("count") int count,
             @Param("roleId") int roleId,
             @Param("searchTypeId") int searchTypeId,
             @Param("searchText") String searchText);
@@ -37,6 +37,13 @@ public interface UserMapper {
             @Param("roleId") int roleId,
             @Param("searchTypeId") int searchTypeId,
             @Param("searchText") String searchText);
+
+    public int updateDeleteRole(@Param("userId") int userId);
+
+    public int updateSaveRoles(@Param("userId") int userId, @Param("updateRoleIds") List<Integer> updateRoleIds);
+
+    public int deleteUserRole(@Param("userIds") List<Integer> userIds);
+    public int deleteUserInfo(@Param("userIds") List<Integer> userIds);
 
 
 }

@@ -11,10 +11,15 @@
         delete
         from
             feed_tb ft
-            left outer join feed_img_url_tb fiut on (fiut.feed_id = ft.feed_id)
-            left outer join feed_like_tb flt on (flt.feed_id = ft.feed_id)
         where
-            ft.feed_id = #{boardId}
+            <if test="userIds != null">
+                <foreach collection="userIds" item="id" separator=",">
+                    ft.user_id = #{id}
+                </foreach>
+            </if>
+            <if test="boardId != 0">
+                ft.feed_id = #{boardId}
+            </if>
     </delete>
 
     <delete id="deleteFeedCommentBoard">
@@ -22,15 +27,31 @@
         from
             feed_comment_tb fct
         where
-            fct.feed_id = #{boardId}
+            <if test="userIds != null">
+                <foreach collection="userIds" item="id" separator=",">
+                    fct.user_id = #{id}
+                </foreach>
+            </if>
+            <if test="boardId != 0">
+                fct.feed_id = #{boardId}
+            </if>
     </delete>
 
     <delete id="deleteFeedImgUrlBoard">
         delete
         from
             feed_img_url_tb fiut
+
+<!--            <if test="userIds != null">-->
+<!--                <foreach collection="userIds" item="id" separator=",">-->
+<!--                    fiut.user_id = #{id}-->
+<!--                </foreach>-->
+<!--            </if>-->
         where
-            fiut.feed_id = #{boardId}
+            <if test="boardId != 0">
+                fiut.feed_id = #{boardId}
+            </if>
+            fiut.feed_id = 0
     </delete>
 
     <delete id="deleteFeedLike">
@@ -38,7 +59,14 @@
         from
             feed_like_tb flt
         where
-            flt.feed_id = #{boardId}
+            <if test="userIds != null">
+                <foreach collection="userIds" item="id" separator=",">
+                    flt.user_id = #{id}
+                </foreach>
+            </if>
+            <if test="boardId != 0">
+                flt.feed_id = #{boardId}
+            </if>
     </delete>
 
 
@@ -53,7 +81,14 @@
         from
             study_tb st
         where
-            st.study_id = #{boardId}
+            <if test="userIds != null">
+                <foreach collection="userIds" item="id" separator=",">
+                st.manager_user_id = #{id}
+                </foreach>
+            </if>
+            <if test="boardId != 0">
+                st.study_id = #{boardId}
+            </if>
     </delete>
 
     <delete id="deleteStudyRecruitmentBoard">
@@ -61,7 +96,14 @@
         from
             study_recruitment_tb srt
         where
-            srt.study_id = #{boardId}
+            <if test="userIds != null">
+                <foreach collection="userIds" item="id" separator=",">
+                srt.user_id = #{id}
+                </foreach>
+            </if>
+            <if test="boardId != 0">
+                srt.study_id = #{boardId}
+            </if>
     </delete>
 
     <delete id="deleteStudyWaitingBoard">
@@ -69,7 +111,14 @@
         from
             study_waiting_member_tb swmt
         where
-            swmt.study_id = #{boardId}
+            <if test="userIds != null">
+                <foreach collection="userIds" item="id" separator=",">
+                swmt.user_id = #{id}
+                </foreach>
+            </if>
+            <if test="boardId != 0">
+                swmt.study_id = #{boardId}
+            </if>
     </delete>
 
 
@@ -80,7 +129,14 @@
         from
             lunch_tb lt
         where
+        <if test="userIds != null">
+            <foreach collection="userIds" item="id" separator=",">
+            lt.user_id = #{id}
+            </foreach>
+        </if>
+        <if test="boardId != 0">
             lt.lunch_id = #{boardId}
+        </if>
     </delete>
 
     <delete id="deleteLunchCategoryBoard">
@@ -88,7 +144,15 @@
         from
             lunch_category_tb lct
         where
-            lct.lunch_id = #{boardId}
+<!--            <if test="userIds != null">-->
+<!--                <foreach collection="userIds" item="id" separator=",">-->
+<!--                lct.user_id = #{id}-->
+<!--                </foreach>-->
+<!--            </if>-->
+            <if test="boardId != 0">
+                lct.lunch_id = #{boardId}
+            </if>
+            lct.lunch_id = 0
     </delete>
 
     <delete id="deleteLunchCommentBoard">
@@ -96,7 +160,14 @@
         from
             lunch_comment_tb lcmt
         where
-            lcmt.lunch_id = #{boardId}
+            <if test="userIds != null">
+                <foreach collection="userIds" item="id" separator=",">
+                lcmt.lunch_comment_user_id = #{id}
+                </foreach>
+            </if>
+            <if test="boardId != 0">
+                lcmt.lunch_id = #{boardId}
+            </if>
     </delete>
 
     <delete id="deleteLunchImgUrlBoard">
@@ -104,7 +175,15 @@
         from
             lunch_img_url_tb liut
         where
-            liut.lunch_id = #{boardId}
+<!--            <if test="userIds != null">-->
+<!--                <foreach collection="userIds" item="id" separator=",">-->
+<!--                liut.user_id = #{id}-->
+<!--                </foreach>-->
+<!--            </if>-->
+            <if test="boardId != 0">
+                liut.lunch_id = #{boardId}
+            </if>
+            liut.lunch_id = 0
     </delete>
 
     <delete id="deleteLunchLike">
@@ -112,7 +191,14 @@
         from
             lunch_like_tb llt
         where
-            llt.lunch_id = #{boardId}
+            <if test="userIds != null">
+                <foreach collection="userIds" item="id" separator=",">
+                llt.lunch_like_user_id = #{id}
+                </foreach>
+            </if>
+            <if test="boardId != 0">
+                llt.lunch_id = #{boardId}
+            </if>
     </delete>
 
 
@@ -124,8 +210,15 @@
         from
             save_board_tb sbt
         where
-            sbt.board_id = #{boardId}
-        and menu_category_id = #{menuId}
+            menu_category_id = #{menuId}
+            <if test="userIds != null">
+                <foreach collection="userIds" item="id" separator=",">
+                and sbt.save_board_userId = #{id}
+                </foreach>
+            </if>
+            <if test="boardId != 0">
+                and sbt.board_id = #{boardId}
+            </if>
     </delete>
 
 

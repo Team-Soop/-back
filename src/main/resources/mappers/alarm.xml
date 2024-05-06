@@ -43,6 +43,12 @@
             uat.to_user_id = #{userId}
     </select>
 
-
+    <delete id="deleteAlarm" parameterType="int">
+        delete
+        from
+            user_alarm_tb
+        where
+            user_alarm_id = #{alarmId}
+    </delete>
 
 </mapper>

@@ -33,6 +33,9 @@ public class AlarmService {
         return searchAlarmListRespDtos;
     }
 
+    public void deleteAlarm(int alarmId) {
+        alarmMapper.deleteAlarm(alarmId);
+    }
 
 
 }

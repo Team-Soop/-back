@@ -20,6 +20,17 @@ public class AccountService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+
+    public int duplicateUsernameCheck(String username) {
+        User user = userMapper.findUserByUsername(username);
+        if (user != null) {
+            throw new ValidException(Map.of("usernameCheck", "이미 존재하는 아이디입니다."));
+        }
+
+        return 1;
+    }
+
+
     // 바뀔 비밀번호 유효성 검사
     public void editPassword(EditPasswordReqDto editPasswordReqDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -37,10 +48,6 @@ public class AccountService {
 
         user.setPassword(passwordEncoder.encode(editPasswordReqDto.getNewPassword()));
         userMapper.modifyPassword(user);
-
-
-
     }
-
 
 }

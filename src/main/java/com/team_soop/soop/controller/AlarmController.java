@@ -1,6 +1,7 @@
 package com.team_soop.soop.controller;
 
 import com.team_soop.soop.aop.annotation.ParamsPrintAspect;
+import com.team_soop.soop.dto.EditAccountReqDto;
 import com.team_soop.soop.dto.SendAlarmReqDto;
 import com.team_soop.soop.service.AlarmService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,16 @@ public class AlarmController {
         return ResponseEntity.ok(null);
     }
 
-    @GetMapping("search/{userId}")
+    @GetMapping("/search/{userId}")
     public ResponseEntity<?> searchUserAlarmList(@PathVariable int userId) {
         return ResponseEntity.ok(alarmService.searchAlarmList(userId));
     }
 
+    @DeleteMapping("/delete/{alarmId}")
+    public ResponseEntity<?> deleteAlarm(@PathVariable int alarmId) {
+        alarmService.deleteAlarm(alarmId);
+        return ResponseEntity.ok(null);
+    }
 
 
 

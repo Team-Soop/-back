@@ -184,8 +184,6 @@
         delete
         from
             feed_tb ft
-            left outer join feed_img_url_tb fiut on (fiut.feed_id = ft.feed_id)
-            left outer join feed_like_tb flt on (flt.feed_id = ft.feed_id)
         where
             ft.feed_id = #{boardId}
     </delete>

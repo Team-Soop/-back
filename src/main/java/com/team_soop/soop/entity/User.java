@@ -51,6 +51,7 @@ public class User {
                 .nickname(nickname)
                 .name(name)
                 .email(email)
+                .profileImgUrl(profileImgUrl)
                 .authorities(getAuthorities())
                 .build();
     }

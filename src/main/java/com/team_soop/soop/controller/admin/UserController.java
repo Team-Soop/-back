@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -22,7 +24,6 @@ public class UserController {
         return ResponseEntity.ok(null);
     }
 
-    @ParamsPrintAspect
     @GetMapping("/search")
     public ResponseEntity<?> userSearch (SearchUserReqDto searchUserReqDto) {
         return ResponseEntity.ok(userService.UserSearch(searchUserReqDto));
@@ -30,7 +31,22 @@ public class UserController {
 
     @GetMapping("/search/count")
     public ResponseEntity<?> getCount(SearchUserReqDto searchUserReqDto) {
+        return ResponseEntity.ok(userService.getUserCount(searchUserReqDto));
+    }
+
+
+    @PostMapping("/{newRoleId}/{oldRoleId}/{userId}/update/role")
+    public ResponseEntity<?> userAuthorityUpdate(@PathVariable int newRoleId, @PathVariable int oldRoleId, @PathVariable int userId) {
+        userService.updateUserRole(newRoleId, oldRoleId, userId);
         return ResponseEntity.ok(null);
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> userDelete(@RequestBody List<Integer> userIds) {
+        userService.deleteUsers(userIds);
+        return ResponseEntity.ok(true);
+    }
+
+
 
 }

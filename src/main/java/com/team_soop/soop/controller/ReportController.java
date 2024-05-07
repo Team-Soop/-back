@@ -24,7 +24,6 @@ public class ReportController {
         return ResponseEntity.ok(null);
     }
 
-
     @GetMapping("/search")
     public ResponseEntity<?> searchReport(SearchReportReqDto searchReportReqDto) {
         return ResponseEntity.ok(reportService.searchReport(searchReportReqDto));

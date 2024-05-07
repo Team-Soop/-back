@@ -104,5 +104,14 @@ public class LunchService {
         lunchMapper.deleteLunchLike(LunchLike.builder().userId(userId).lunchId(lunchId).build());
     }
 
+    // 런치 마이페이지 리스트 get
+    public List<SearchLunchRespDto> myPageSearchLunchs(int userId) {
+        List<LunchList> lunchLists = lunchMapper.myPageSearchLunch(userId);
+        List<SearchLunchRespDto> searchLunchRespDtos = new ArrayList<>();
+        for(LunchList lunchList : lunchLists) {
+            searchLunchRespDtos.add(lunchList.toSearchLunchRespDto());
+        }
+        return searchLunchRespDtos;
+    }
 
 }

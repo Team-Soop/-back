@@ -5,6 +5,7 @@ import com.team_soop.soop.exception.DeleteException;
 import com.team_soop.soop.exception.MenuCategoryException;
 import com.team_soop.soop.repository.BoardMapper;
 import com.team_soop.soop.repository.ReportMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,36 +23,36 @@ public class BoardService {
     ReportMapper reportMapper;
 
     // 자유게시판 삭제
-    public int deleteFeedBoard (int boardId) {
+    public int deleteFeedBoard (int boardId, List<Integer> userId) {
         int successCount = 0;
-        successCount += boardMapper.deleteFeedBoard(boardId);
-        successCount += boardMapper.deleteFeedCommentBoard(boardId);
+        successCount += boardMapper.deleteFeedBoard(boardId, userId);
+        successCount += boardMapper.deleteFeedCommentBoard(boardId, userId);
         successCount += boardMapper.deleteFeedImgUrlBoard(boardId);
-        successCount += boardMapper.deleteFeedLike(boardId);
-        successCount += boardMapper.deleteSaveBoard(1, boardId);
+        successCount += boardMapper.deleteFeedLike(boardId, userId);
+        successCount += boardMapper.deleteSaveBoard(boardId,1, userId);
 
         return successCount;
     }
 
     // 스터디 게시판 삭제
-     public int deleteStudyBoard (int boardId) {
+     public int deleteStudyBoard (int boardId, List<Integer> userIds) {
         int successCount = 0;
-        successCount += boardMapper.deleteStudyBoard(boardId);
-        successCount += boardMapper.deleteStudyRecruitmentBoard(boardId);
-        successCount += boardMapper.deleteStudyWaitingBoard(boardId);
+        successCount += boardMapper.deleteStudyBoard(boardId, userIds);
+        successCount += boardMapper.deleteStudyRecruitmentBoard(boardId, userIds);
+        successCount += boardMapper.deleteStudyWaitingBoard(boardId, userIds);
 
         return successCount;
     }
 
     // 점심 게시판 삭제
-     public int deleteLunchBoard (int boardId) {
+     public int deleteLunchBoard (int boardId, List<Integer> userIds) {
          int successCount = 0;
-         successCount += boardMapper.deleteLunchBoard(boardId);
-         successCount += boardMapper.deleteLunchCategoryBoard(boardId);
-         successCount += boardMapper.deleteLunchCommentBoard(boardId);
-         successCount += boardMapper.deleteLunchImgUrlBoard(boardId);
-         successCount += boardMapper.deleteLunchLike(boardId);
-         successCount += boardMapper.deleteSaveBoard(boardId, 3);
+         successCount += boardMapper.deleteLunchBoard(boardId, userIds);
+         successCount += boardMapper.deleteLunchCategoryBoard(boardId, userIds);
+         successCount += boardMapper.deleteLunchCommentBoard(boardId, userIds);
+         successCount += boardMapper.deleteLunchImgUrlBoard(boardId, userIds);
+         successCount += boardMapper.deleteLunchLike(boardId, userIds);
+         successCount += boardMapper.deleteSaveBoard(boardId, 3, null);
 
          return successCount;
      }
@@ -64,21 +65,21 @@ public class BoardService {
 
         switch (menuCategoryName) {
             case "자유게시판":
-                successCount = deleteFeedBoard(boardId);
+                successCount = deleteFeedBoard(boardId, null);
                 if(successCount < 1) {
                     throw new DeleteException();
                 }
                 menuCategoryId = 1;
                 break;
             case "스터디게시판":
-                successCount = deleteStudyBoard(boardId);
+                successCount = deleteStudyBoard(boardId, null);
                 if(successCount < 3) {
                     throw new DeleteException();
                 }
                 menuCategoryId = 2;
                 break;
             case "점심추천게시판":
-                successCount = deleteLunchBoard(boardId);
+                successCount = deleteLunchBoard(boardId, null);
                 if(successCount < 1) {
                     throw new DeleteException();
                 }

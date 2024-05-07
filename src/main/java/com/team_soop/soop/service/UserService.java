@@ -76,6 +76,7 @@ public class UserService {
     }
 
 
+
     // 유저 권한 변경
     @Transactional(rollbackFor = Exception.class)
     public void updateUserRole(int newRoleId, int oldRoleId, int userId) {
@@ -114,10 +115,10 @@ public class UserService {
         successCount += boardService.deleteFeedBoard(0, userIds);
         successCount += boardService.deleteStudyBoard(0,userIds);
         successCount += boardService.deleteLunchBoard(0, userIds);
-//
 
         System.out.println(successCount);
     }
+
 
 
 }

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/study")
 public class StudyController {
@@ -86,6 +88,13 @@ public class StudyController {
     @DeleteMapping("/recruitment/{recruitmentId}")
     public ResponseEntity<?> deleteRecruitmentMember(@PathVariable int recruitmentId) {
         studyGroupService.deleteRecruitmentMember(recruitmentId);
+        return ResponseEntity.ok(null);
+    }
+
+    @GetMapping("/boardlist/option")
+    public ResponseEntity<?> searchOptionInStudy(@RequestParam String title, @RequestParam List<Integer> categories) {
+        System.out.println(title);
+        System.out.println(categories);
         return ResponseEntity.ok(null);
     }
 }

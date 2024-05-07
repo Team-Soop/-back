@@ -1,10 +1,13 @@
 package com.team_soop.soop.controller;
 
 
+import com.team_soop.soop.aop.annotation.ParamsPrintAspect;
 import com.team_soop.soop.aop.annotation.ValidAspect;
+import com.team_soop.soop.dto.EditAccountReqDto;
 import com.team_soop.soop.dto.EditPasswordReqDto;
 import com.team_soop.soop.security.PrincipalUser;
 import com.team_soop.soop.service.AccountService;
+import com.team_soop.soop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -39,9 +42,18 @@ public class AccountController {
 
         accountService.editPassword(editPasswordReqDto);
         return ResponseEntity.ok(true);
-
-
     }
 
+    @ParamsPrintAspect
+    @PutMapping("/edit")
+    public ResponseEntity<?> editAccount(@RequestBody EditAccountReqDto editAccountReqDto) {
+        System.out.println(editAccountReqDto);
+        return ResponseEntity.ok(null);
+    }
+
+    @GetMapping("find/username/{username}")
+    public ResponseEntity<?> duplicateUsernameCheck(@PathVariable String username) {
+        return ResponseEntity.ok(accountService.duplicateUsernameCheck(username));
+    }
 
 }

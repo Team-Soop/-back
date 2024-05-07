@@ -11,4 +11,5 @@ import java.util.List;
 public interface AlarmMapper {
     public void sendReportAlarm(Alarm alarm);
     public List<Alarm> searchUserAlarmList(int userId);
+    public void deleteAlarm(int alarmId);
 }

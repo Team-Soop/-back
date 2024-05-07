@@ -24,9 +24,11 @@ public class MypageFeedController {
     }
 
     @ParamsPrintAspect
-    @DeleteMapping("/delete/{menuCategoryName}/{feedId}")
+    @DeleteMapping("/{menuCategoryName}/{feedId}/delete")
     public ResponseEntity<?> deleteFeed(@PathVariable String menuCategoryName, @PathVariable int feedId) {
         feedService.deleteBoard(menuCategoryName, feedId);
+        System.out.println(menuCategoryName);
+        System.out.println(feedId);
         return ResponseEntity.ok(null);
     }
 

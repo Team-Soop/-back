@@ -13,4 +13,5 @@ public interface ReportMapper {
     public List<Report> searchReportCompleted(@Param("menuCategoryId") int menuCategoryId);
     public List<Report> searchReportListUser(@Param("menuCategoryId") int menuCategoryId, @Param("userId") int userId, @Param("boardId") int boardId);
     public void deleteReport(@Param("menuCategoryId") int menuCategoryId, @Param("boardId") int boardId);
+    public void deleteReportFeed(@Param("menuCategoryId") int menuCategoryId, @Param("feedId") int feedId);
 }

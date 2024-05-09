@@ -35,6 +35,7 @@
         <result property="feedCommentContent" column="feed_comment_content"/>
         <result property="feedCommentNickName" column="nickname"/>
         <result property="feedCommentUserProfileImgUrl" column="profile_img_url"/>
+        <result property="totalCount" column="total_count"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
     </resultMap>
@@ -143,6 +144,13 @@
         resultMap="FeedCommentResultMap"
     >
         select
+            (select
+                count(*) as total_count
+            from
+                feed_comment_tb
+            where
+                feed_id = #{feedId}
+            ) as total_count,
             fct.feed_comment_id,
             fct.feed_id,
             fct.user_id,

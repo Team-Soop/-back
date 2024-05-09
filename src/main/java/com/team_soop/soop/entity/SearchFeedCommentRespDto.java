@@ -18,6 +18,7 @@ public class SearchFeedCommentRespDto {
     private String feedCommentContent;
     private String feedCommentNickName;
     private String feedCommentUserProfileImgUrl;
+    private int totalCount;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 }

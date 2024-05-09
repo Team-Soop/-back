@@ -18,6 +18,7 @@ public class FeedComment {
     private String feedCommentContent;
     private String feedCommentNickName;
     private String feedCommentUserProfileImgUrl;
+    private int totalCount;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
@@ -29,6 +30,7 @@ public class FeedComment {
                 .feedCommentContent(feedCommentContent)
                 .feedCommentNickName(feedCommentNickName)
                 .feedCommentUserProfileImgUrl(feedCommentUserProfileImgUrl)
+                .totalCount(totalCount)
                 .createDate(createDate)
                 .updateDate(updateDate)
                 .build();

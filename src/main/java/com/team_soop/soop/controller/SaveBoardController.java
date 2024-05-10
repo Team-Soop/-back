@@ -28,7 +28,6 @@ public class SaveBoardController {
     public ResponseEntity<?> deleteSaveLunchBoard(@PathVariable int boardId, @PathVariable int menuId) {
         PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = principalUser.getUserId();
-
         bookMarkService.deleteSaveBoard(userId, menuId, boardId);
         return ResponseEntity.ok(null);
     }
@@ -38,6 +37,11 @@ public class SaveBoardController {
         PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         int userId = principalUser.getUserId();
         return ResponseEntity.ok(bookMarkService.getSaveBoardStatus(userId, menuId, boardId));
+    }
+
+    @GetMapping("/boards")
+    public ResponseEntity<?> getSavedBoards(@PathVariable int viewState) {
+        return ResponseEntity.ok(viewState);
     }
 
 }

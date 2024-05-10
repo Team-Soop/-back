@@ -43,15 +43,46 @@
         from
             save_board_tb sbt
             left outer join feed_tb ft
-                on sbt.board_id = ft.feed_id
+                on (sbt.board_id = ft.feed_id)
             left outer join user_tb ut
-                on ft.user_id = ut.user_id
+                on (ft.user_id = ut.user_id)
             left outer join feed_img_url_tb fiut
-                on ft.feed_id = fiut.feed_id
+                on (ft.feed_id = fiut.feed_id)
         where
             sbt.save_board_userId = #{userId} and sbt.menu_category_id = 1
         order by
             sbt.create_date desc
+    </select>
+
+    <select id="findLunchList" resultMap="com.team_soop.soop.repository.LunchMapper.lunchResultMap">
+        select
+            lt.lunch_id,
+            lt.lunch_title,
+            lt.lunch_content,
+            lt.lunch_place_name,
+            lt.lunch_place_x,
+            lt.lunch_place_y,
+            lt.lunch_place_url,
+            lt.create_date,
+            lt.update_date,
+            ut.nickname,
+            ut.profile_img_url,
+            liut.lunch_img_url,
+            lctt.lunch_category_name
+        from
+            save_board_tb sbt
+            left outer join lunch_tb lt
+                on (sbt.board_id = lt.lunch_id)
+            left outer join user_tb ut
+                on (lt.user_id = ut.user_id)
+            left outer join lunch_img_url_tb liut
+                on (liut.lunch_id = lt.lunch_id)
+            left outer join lunch_category_tb lctt
+                on (lctt.lunch_id = lt.lunch_id)
+        where
+            sbt.save_board_userId =21 and sbt.menu_category_id = 2
+        order by
+            sbt.create_date desc;
     </select>
 
 

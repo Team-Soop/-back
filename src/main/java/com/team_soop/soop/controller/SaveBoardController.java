@@ -41,7 +41,7 @@ public class SaveBoardController {
         return ResponseEntity.ok(bookMarkService.getSaveBoardList(getUserId()));
     }
 
-    @GetMapping("/lunchBoards")
+    @GetMapping("/lunch-boards")
     public ResponseEntity<?> getSavedLunchBoard() {
         return ResponseEntity.ok(null);
     }

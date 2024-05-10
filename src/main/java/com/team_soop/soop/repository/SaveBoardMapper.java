@@ -1,6 +1,7 @@
 package com.team_soop.soop.repository;
 
 import com.team_soop.soop.entity.FeedList;
+import com.team_soop.soop.entity.LunchList;
 import com.team_soop.soop.entity.SaveBoardStatus;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -13,4 +14,5 @@ public interface SaveBoardMapper {
     public SaveBoardStatus getSaveBoardStatus(@Param("userId") int userId, @Param("menuId") int menuId, @Param("lunchId") int lunchId);
     public int deleteSaveBoard(@Param("userId") int userId, @Param("menuId") int menuId, @Param("lunchId") int lunchId);
     public List<FeedList> findFeedList(@Param("userId") int userId);
+    public List<LunchList> findLunchList(@Param("userId") int userId);
 }

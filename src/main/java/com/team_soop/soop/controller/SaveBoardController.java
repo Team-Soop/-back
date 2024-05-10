@@ -14,36 +14,31 @@ public class SaveBoardController {
     @Autowired
     private BookMarkService bookMarkService;
 
+    public int getUserId() {
+        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return principalUser.getUserId();
+    }
+
     @PostMapping("/{boardId}/{menuId}/board")
     public ResponseEntity<?> saveLunchBoard(@PathVariable int boardId, @PathVariable int menuId) {
-        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        int userId = principalUser.getUserId();
-        System.out.println(userId);
-
-        bookMarkService.saveBoard(userId, boardId, menuId);
+        bookMarkService.saveBoard(getUserId(), boardId, menuId);
         return ResponseEntity.ok(null);
     }
 
     @DeleteMapping("/{boardId}/{menuId}/board")
     public ResponseEntity<?> deleteSaveLunchBoard(@PathVariable int boardId, @PathVariable int menuId) {
-        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        int userId = principalUser.getUserId();
-        bookMarkService.deleteSaveBoard(userId, menuId, boardId);
+        bookMarkService.deleteSaveBoard(getUserId(), menuId, boardId);
         return ResponseEntity.ok(null);
     }
 
     @GetMapping("/{boardId}/{menuId}/board")
     public ResponseEntity<?> getSaveLunchBoard(@PathVariable int boardId, @PathVariable int menuId) {
-        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        int userId = principalUser.getUserId();
-        return ResponseEntity.ok(bookMarkService.getSaveBoardStatus(userId, menuId, boardId));
+        return ResponseEntity.ok(bookMarkService.getSaveBoardStatus(getUserId(), menuId, boardId));
     }
 
     @GetMapping("/boards")
     public ResponseEntity<?> getSavedBoards() {
-        PrincipalUser principal = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        int userId = principal.getUserId();
-        return ResponseEntity.ok(bookMarkService.getSaveBoardList(userId));
+        return ResponseEntity.ok(bookMarkService.getSaveBoardList(getUserId()));
     }
 
 }

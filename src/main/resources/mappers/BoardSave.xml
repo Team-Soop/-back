@@ -50,6 +50,8 @@
                 on ft.feed_id = fiut.feed_id
         where
             sbt.save_board_userId = #{userId} and sbt.menu_category_id = 1
+        order by
+            sbt.create_date desc
     </select>
 
 

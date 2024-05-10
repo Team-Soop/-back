@@ -23,7 +23,8 @@ public class AccountService {
 
     public int duplicateUsernameCheck(String username) {
         User user = userMapper.findUserByUsername(username);
-        if (user != null) {
+        System.out.println(user);
+        if(user != null) {
             throw new ValidException(Map.of("usernameCheck", "이미 존재하는 아이디입니다."));
         }
 

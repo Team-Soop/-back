@@ -40,8 +40,10 @@ public class SaveBoardController {
     }
 
     @GetMapping("/boards")
-    public ResponseEntity<?> getSavedBoards(@PathVariable int viewState) {
-        return ResponseEntity.ok(viewState);
+    public ResponseEntity<?> getSavedBoards() {
+        PrincipalUser principal = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        int userId = principal.getUserId();
+        return ResponseEntity.ok(bookMarkService.getSaveBoardList(userId));
     }
 
 }

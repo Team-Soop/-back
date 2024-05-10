@@ -31,6 +31,26 @@
         and menu_category_id = #{menuId}
         and board_id = #{lunchId}
     </select>
+    <select id="findFeedList" resultMap="com.team_soop.soop.repository.FeedMapper.FeedResultMap">
+        select
+            ft.feed_id,
+            ft.user_id,
+            ft.feed_content,
+            fiut.feed_img_url,
+            ut.profile_img_url,
+            ut.nickname,
+            (select count(*) from feed_like_tb where feed_id = ft.feed_id) as like_count
+        from
+            save_board_tb sbt
+            left outer join feed_tb ft
+                on sbt.board_id = ft.feed_id
+            left outer join user_tb ut
+                on ft.user_id = ut.user_id
+            left outer join feed_img_url_tb fiut
+                on ft.feed_id = fiut.feed_id
+        where
+            sbt.save_board_userId = #{userId} and sbt.menu_category_id = 1
+    </select>
 
 
 </mapper>

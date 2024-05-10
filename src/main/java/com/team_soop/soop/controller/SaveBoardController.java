@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/save")
 public class SaveBoardController {
@@ -21,14 +23,12 @@ public class SaveBoardController {
 
     @PostMapping("/{boardId}/{menuId}/board")
     public ResponseEntity<?> saveLunchBoard(@PathVariable int boardId, @PathVariable int menuId) {
-        bookMarkService.saveBoard(getUserId(), boardId, menuId);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(bookMarkService.saveBoard(getUserId(), boardId, menuId));
     }
 
     @DeleteMapping("/{boardId}/{menuId}/board")
     public ResponseEntity<?> deleteSaveLunchBoard(@PathVariable int boardId, @PathVariable int menuId) {
-        bookMarkService.deleteSaveBoard(getUserId(), menuId, boardId);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(bookMarkService.deleteSaveBoard(getUserId(), menuId, boardId));
     }
 
     @GetMapping("/{boardId}/{menuId}/board")
@@ -39,6 +39,11 @@ public class SaveBoardController {
     @GetMapping("/boards")
     public ResponseEntity<?> getSavedBoards() {
         return ResponseEntity.ok(bookMarkService.getSaveBoardList(getUserId()));
+    }
+
+    @GetMapping("/lunchBoards")
+    public ResponseEntity<?> getSavedLunchBoard() {
+        return ResponseEntity.ok(null);
     }
 
 }

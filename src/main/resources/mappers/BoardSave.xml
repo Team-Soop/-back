@@ -80,7 +80,7 @@
             left outer join lunch_category_tb lctt
                 on (lctt.lunch_id = lt.lunch_id)
         where
-            sbt.save_board_userId =21 and sbt.menu_category_id = 2
+            sbt.save_board_userId = #{userId} and sbt.menu_category_id = 2
         order by
             sbt.create_date desc;
     </select>

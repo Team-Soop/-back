@@ -38,12 +38,12 @@ public class SaveBoardController {
 
     @GetMapping("/boards")
     public ResponseEntity<?> getSavedBoards() {
-        return ResponseEntity.ok(bookMarkService.getSaveBoardList(getUserId()));
+        return ResponseEntity.ok(bookMarkService.getSavedBoardList(getUserId()));
     }
 
     @GetMapping("/lunch-boards")
     public ResponseEntity<?> getSavedLunchBoard() {
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(bookMarkService.getSavedLunchList(getUserId()));
     }
 
 }

@@ -96,7 +96,7 @@
             ft.feed_id,
             ft.user_id,
             ut.profile_img_url,
-            ut.username,
+            ut.nickname,
             ft.feed_content,
             fiut.feed_img_url,
             (select count(*) from feed_like_tb where feed_id = ft.feed_id) as like_count
@@ -105,6 +105,8 @@
             left outer join feed_img_url_tb fiut on (fiut.feed_id = ft.feed_id)
             left outer join user_tb ut on (ut.user_id = ft.user_id)
             left outer join feed_like_tb flt on (flt.feed_id = ft.feed_id)
+        order by
+            ft.feed_id desc
         ;
     </select>
 
@@ -184,6 +186,8 @@
             left outer join feed_like_tb flt on (flt.feed_id = ft.feed_id)
         where
             ft.user_id = #{userId}
+        order by
+            ft.feed_id desc
         ;
     </select>
 

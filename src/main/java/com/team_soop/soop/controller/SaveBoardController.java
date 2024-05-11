@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/save")
 public class SaveBoardController {
@@ -14,30 +16,34 @@ public class SaveBoardController {
     @Autowired
     private BookMarkService bookMarkService;
 
+    public int getUserId() {
+        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return principalUser.getUserId();
+    }
+
     @PostMapping("/{boardId}/{menuId}/board")
     public ResponseEntity<?> saveLunchBoard(@PathVariable int boardId, @PathVariable int menuId) {
-        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        int userId = principalUser.getUserId();
-        System.out.println(userId);
-
-        bookMarkService.saveBoard(userId, boardId, menuId);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(bookMarkService.saveBoard(getUserId(), boardId, menuId));
     }
 
     @DeleteMapping("/{boardId}/{menuId}/board")
     public ResponseEntity<?> deleteSaveLunchBoard(@PathVariable int boardId, @PathVariable int menuId) {
-        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        int userId = principalUser.getUserId();
-
-        bookMarkService.deleteSaveBoard(userId, menuId, boardId);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(bookMarkService.deleteSaveBoard(getUserId(), menuId, boardId));
     }
 
     @GetMapping("/{boardId}/{menuId}/board")
     public ResponseEntity<?> getSaveLunchBoard(@PathVariable int boardId, @PathVariable int menuId) {
-        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        int userId = principalUser.getUserId();
-        return ResponseEntity.ok(bookMarkService.getSaveBoardStatus(userId, menuId, boardId));
+        return ResponseEntity.ok(bookMarkService.getSaveBoardStatus(getUserId(), menuId, boardId));
+    }
+
+    @GetMapping("/boards")
+    public ResponseEntity<?> getSavedBoards() {
+        return ResponseEntity.ok(bookMarkService.getSavedBoardList(getUserId()));
+    }
+
+    @GetMapping("/lunch-boards")
+    public ResponseEntity<?> getSavedLunchBoard() {
+        return ResponseEntity.ok(bookMarkService.getSavedLunchList(getUserId()));
     }
 
 }

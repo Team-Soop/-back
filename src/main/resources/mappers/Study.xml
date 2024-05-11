@@ -22,7 +22,7 @@
         <result property="studyContent" column="study_content" />
         <result property="studySkills" column="study_skills" />
         <result property="studyPeriodEnd" column="study_period_end" />
-        <result property="contentCreateTime" column="content_create_time" />
+        <result property="contentCreateDate" column="create_date" />
         <result property="studyMemberLimited" column="study_member_limited" />
         <result property="memberCount" column="member_count" />
         <result property="timeCount" column="time_count" />
@@ -65,10 +65,12 @@
             st.study_id,
             ut.user_id,
             ut.nickname,
+            ut.profile_img_url,
             st.study_title,
             st.study_period_end,
             st.study_skills,
             st.study_member_limited,
+            st.create_date,
             count(srt.user_id) as member_count,
             TIMESTAMPDIFF(MINUTE, st.study_period_end, now()) as time_count
         from
@@ -87,6 +89,7 @@
             st.study_period_end,
             st.study_skills,
             st.study_member_limited,
+            st.create_date,
             count(srt.user_id) as member_count,
             TIMESTAMPDIFF(MINUTE, st.study_period_end, now()) as time_count
         from

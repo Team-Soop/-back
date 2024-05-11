@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class SearchStudyGroupListRespDto {
     private int studyMemberLimited;
     private int timeCount;
     private int userId;
+    private LocalDateTime createDate;
     private String nickname;
     private String profileImgUrl;
 }

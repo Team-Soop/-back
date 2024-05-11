@@ -25,7 +25,7 @@ public class StudyGroup {
     private String studyContent;
     private String studySkills;
     private LocalDateTime studyPeriodEnd;
-    private LocalDateTime contentCreateTime;
+    private LocalDateTime contentCreateDate;
     private int memberCount;
     private int studyMemberLimited;
     private int timeCount;
@@ -52,6 +52,7 @@ public class StudyGroup {
                 .memberCount(memberCount)
                 .studyMemberLimited(studyMemberLimited)
                 .timeCount(timeCount)
+                .createDate(contentCreateDate)
                 .userId(user.getUserId())
                 .nickname(user.getNickname())
                 .profileImgUrl(user.getProfileImgUrl())
@@ -59,7 +60,6 @@ public class StudyGroup {
     }
 
     public SearchStudyGroupRespDto toSearchStudyGroupRespDto(){
-
         return SearchStudyGroupRespDto.builder()
                 .studyId(studyId)
                 .managerUserId(managerUserId)
@@ -67,7 +67,7 @@ public class StudyGroup {
                 .studyContent(studyContent)
                 .studySkills(toStudySkillsList(studySkills))
                 .studyPeriodEnd(studyPeriodEnd)
-                .contentCreateTime(contentCreateTime)
+                .contentCreateTime(contentCreateDate)
                 .studyMemberLimited(studyMemberLimited)
                 .memberCount(memberCount)
                 .timeCount(timeCount)

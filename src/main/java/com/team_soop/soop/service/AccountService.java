@@ -1,5 +1,6 @@
 package com.team_soop.soop.service;
 
+import com.team_soop.soop.dto.EditAccountReqDto;
 import com.team_soop.soop.dto.EditPasswordReqDto;
 import com.team_soop.soop.entity.User;
 import com.team_soop.soop.exception.ValidException;
@@ -49,6 +50,10 @@ public class AccountService {
 
         user.setPassword(passwordEncoder.encode(editPasswordReqDto.getNewPassword()));
         userMapper.modifyPassword(user);
+    }
+
+    public int updateUserInfo(EditAccountReqDto editAccountReqDto) {
+        return userMapper.updateUserInfo(editAccountReqDto.toEntity());
     }
 
 }

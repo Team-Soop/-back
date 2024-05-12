@@ -45,5 +45,5 @@ public interface UserMapper {
     public int deleteUserRole(@Param("userIds") List<Integer> userIds);
     public int deleteUserInfo(@Param("userIds") List<Integer> userIds);
 
-
+    public int updateUserInfo(User user);
 }

@@ -319,4 +319,15 @@
             </foreach>
     </delete>
 
+    <update id="updateUserInfo" parameterType="com.team_soop.soop.entity.User">
+        update user_tb
+        set
+            username = #{username},
+            nickname = #{nickname},
+            name = #{name},
+            email = #{email}
+        where
+            user_id = #{userId}
+    </update>
+
 </mapper>

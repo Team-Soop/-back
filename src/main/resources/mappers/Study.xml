@@ -80,6 +80,36 @@
         group by
             st.study_id;
     </select>
+
+    <select id="searchStudyGroupListInOption" resultMap="StudyGroupResultMap">
+        select
+            st.study_id,
+            ut.user_id,
+            ut.nickname,
+            ut.profile_img_url,
+            st.study_title,
+            st.study_period_end,
+            st.study_skills,
+            st.study_member_limited,
+            st.create_date,
+            count(srt.user_id) as member_count,
+            TIMESTAMPDIFF(MINUTE, st.study_period_end, now()) as time_count
+        from
+            study_tb st
+            left outer join user_tb ut on (ut.user_id = st.manager_user_id)
+            left outer join study_recruitment_tb srt on (srt.study_id = st.study_id)
+        where
+            study_title like concat('%',#{title},'%')
+            <foreach collection="categories" item="category">
+                and find_in_set(#{category}, st.study_skills)
+            </foreach>
+        group by
+            st.study_id;
+
+
+
+    </select>
+
     <select id="mySearchStudyGroupList" resultMap="StudyGroupResultMap" parameterType="int">
         select
             st.study_id,
@@ -112,7 +142,7 @@
             count(srt.user_id) as member_count,
             st.study_member_limited,
             st.study_period_end,
-            st.create_date as content_create_time,
+            st.create_date,
             ut.nickname,
             ut.profile_img_url,
             TIMESTAMPDIFF(MINUTE, study_period_end, now()) as time_count,

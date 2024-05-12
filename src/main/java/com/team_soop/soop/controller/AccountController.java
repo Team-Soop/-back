@@ -46,9 +46,8 @@ public class AccountController {
 
     @ParamsPrintAspect
     @PutMapping("/edit")
-    public ResponseEntity<?> editAccount(@RequestBody EditAccountReqDto editAccountReqDto) {
-        System.out.println(editAccountReqDto);
-        return ResponseEntity.ok(null);
+    public ResponseEntity<?> updateUserInfo(@RequestBody EditAccountReqDto editAccountReqDto) {
+        return ResponseEntity.ok(accountService.updateUserInfo(editAccountReqDto));
     }
 
     @GetMapping("find/username/{username}")

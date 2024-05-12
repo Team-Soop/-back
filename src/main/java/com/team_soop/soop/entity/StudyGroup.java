@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -60,6 +61,9 @@ public class StudyGroup {
     }
 
     public SearchStudyGroupRespDto toSearchStudyGroupRespDto(){
+        String formatDate = contentCreateDate.format(DateTimeFormatter.ofPattern("YYYY-MM-dd HH:mm:ss"));
+
+
         return SearchStudyGroupRespDto.builder()
                 .studyId(studyId)
                 .managerUserId(managerUserId)
@@ -67,7 +71,7 @@ public class StudyGroup {
                 .studyContent(studyContent)
                 .studySkills(toStudySkillsList(studySkills))
                 .studyPeriodEnd(studyPeriodEnd)
-                .contentCreateTime(contentCreateDate)
+                .contentCreateDate(formatDate)
                 .studyMemberLimited(studyMemberLimited)
                 .memberCount(memberCount)
                 .timeCount(timeCount)

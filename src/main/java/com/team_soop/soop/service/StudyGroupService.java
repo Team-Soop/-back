@@ -61,6 +61,17 @@ public class StudyGroupService {
         return studyMapper.searchStudyGroup(studyId).toSearchStudyGroupRespDto();
     }
 
+    public List<SearchStudyGroupListRespDto> searchStudyGroupInOption (String title, List<Integer> categories) {
+        List<StudyGroup> studyGroupList = studyMapper.searchStudyGroupListInOption(title, categories);
+        List<SearchStudyGroupListRespDto> searchStudyGroupListRespDtos = new ArrayList<>();
+
+        for (StudyGroup studyGroup : studyGroupList) {
+            searchStudyGroupListRespDtos.add(studyGroup.toSearchStudyGroupListRespDto());
+        }
+
+        return searchStudyGroupListRespDtos;
+    }
+
     public int updateStudyGroup(int studyId, UpdateStudyGroupReqDto updateStudyGroupReqDto){
         return studyMapper.updateStudyGroup(updateStudyGroupReqDto.toEntity(studyId));
     }

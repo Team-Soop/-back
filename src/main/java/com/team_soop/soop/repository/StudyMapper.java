@@ -21,6 +21,7 @@ public interface StudyMapper {
 
     public StudyGroup searchStudyGroup(int studyId);
     public List<StudyGroup> searchStudyGroupList();
+    public List<StudyGroup> searchStudyGroupListInOption(String title, List<Integer> categories);
     public List<StudyGroup> mySearchStudyGroupList(int userId);
     public List<StudyCategory> searchStudyCategories();
     public List<WaitingMember> searchWaitingMember(int studyId);

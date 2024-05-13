@@ -15,7 +15,7 @@ public class SearchStudyGroupRespDto {
     private String studyContent;
     private List<Integer> studySkills;
     private LocalDateTime studyPeriodEnd;
-    private LocalDateTime contentCreateTime;
+    private String contentCreateDate;
     private int studyMemberLimited;
     private int memberCount;
     private int timeCount;

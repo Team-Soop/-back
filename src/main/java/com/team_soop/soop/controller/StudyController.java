@@ -93,8 +93,6 @@ public class StudyController {
 
     @GetMapping("/boardlist/option")
     public ResponseEntity<?> searchOptionInStudy(@RequestParam String title, @RequestParam List<Integer> categories) {
-        System.out.println(title);
-        System.out.println(categories);
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(studyGroupService.searchStudyGroupInOption(title, categories));
     }
 }

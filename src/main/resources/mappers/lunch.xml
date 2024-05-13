@@ -166,6 +166,8 @@
             left outer join lunch_img_url_tb liut on ( liut.lunch_id = lt.lunch_id )
             left outer join lunch_category_tb lctt on ( lctt.lunch_id = lt.lunch_id )
             left outer join user_tb ut on ( ut.user_id = lt.user_id )
+        order by
+            lt.create_date desc
     </select>
 
     <select

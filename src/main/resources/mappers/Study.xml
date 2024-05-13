@@ -78,7 +78,9 @@
             left outer join user_tb ut on (ut.user_id = st.manager_user_id)
             left outer join study_recruitment_tb srt on (srt.study_id = st.study_id)
         group by
-            st.study_id;
+            st.study_id
+        order by
+            st.create_date desc;
     </select>
 
     <select id="searchStudyGroupListInOption" resultMap="StudyGroupResultMap">
@@ -104,10 +106,9 @@
                 and find_in_set(#{category}, st.study_skills)
             </foreach>
         group by
-            st.study_id;
-
-
-
+            st.study_id
+        order by
+            st.create_date desc;
     </select>
 
     <select id="mySearchStudyGroupList" resultMap="StudyGroupResultMap" parameterType="int">
@@ -129,7 +130,9 @@
         where
             st.manager_user_id = #{userId}
         group by
-            st.study_id;
+            st.study_id
+        order by
+            st.create_date desc;
     </select>
     
     <select id="searchStudyGroup" resultMap="StudyGroupResultMap" parameterType="int">
@@ -157,7 +160,7 @@
             left outer join user_tb ut on (ut.user_id = st.manager_user_id)
             left outer join study_recruitment_tb srt on (srt.study_id = st.study_id)
         where
-         st.study_id = #{studyId}
+            st.study_id = #{studyId}
     </select>
 
     <update id="updateStudyGroup" parameterType="com.team_soop.soop.entity.StudyGroup" >

@@ -2,6 +2,7 @@ package com.team_soop.soop.dto;
 
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -14,6 +15,7 @@ public class SearchFeedRespDto {
     private String profileImgUrl;
     private String nickname;
     private String feedContent;
+    private LocalDateTime createDate;
     private List<String> feedImgUrl;
 
 

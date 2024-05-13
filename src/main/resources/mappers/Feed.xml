@@ -12,6 +12,7 @@
         <result property="nickname" column="nickname" />
         <result property="feedContent" column="feed_content" />
         <result property="feedLikeCount" column="like_count" />
+        <result property="createDate" column="create_date" />
         <collection property="feedImgUrl" javaType="List" resultMap="FeedImgUrlResultMap"/>
     </resultMap>
 
@@ -98,6 +99,7 @@
             ut.profile_img_url,
             ut.nickname,
             ft.feed_content,
+            ft.create_date,
             fiut.feed_img_url,
             (select count(*) from feed_like_tb where feed_id = ft.feed_id) as like_count
         from
@@ -106,7 +108,7 @@
             left outer join user_tb ut on (ut.user_id = ft.user_id)
             left outer join feed_like_tb flt on (flt.feed_id = ft.feed_id)
         order by
-            ft.feed_id desc
+            ft.create_date desc
         ;
     </select>
 
@@ -187,7 +189,7 @@
         where
             ft.user_id = #{userId}
         order by
-            ft.feed_id desc
+            ft.create_date desc
         ;
     </select>
 

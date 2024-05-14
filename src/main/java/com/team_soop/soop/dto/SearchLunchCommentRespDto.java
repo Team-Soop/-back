@@ -18,6 +18,7 @@ public class SearchLunchCommentRespDto {
     private String lunchCommentContent;
     private String lunchCommentNickName;
     private String lunchCommentUserProfileImgUrl;
+    private int totalCount;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 

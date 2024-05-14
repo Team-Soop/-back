@@ -85,5 +85,17 @@
             sbt.create_date desc;
     </select>
 
+<!--    <select id="" resultType="">-->
+<!--        select-->
+<!--            count(*) as saveBoardStatus-->
+<!--        from-->
+<!--            save_board_tb-->
+<!--        where-->
+<!--            save_board_userId = #{userId}-->
+<!--            and menu_category_id = #{menuId}-->
+
+<!--    </select>-->
+
+
 
 </mapper>

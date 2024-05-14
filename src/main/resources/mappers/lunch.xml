@@ -39,6 +39,7 @@
         <result property="lunchCommentContent" column="lunch_comment_content"/>
         <result property="lunchCommentNickName" column="nickname"/>
         <result property="lunchCommentUserProfileImgUrl" column="profile_img_url" />
+        <result property="totalCount" column="total_count"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
     </resultMap>
@@ -175,6 +176,13 @@
         resultMap="lunchCommentUserInfoResultMap"
     >
         select
+            (select
+                count(*) as total_count
+            from
+                lunch_comment_tb
+            where
+                lunch_id = #{detailLunchId}
+            )   as total_count,
             lct.lunch_comment_id,
             lct.lunch_id,
             lct.lunch_comment_user_id,

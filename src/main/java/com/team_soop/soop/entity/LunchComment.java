@@ -19,6 +19,7 @@ public class LunchComment {
     private String lunchCommentContent;
     private String lunchCommentNickName;
     private String lunchCommentUserProfileImgUrl;
+    private int totalCount;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
@@ -30,6 +31,7 @@ public class LunchComment {
                 .lunchCommentContent(lunchCommentContent)
                 .lunchCommentNickName(lunchCommentNickName)
                 .lunchCommentUserProfileImgUrl(lunchCommentUserProfileImgUrl)
+                .totalCount(totalCount)
                 .createDate(createDate)
                 .updateDate(updateDate)
                 .build();

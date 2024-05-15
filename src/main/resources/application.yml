@@ -26,9 +26,9 @@ spring:
 
 server:
   port: 8080
-  serverAddress: localhost
+  deploy-address: localhost
+  name: soop_project
 
-serverName: soop_project
 
 ---
 spring:
@@ -46,9 +46,8 @@ spring:
 
 server:
   port: 8080
-  serverAddress: 3.34.215.27
-
-serverName: blue
+  deploy-address: 3.34.215.27
+  name: soop_project
 
 ---
 spring:
@@ -66,29 +65,28 @@ spring:
 
 server:
   port: 9090
-  serverAddress: 3.34.215.27
+  deploy-address: 3.34.215.27
+  name: soop_project
 
-serverName: green
+# ---
 
----
-
-spring:
-  config:
-    activate:
-      on-profile: common
-  security:
-    oauth2:
-      client:
-        registration:
-          naver:
-          kakao:
-
+# spring:
+#   config:
+#     activate:
+#       on-profile: common
+#   security:
+#     oauth2:
+#       client:
+#         registration:
+#           naver:
+#           kakao:
 
 
-server:
-  port: 8080
-  deploy-address: localhost
-  name: local
+
+# server:
+#   port: 8080
+#   deploy-address: localhost
+#   name: local
 
 
 ---

@@ -38,4 +38,5 @@ public class BookMarkService {
         return saveBoardMapper.findLunchList(userId).stream().map(LunchList::toSearchLunchRespDto).collect(Collectors.toList());
     }
 
+
 }

@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local
+    active: blue
     group:
       local: local, common, secret
       blue: blue, common, secret
@@ -47,7 +47,7 @@ spring:
 server:
   port: 8080
   deploy-address: 3.34.215.27
-  name: soop_project
+  name: blue
 
 ---
 spring:
@@ -66,7 +66,7 @@ spring:
 server:
   port: 9090
   deploy-address: 3.34.215.27
-  name: soop_project
+  name: green
 
 # ---
 

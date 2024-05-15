@@ -56,7 +56,7 @@ public class AccountMailService {
             StringBuilder mailContent = new StringBuilder();
             mailContent.append("<div>");
             mailContent.append("<h3>해당 계정을 인증하기 위해 아래의 버튼을 클릭해 주세요</h3>");
-            mailContent.append("<a href=\"http://" + serverAddress + ":" + serverPort + "/mail/authenticate?authToken=" + authMailToken + "\" style=\"border: 1px solid #dbdbdb; padding: 10px 20px; text-decoration: none; background-color: white; color: #222222;\" >인증하기</a>");
+            mailContent.append("<a href=\"http://" + ("localhost".equals(serverAddress) ? serverAddress + ":" + serverPort : serverAddress) + "/mail/authenticate?authToken=" + authMailToken + "\" style=\"border: 1px solid #dbdbdb; padding: 10px 20px; text-decoration: none; background-color: white; color: #222222;\" >인증하기</a>");
             //http://localhost:8080/mail/authenticate?authToken=JWT토큰
             mailContent.append("</div>");
 

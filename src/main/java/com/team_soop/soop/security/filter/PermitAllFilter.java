@@ -16,10 +16,13 @@ public class PermitAllFilter extends GenericFilter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         // 이 주소 단어들이 포함되어있으면
-        // isPermitAll true
+        // isPermitAll true : 토큰이 없어도 됨
+
         // 이 주소 외 단어들
-        // isPermitAll false
+        // isPermitAll false : 토큰이 있어야함
         List<String> antMatchers = List.of(
+                "/hc",
+                "/env",
                 "/login",
                 "/error",
                 "/server",

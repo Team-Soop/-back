@@ -15,9 +15,9 @@ public class HealthCheckController {
     private String env;
     @Value("${server.port}")
     private String serverPort;
-    @Value("${server.serverAddress}")
+    @Value("${server.deploy-address}")
     private String serverAddress;
-    @Value("${serverName}")
+    @Value("${server.name}")
     private String serverName;
 
 

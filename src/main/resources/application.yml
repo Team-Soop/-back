@@ -48,7 +48,7 @@ server:
   port: 8080
   serverAddress: 3.34.215.27
 
-serverName: soop_project
+serverName: blue
 
 ---
 spring:
@@ -68,7 +68,7 @@ server:
   port: 9090
   serverAddress: 3.34.215.27
 
-serverName: soop_project
+serverName: green
 
 ---
 
